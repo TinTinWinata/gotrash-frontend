@@ -6,7 +6,6 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  TextInput,
   StyleSheet,
 } from 'react-native';
 import Header from '../../layout/Header';

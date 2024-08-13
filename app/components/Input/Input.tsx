@@ -7,7 +7,7 @@ import {
   Text,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import {COLORS, SIZES, FONTS} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import {useTheme} from '@react-navigation/native';
 
 type Props = {

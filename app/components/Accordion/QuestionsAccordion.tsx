@@ -1,7 +1,7 @@
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {useTheme} from '@react-navigation/native';
-import {COLORS, FONTS} from '../../constants/theme';
+import {FONTS} from '../../constants/theme';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Accordion from 'react-native-collapsible/Accordion';

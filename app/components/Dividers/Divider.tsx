@@ -1,6 +1,5 @@
 import React from 'react';
 import {Platform, View} from 'react-native';
-import {COLORS} from '../../constants/theme';
 import {useTheme} from '@react-navigation/native';
 
 type Props = {

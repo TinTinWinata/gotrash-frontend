@@ -78,7 +78,8 @@ const ThemeBtn = () => {
             top: 6,
             left: 5,
           },
-        ]}></Animated.View>
+        ]}
+      />
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Image
           source={IMAGES.sun}

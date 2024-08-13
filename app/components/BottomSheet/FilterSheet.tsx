@@ -10,7 +10,6 @@ import {
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {COLORS, FONTS} from '../../constants/theme';
 import {IMAGES} from '../../constants/Images';
-import Button from '../Button/Button';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import ButtonOutline from '../Button/ButtonOutline';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';

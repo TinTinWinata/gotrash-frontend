@@ -1,12 +1,12 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, View, Text} from 'react-native';
+import {SafeAreaView, ScrollView, View} from 'react-native';
 //import { FontAwesome } from '@expo/vector-icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useTheme} from '@react-navigation/native';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import Header from '../../layout/Header';
 import ListStyle1 from '../../components/List/ListStyle1';
-import {Button, Snackbar} from 'react-native-paper';
+import {Snackbar} from 'react-native-paper';
 
 const Snackbars = () => {
   const theme = useTheme();

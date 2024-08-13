@@ -1,15 +1,6 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Share,
-  SectionList,
-  StyleSheet,
-} from 'react-native';
-import Header from '../../layout/Header';
+import {useTheme} from '@react-navigation/native';
+import React from 'react';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {IMAGES} from '../../constants/Images';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {COLORS, FONTS, SIZES} from '../../constants/theme';
@@ -18,17 +9,11 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {ScrollView} from 'react-native-gesture-handler';
 import CheckoutItems from '../../components/CheckoutItems';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {addToCart} from '../../redux/reducer/cartReducer';
 import Swiper from 'react-native-swiper';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import LikeBtn from '../../components/LikeBtn';
-import {
-  addTowishList,
-  removeFromwishList,
-} from '../../redux/reducer/wishListReducer';
-import {useSharedValue} from 'react-native-reanimated';
-import {Slider} from 'react-native-awesome-slider';
+
 import RangeSlider from '../../components/RangeSlider';
 
 const ItemImages = [IMAGES.item4, IMAGES.item5, IMAGES.item6];

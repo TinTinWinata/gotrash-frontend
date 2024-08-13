@@ -2,7 +2,6 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {COLORS, FONTS} from '../../constants/theme';
 import {IMAGES} from '../../constants/Images';
-import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {useTheme} from '@react-navigation/native';
 import CheckoutItems from '../CheckoutItems';
 

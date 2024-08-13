@@ -1,11 +1,10 @@
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   TextInput,
-  ScrollView,
   Image,
   StyleSheet,
 } from 'react-native';

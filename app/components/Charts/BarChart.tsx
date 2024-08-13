@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTheme} from '@react-navigation/native';
-import {COLORS, SIZES} from '../../constants/theme';
+import {SIZES} from '../../constants/theme';
 import {BarChart} from 'react-native-chart-kit';
 
 const BasicBarChart = () => {

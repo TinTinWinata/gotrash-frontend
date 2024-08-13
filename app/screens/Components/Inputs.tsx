@@ -1,13 +1,12 @@
 import React from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import Header from '../../layout/Header';
 import Input from '../../components/Input/Input';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import {IMAGES} from '../../constants/Images';
 // import { FontAwesome } from '@expo/vector-icons';
 // import { MaterialIcons } from '@expo/vector-icons';
 //import MultiSlider from '@ptomasroos/react-native-multi-slider';

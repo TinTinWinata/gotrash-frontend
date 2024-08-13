@@ -1,9 +1,8 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {useTheme} from '@react-navigation/native';
-import {IMAGES} from '../../constants/Images';
-import {COLORS, FONTS} from '../../constants/theme';
+import {FONTS} from '../../constants/theme';
 //import { Ionicons } from '@expo/vector-icons';
 
 const LanguageData = [

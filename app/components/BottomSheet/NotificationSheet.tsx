@@ -1,8 +1,7 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
-import React, {useState} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import React from 'react';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {useNavigation, useTheme} from '@react-navigation/native';
-import {IMAGES} from '../../constants/Images';
 import {COLORS, FONTS} from '../../constants/theme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Button from '../Button/Button';

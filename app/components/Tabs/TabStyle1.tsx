@@ -62,7 +62,8 @@ const TabStyle1 = ({
           left: size === 'sm' ? 4 : 6,
           borderRadius: SIZES.radius_sm,
           transform: [{translateX: indicatorPosition}],
-        }}></Animated.View>
+        }}
+      />
       {tabMenu.map((data: any, index: any) => {
         return (
           <View key={index} style={{flex: 1, paddingHorizontal: 3}}>

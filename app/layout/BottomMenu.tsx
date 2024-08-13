@@ -4,19 +4,14 @@ import {
   Animated,
   StyleSheet,
   TouchableOpacity,
-  Text,
   Image,
   Dimensions,
-  Platform,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {GlobalStyleSheet} from '../constants/StyleSheet';
 import {SIZES, FONTS, COLORS} from '../constants/theme';
 import {IMAGES} from '../constants/Images';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 type Props = {
   state: any;

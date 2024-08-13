@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import Header from '../../layout/Header';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';

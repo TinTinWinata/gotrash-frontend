@@ -202,7 +202,8 @@ const Singlechat = ({navigation}: SinglechatScreenProps) => {
                     width: 10,
                     borderRadius: 12,
                     backgroundColor: COLORS.primary,
-                  }}></View>
+                  }}
+                />
                 <Text
                   style={{
                     ...FONTS.fontRegular,

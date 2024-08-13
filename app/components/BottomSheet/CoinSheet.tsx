@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef} from 'react';
+import React from 'react';
 import {useTheme} from '@react-navigation/native';
 import {IMAGES} from '../../constants/Images';
 import WalletList from '../List/WalletList';

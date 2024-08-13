@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import {useTheme} from '@react-navigation/native';
 import LikeBtn from '../LikeBtn';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {IMAGES} from '../../constants/Images';

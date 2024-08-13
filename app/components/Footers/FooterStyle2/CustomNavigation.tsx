@@ -4,7 +4,6 @@ import {
   Animated,
   StyleSheet,
   TouchableOpacity,
-  Text,
   Image,
   Dimensions,
 } from 'react-native';
@@ -13,10 +12,7 @@ import {SIZES, COLORS, FONTS} from '../../../constants/theme';
 import {IMAGES} from '../../../constants/Images';
 import {GlobalStyleSheet} from '../../../constants/StyleSheet';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 const home = require('../../../assets/images/icons/home.png');
 const wallet = require('../../../assets/images/icons/wallet.png');

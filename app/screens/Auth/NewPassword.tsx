@@ -6,10 +6,9 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  StatusBar,
   StyleSheet,
 } from 'react-native';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {useTheme} from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -17,10 +16,8 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {IMAGES} from '../../constants/Images';
 import Button from '../../components/Button/Button';
-import OTPInput from '../../components/Input/OTPInput';
 import Input from '../../components/Input/Input';
 //import { Grayscale } from 'react-native-color-matrix-image-filters'
-import LinearGradient from 'react-native-linear-gradient';
 
 type NewPasswordScreenProps = StackScreenProps<
   RootStackParamList,

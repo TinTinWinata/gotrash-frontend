@@ -2,7 +2,6 @@ import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useRef, useState} from 'react';
 import {
   View,
-  Text,
   ScrollView,
   Image,
   TextInput,
@@ -63,9 +62,8 @@ const Language = () => {
                 left: 0,
                 bottom: 0,
               }}
-              onPress={() =>
-                moresheet.current.openSheet('Language')
-              }></TouchableOpacity>
+              onPress={() => moresheet.current.openSheet('Language')}
+            />
           </View>
           <Button
             title="Save"

@@ -1,7 +1,6 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useState} from 'react';
 import {useTheme} from '@react-navigation/native';
-import {GlobalStyleSheet} from '../constants/StyleSheet';
 import {CountryButton, CountryPicker} from 'react-native-country-codes-picker';
 import {COLORS} from '../constants/theme';
 

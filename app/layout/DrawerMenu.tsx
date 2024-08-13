@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import {IMAGES} from '../constants/Images';
 import {COLORS, FONTS} from '../constants/theme';
 import FeatherIcon from 'react-native-vector-icons/Feather';

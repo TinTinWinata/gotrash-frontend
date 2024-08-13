@@ -6,10 +6,9 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  StatusBar,
   StyleSheet,
 } from 'react-native';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {useTheme} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';

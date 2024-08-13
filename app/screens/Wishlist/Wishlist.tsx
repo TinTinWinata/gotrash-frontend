@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useTheme} from '@react-navigation/native';
 import {View, ScrollView, Text} from 'react-native';
 import Header from '../../layout/Header';

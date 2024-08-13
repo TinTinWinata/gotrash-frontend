@@ -1,11 +1,5 @@
-import {View, Text} from 'react-native';
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import {View} from 'react-native';
+import React, {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import FilterSheet2 from '../../components/BottomSheet/FilterSheet';

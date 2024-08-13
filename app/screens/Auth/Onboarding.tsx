@@ -8,7 +8,6 @@ import {
   Platform,
   StyleSheet,
   SafeAreaView,
-  TouchableOpacity,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {IMAGES} from '../../constants/Images';

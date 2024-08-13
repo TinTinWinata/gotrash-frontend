@@ -5,7 +5,6 @@ import Header from '../../layout/Header';
 import HeaderStyle1 from '../../components/Headers/HeaderStyle1';
 import HeaderStyle2 from '../../components/Headers/HeaderStyle2';
 import HeaderStyle3 from '../../components/Headers/HeaderStyle3';
-import {COLORS} from '../../constants/theme';
 
 const Headers = () => {
   const theme = useTheme();

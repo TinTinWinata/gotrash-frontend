@@ -1,18 +1,13 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {useTheme} from '@react-navigation/native';
 import {
   View,
-  Text,
-  TouchableOpacity,
-  Image,
   ScrollView,
   StyleSheet,
   TextInput,
-  Platform,
-  Animated,
   useWindowDimensions,
 } from 'react-native';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import {IMAGES} from '../../constants/Images';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';

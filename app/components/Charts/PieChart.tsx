@@ -1,7 +1,7 @@
 import React from 'react';
 import {PieChart} from 'react-native-chart-kit';
 import {useTheme} from '@react-navigation/native';
-import {COLORS, SIZES} from '../../constants/theme';
+import {SIZES} from '../../constants/theme';
 
 const BasicPieChart = () => {
   const {colors} = useTheme();

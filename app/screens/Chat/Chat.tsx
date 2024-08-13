@@ -160,7 +160,8 @@ const Chat = ({navigation}: ChatScreenProps) => {
                         width: 10,
                         borderRadius: 12,
                         backgroundColor: COLORS.success,
-                      }}></View>
+                      }}
+                    />
                   </View>
                 ) : null}
               </TouchableOpacity>

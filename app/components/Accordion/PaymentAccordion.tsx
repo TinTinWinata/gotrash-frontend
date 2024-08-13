@@ -89,7 +89,8 @@ const PaymentAccordion = ({component, Payment, netbanking}: Props) => {
               isActive == true && {
                 backgroundColor: COLORS.primary,
               },
-            ]}></View>
+            ]}
+          />
         </View>
       </View>
     );

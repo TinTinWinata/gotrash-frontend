@@ -140,7 +140,8 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
                       isChecked === data && {
                         backgroundColor: colors.card,
                       },
-                    ]}></View>
+                    ]}
+                  />
                 </View>
               </TouchableOpacity>
             );

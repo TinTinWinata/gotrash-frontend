@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, Pressable} from 'react-native';
+import React from 'react';
+import {Pressable} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {COLORS} from '../constants/theme';
 import {useTheme} from '@react-navigation/native';

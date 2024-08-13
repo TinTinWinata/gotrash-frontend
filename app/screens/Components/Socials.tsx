@@ -7,7 +7,6 @@ import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {COLORS, FONTS} from '../../constants/theme';
 import Header from '../../layout/Header';
 import SocialBtn from '../../components/Socials/SocialBtn';
-import SocialIcon from '../../components/Socials/SocialIcon';
 import {IMAGES} from '../../constants/Images';
 
 const Socials = () => {

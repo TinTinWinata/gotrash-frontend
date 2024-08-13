@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, Platform} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
 import {COLORS, SIZES, FONTS} from '../../constants/theme';
 import {useTheme} from '@react-navigation/native';

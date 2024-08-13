@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import {COLORS, FONTS, SIZES} from '../constants/theme';
+import {COLORS, FONTS} from '../constants/theme';
 
 const CheckoutItems = ({productList}: any) => {
   const theme = useTheme();

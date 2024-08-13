@@ -188,7 +188,7 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
                 </Text>
               </View>
             </View>
-            <View style={[styles.trackLine, {borderColor: '#C4C4C4'}]}></View>
+            <View style={[styles.trackLine, {borderColor: '#C4C4C4'}]} />
             <View style={[styles.flex, {marginTop: 40}]}>
               <View
                 style={[

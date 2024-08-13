@@ -4,7 +4,7 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import {RootStackParamList} from './RootStackParamList';
-import {StatusBar, View, Text} from 'react-native';
+import {View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 // import Demo from '../screens/Home/Demo';

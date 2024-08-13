@@ -1,12 +1,10 @@
-import {View, Text, Platform, ScrollView, Image} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import {useTheme} from '@react-navigation/native';
 import Header from '../../layout/Header';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
-import {IMAGES} from '../../constants/Images';
 import Divider from '../../components/Dividers/Divider';
-import Button from '../../components/Button/Button';
-import {COLORS, FONTS} from '../../constants/theme';
+import {FONTS} from '../../constants/theme';
 
 const CouponsData = [
   {

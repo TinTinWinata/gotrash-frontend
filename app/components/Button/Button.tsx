@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {COLORS, SIZES, FONTS} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 
 type Props = {
   title: string;

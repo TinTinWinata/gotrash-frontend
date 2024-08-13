@@ -1,10 +1,4 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import React, {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Ripple from 'react-native-material-ripple';

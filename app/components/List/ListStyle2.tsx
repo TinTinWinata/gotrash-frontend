@@ -3,7 +3,7 @@ import Ripple from 'react-native-material-ripple';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {Text, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
+import {FONTS, SIZES} from '../../constants/theme';
 
 const ListStyle2 = (props: any) => {
   const {colors}: {colors: any} = useTheme();

@@ -112,7 +112,8 @@ const ShortSheet2 = ({shortRef}: Props) => {
                     activeSize === data && {
                       backgroundColor: colors.card,
                     },
-                  ]}></View>
+                  ]}
+                />
               </View>
             </TouchableOpacity>
           );

@@ -1,19 +1,11 @@
 import {useNavigation, useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  LayoutAnimation,
-  Image,
-} from 'react-native';
+import {View, ScrollView, LayoutAnimation} from 'react-native';
 import Header from '../../layout/Header';
 import {IMAGES} from '../../constants/Images';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import SwipeBox from '../../components/SwipeBox';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
-import {COLORS, FONTS, SIZES} from '../../constants/theme';
 
 const SwipeData = [
   {

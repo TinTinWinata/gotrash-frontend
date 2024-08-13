@@ -21,7 +21,9 @@ const QrCodeScanner = () => {
     //console.log(newCameraPermission)
   };
 
-  if (device == null) return <ActivityIndicator />;
+  if (device == null) {
+    return <ActivityIndicator />;
+  }
 
   const codeScanner: CodeScanner = {
     codeTypes: ['qr', 'ean-8'],
