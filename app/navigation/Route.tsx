@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
-  DarkTheme as NavigationDarkTheme
+  DarkTheme as NavigationDarkTheme,
 } from '@react-navigation/native';
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 //import StackNavigator from "./StackNavigator";
-import themeContext from "../constants/themeContext";
-import { COLORS } from "../constants/theme";
-import StackNavigator from "./StackNavigator";
+import themeContext from '../constants/themeContext';
+import {COLORS} from '../constants/theme';
+import StackNavigator from './StackNavigator';
 
-	const Route = () => {
-
-		const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const authContext = React.useMemo(() => ({
-    setDarkTheme: () => {
-      setIsDarkTheme(true);
-    },
-    setLightTheme: () => {
-      setIsDarkTheme(false);
-    }
-  }), []);
+const Route = () => {
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const authContext = React.useMemo(
+    () => ({
+      setDarkTheme: () => {
+        setIsDarkTheme(true);
+      },
+      setLightTheme: () => {
+        setIsDarkTheme(false);
+      },
+    }),
+    [],
+  );
 
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,
@@ -33,8 +35,8 @@ import StackNavigator from "./StackNavigator";
       //textLight: COLORS.textLight,
       input: COLORS.input,
       border: COLORS.borderColor,
-    }
-  }
+    },
+  };
 
   const CustomDarkTheme = {
     ...NavigationDarkTheme,
@@ -47,8 +49,8 @@ import StackNavigator from "./StackNavigator";
       //textLight: COLORS.darkTextLight,
       input: COLORS.darkInput,
       border: COLORS.darkBorder,
-    }
-  }
+    },
+  };
 
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
@@ -61,7 +63,6 @@ import StackNavigator from "./StackNavigator";
       </themeContext.Provider>
     </SafeAreaProvider>
   );
-  
-}
+};
 
-	export default Route;
+export default Route;
