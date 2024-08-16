@@ -1,4 +1,4 @@
-package com.ombe
+package com.bluejacket.gotrash
 
 import android.app.Application
 import com.facebook.react.PackageList

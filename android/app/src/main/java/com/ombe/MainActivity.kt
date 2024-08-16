@@ -1,4 +1,4 @@
-package com.ombe
+package com.bluejacket.gotrash
 import android.os.Bundle;
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

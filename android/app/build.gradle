@@ -74,9 +74,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.ombe"
+    namespace "com.bluejacket.gotrash"
     defaultConfig {
-        applicationId "com.ombe"
+        applicationId "com.bluejacket.gotrash"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

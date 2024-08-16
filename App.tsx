@@ -19,7 +19,7 @@ export default class App extends Component {
           style={{
             flex: 1,
           }}>
-          <StatusBar style="dark" />
+          <StatusBar />
           <Provider store={store}>
             <Route />
           </Provider>
