@@ -1,17 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {PermissionsAndroid, Platform} from 'react-native';
-import {
-  BleError,
-  BleManager,
-  Characteristic,
-  Device,
-  State,
-} from 'react-native-ble-plx';
+import {BleManager, Device, State} from 'react-native-ble-plx';
 import {PERMISSIONS, requestMultiple} from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 
-import {atob, btoa} from 'react-native-quick-base64';
+import {btoa} from 'react-native-quick-base64';
 
 const manager = new BleManager();
 const SERVICE_UUID = '180D';

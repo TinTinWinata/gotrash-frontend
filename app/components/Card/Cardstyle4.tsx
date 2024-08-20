@@ -144,7 +144,7 @@ const Cardstyle4 = ({
             <TouchableOpacity
               activeOpacity={0.9}
               onPress={() => {
-                setshow(!show);
+                // setshow(!show);
                 onPress2();
               }}
               style={{
@@ -160,7 +160,11 @@ const Cardstyle4 = ({
               <Image
                 style={[
                   GlobalStyleSheet.image2,
-                  {tintColor: show ? COLORS.card : COLORS.primary},
+                  {
+                    tintColor: show ? COLORS.card : COLORS.primary,
+                    width: 15,
+                    marginBottom: 4,
+                  },
                 ]}
                 source={IMAGES.shoppingbag}
               />
@@ -234,7 +238,7 @@ const Cardstyle4 = ({
             </Text>
           )}
         </View>
-        {Myorder ? null : (
+        {/* {Myorder ? null : (
           <View
             style={{
               position: 'absolute',
@@ -249,7 +253,7 @@ const Cardstyle4 = ({
               inWishlist={inWishlist}
             />
           </View>
-        )}
+        )} */}
       </View>
     </TouchableOpacity>
   );

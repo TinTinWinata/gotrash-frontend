@@ -24,7 +24,7 @@ const Route = () => {
     }),
     [],
   );
-  useBLE();
+  // useBLE();
 
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,

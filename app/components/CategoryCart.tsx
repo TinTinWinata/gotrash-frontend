@@ -36,8 +36,9 @@ const CategoryCart = ({data}: any) => {
                   title={data.title}
                   onPress={() => navigation.navigate('ProductsDetails')}
                   onPress2={() => {
-                    addItemToCart(data);
-                    navigation.navigate('MyCart');
+                    navigation.navigate('ProductsDetails');
+                    // addItemToCart(data);
+                    // navigation.navigate('MyCart');
                   }}
                   onPress5={() => addItemToWishList(data)}
                   product={true}
