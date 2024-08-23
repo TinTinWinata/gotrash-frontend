@@ -8,7 +8,7 @@ export const wishListSlice = createSlice({
   reducers: {
     addTowishList: (state: any, action: any) => {
       const itemInwishList = state.wishList.find(
-        (item: any) => item.id == action.payload.id,
+        (item: any) => item.id === action.payload.id,
       );
       if (itemInwishList) {
         itemInwishList.quantity++;
@@ -24,15 +24,15 @@ export const wishListSlice = createSlice({
     },
     incrementQuantity: (state: any, action: any) => {
       const itemInwishList = state.wishList.find(
-        (item: any) => item.id == action.payload.id,
+        (item: any) => item.id === action.payload.id,
       );
       itemInwishList.quantity++;
     },
     decrementQuantity: (state: any, action: any) => {
       const itemInwishList = state.wishList.find(
-        (item: any) => item.id == action.payload.id,
+        (item: any) => item.id === action.payload.id,
       );
-      if (itemInwishList.quantity == 1) {
+      if (itemInwishList.quantity === 1) {
         const removeFromwishList = state.wishList.filter(
           (item: any) => item.id !== action.payload.id,
         );

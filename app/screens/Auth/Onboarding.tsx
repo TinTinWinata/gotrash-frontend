@@ -19,19 +19,24 @@ import Button from '../../components/Button/Button';
 
 const DATA = [
   {
-    title: "Let's meet our summer coffee drinks",
+    title: 'Open GoTrash App',
     subtitle:
-      'orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+      'Start by opening the GoTrash app to begin your journey towards a cleaner environment and earn rewards.',
   },
   {
-    title: "Let's meet our summer coffee drinks",
+    title: 'Activate Bluetooth',
     subtitle:
-      'orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+      'Ensure Bluetooth is activated so the app can connect to nearby trash bins equipped with our technology.',
   },
   {
-    title: "Let's meet our summer coffee drinks",
+    title: 'Throw Garbage',
     subtitle:
-      'orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+      'Dispose of your trash in the designated bins. Our system will automatically detect it and award you points.',
+  },
+  {
+    title: 'Earn Rewards',
+    subtitle:
+      'Collect points with every disposal and convert them into rewards. Make a difference and get rewarded!',
   },
 ];
 
@@ -41,15 +46,13 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
 
-  const IndexData = ['01', '02', '03'];
-
   const IndexImage = [IMAGES.onborder5, IMAGES.onborder3, IMAGES.onborder4];
 
   const scrollRef = useRef<any>();
 
   const scrollX = useRef(new Animated.Value(0)).current;
 
-  const [sliderIndex, setSliderIndex] = useState<any>(1);
+  const [sliderIndex, setSliderIndex] = useState<number>(1);
 
   const onScroll = (event: any) => {
     scrollX.setValue(event.nativeEvent.contentOffset.x);

@@ -68,7 +68,7 @@ const MenuItems = [
     id: '9',
     icon: IMAGES.logout,
     name: 'Logout',
-    navigate: 'SingIn',
+    navigate: 'SignIn',
   },
 ];
 
@@ -79,8 +79,6 @@ const DrawerMenu = ({navigation}: any) => {
   const {colors}: {colors: any} = theme;
 
   const [active, setactive] = useState(MenuItems[0]);
-
-  //const navigation = useNavigation<any>();
 
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -94,11 +92,12 @@ const DrawerMenu = ({navigation}: any) => {
         <View
           style={{
             alignItems: 'flex-end',
-            paddingVertical: 30,
+            paddingVertical: 10,
             paddingRight: 10,
           }}>
           <Image
-            style={{height: 35, alignItems: 'flex-end'}}
+            style={{height: 55, aspectRatio: 16 / 9}}
+            resizeMode="contain"
             source={theme.dark ? IMAGES.appnamedark : IMAGES.appname}
           />
         </View>

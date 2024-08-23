@@ -14,27 +14,8 @@ import {COLORS, FONTS} from '../../constants/theme';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import Header from '../../layout/Header';
-
-const profileData = [
-  {
-    id: '1',
-    image: IMAGES.call,
-    title: 'Mobile Phone',
-    subtitle: '+12 345 678 92',
-  },
-  {
-    id: '2',
-    image: IMAGES.email,
-    title: 'Email Address',
-    subtitle: 'example@gmail.com',
-  },
-  {
-    id: '3',
-    image: IMAGES.map,
-    title: 'Address',
-    subtitle: 'Franklin Avenue, Corner St. \nLondon, 24125151',
-  },
-];
+import {useGoTrash} from '../../contexts/gotrash-context';
+import {convertToPascalCase} from '../../utils/stringUtils';
 
 const profilecartData = [
   {
@@ -56,6 +37,29 @@ type ProfileScreenProps = StackScreenProps<RootStackParamList, 'Profile'>;
 const Profile = ({navigation}: ProfileScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
+  const {user} = useGoTrash();
+
+  const profileData = [
+    {
+      id: '1',
+      image: IMAGES.call,
+      title: 'Mobile Phone',
+      subtitle: '+62 812 3456 7890',
+    },
+    {
+      id: '2',
+      image: IMAGES.email,
+      title: 'Email Address',
+      subtitle: user?.email,
+    },
+    {
+      id: '3',
+      image: IMAGES.map,
+      title: 'Address',
+      subtitle: 'Franklin Avenue, Corner St. \nLondon, 24125151',
+    },
+  ];
+
   return (
     <View style={{backgroundColor: colors.card, flex: 1}}>
       <Header title="Profile" leftIcon={'back'} rightIcon2={'Edit'} />
@@ -68,15 +72,18 @@ const Profile = ({navigation}: ProfileScreenProps) => {
             {alignItems: 'center', marginTop: 50, padding: 0},
           ]}>
           <View style={[styles.sectionimg]}>
-            <Image style={{height: 104, width: 104}} source={IMAGES.small6} />
+            <Image
+              style={{height: 104, width: 104}}
+              source={{uri: user?.profileImage}}
+            />
           </View>
           <Text
             style={{...FONTS.fontSemiBold, fontSize: 28, color: colors.title}}>
-            William Smith
+            {user ? convertToPascalCase(user?.username) : ''}
           </Text>
           <Text
             style={{...FONTS.fontRegular, fontSize: 16, color: COLORS.primary}}>
-            London, England
+            Indonesia
           </Text>
         </View>
         <View

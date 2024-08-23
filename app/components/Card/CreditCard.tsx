@@ -14,7 +14,6 @@ type Props = {
 const CreditCard = ({debitcard, creditCard, creditcard}: Props) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-
   return (
     <View
       style={{

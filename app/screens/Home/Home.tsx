@@ -13,12 +13,16 @@ import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {IMAGES} from '../../constants/Images';
 import {COLORS, FONTS} from '../../constants/theme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useDispatch} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {addTowishList} from '../../redux/reducer/wishListReducer';
 import ImageSwiper from '../../components/ImageSwiper';
 import Cardstyle4 from '../../components/Card/Cardstyle4';
+import {useGoTrash} from '../../contexts/gotrash-context';
+import {convertToPascalCase} from '../../utils/stringUtils';
+import YourTrashHistory from './YourTrashHistory';
 
 const ArrivalData = [
   {
@@ -122,6 +126,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
   // const wishList = useSelector((state:any) => state.wishList.wishList);
   // console.log(wishList);
 
+  const {user} = useGoTrash();
   const dispatch = useDispatch();
 
   const theme = useTheme();
@@ -155,7 +160,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                   fontSize: 24,
                   color: colors.title,
                 }}>
-                Williams
+                {user ? convertToPascalCase(user?.username) : ''}
               </Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -209,17 +214,38 @@ export const Home = ({navigation}: HomeScreenProps) => {
             GlobalStyleSheet.container,
             {padding: 0, paddingHorizontal: 30, paddingTop: 15},
           ]}>
-          <View>
-            <TextInput
-              placeholder="Search Best items for You"
-              style={[
-                styles.TextInput,
-                {color: COLORS.title, backgroundColor: '#FAFAFA'},
-              ]}
-              placeholderTextColor={'#929292'}
-            />
-            <View style={{position: 'absolute', top: 15, right: 20}}>
-              <FeatherIcon name="search" size={24} color={'#C9C9C9'} />
+          <View
+            style={{
+              height: 50,
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: 60,
+              borderWidth: 1,
+              flexDirection: 'row',
+              gap: 10,
+              paddingLeft: 20,
+              borderColor: '#EBEBEB',
+              backgroundColor: '#FAFAFA',
+            }}>
+            <FontAwesome name="dollar" size={16} color={COLORS.primary} />
+            <Text style={[styles.TextInput, {marginTop: 4.5}]}>
+              {user?.coin} Coins
+            </Text>
+            <View
+              style={{
+                position: 'absolute',
+                top: 12,
+                right: 20,
+                borderRadius: 50,
+                padding: 5,
+                backgroundColor: COLORS.primary,
+              }}>
+              <FontAwesome
+                name="shopping-cart"
+                size={16}
+                color={COLORS.white}
+              />
+              {/* <FeatherIcon name="search" size={24} color={'#C9C9C9'} /> */}
             </View>
           </View>
         </View>
@@ -228,6 +254,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
             <ImageSwiper data={SwiperData} />
           </View>
         </View>
+
         <View
           style={[
             GlobalStyleSheet.container,
@@ -239,7 +266,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                 styles.brandsubtitle3,
                 {fontSize: 18, color: colors.title},
               ]}>
-              Categories
+              See All Items
             </Text>
           </View>
           <View
@@ -313,10 +340,11 @@ export const Home = ({navigation}: HomeScreenProps) => {
             </ScrollView>
           </View>
         </View>
+        <YourTrashHistory />
         <View
           style={[
             GlobalStyleSheet.container,
-            {paddingHorizontal: 0, paddingTop: 0, paddingBottom: 10},
+            {paddingHorizontal: 0, paddingTop: 25, paddingBottom: 10},
           ]}>
           <View style={[GlobalStyleSheet.flex, {paddingHorizontal: 30}]}>
             <Text
@@ -324,7 +352,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                 styles.brandsubtitle3,
                 {fontSize: 18, color: colors.title},
               ]}>
-              Featured Beverages
+              Featured Items
             </Text>
             <TouchableOpacity>
               <Text
@@ -380,13 +408,6 @@ const styles = StyleSheet.create({
     ...FONTS.fontRegular,
     fontSize: 16,
     color: COLORS.title,
-    height: 60,
-    borderRadius: 61,
-    paddingHorizontal: 40,
-    paddingLeft: 30,
-    borderWidth: 1,
-    borderColor: '#EBEBEB',
-    backgroundColor: '#FAFAFA',
   },
   brandsubtitle2: {
     ...FONTS.fontSemiBold,

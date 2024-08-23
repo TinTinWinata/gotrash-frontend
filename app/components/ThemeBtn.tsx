@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {COLORS} from '../constants/theme';
 import {IMAGES} from '../constants/Images';
-import themeContext from '../constants/themeContext';
+import themeContext from '../contexts/themeContext';
 
 const ThemeBtn = () => {
   const theme = useTheme();

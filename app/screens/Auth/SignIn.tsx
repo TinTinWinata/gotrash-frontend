@@ -17,9 +17,9 @@ import Input from '../../components/Input/Input';
 import {IMAGES} from '../../constants/Images';
 import Button from '../../components/Button/Button';
 
-type SingInScreenProps = StackScreenProps<RootStackParamList, 'SingIn'>;
+type SignInScreenProps = StackScreenProps<RootStackParamList, 'SignIn'>;
 
-const SingIn = ({navigation}: SingInScreenProps) => {
+const SignIn = ({navigation}: SignInScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
 
@@ -170,4 +170,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SingIn;
+export default SignIn;

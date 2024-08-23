@@ -123,7 +123,7 @@ const OTPAuthentication = ({navigation}: OTPAuthenticationScreenProps) => {
               </Text>
               <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={() => navigation.navigate('SingIn')}>
+                onPress={() => navigation.navigate('SignIn')}>
                 <Text style={styles.title4}>Sign In</Text>
               </TouchableOpacity>
             </View>

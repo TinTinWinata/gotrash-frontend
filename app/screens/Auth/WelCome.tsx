@@ -8,19 +8,21 @@ import {COLORS, FONTS} from '../../constants/theme';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import SocialBtn from '../../components/Socials/SocialBtn';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Divider from '../../components/Dividers/Divider';
+import {useGoTrash} from '../../contexts/gotrash-context';
 
 type WelComeScreenProps = StackScreenProps<RootStackParamList, 'WelCome'>;
 
 const WelCome = ({navigation}: WelComeScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
+  const {guestLogin} = useGoTrash();
 
   return (
     <View style={{flex: 1, backgroundColor: colors.card}}>
-      <Image style={styles.welcomeimage} source={IMAGES.welcome} />
+      {/* <Image style={styles.welcomeimage} source={IMAGES.welcome} /> */}
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View
           style={[
@@ -44,7 +46,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
               {paddingHorizontal: 35, paddingBottom: 50},
             ]}>
             <Text style={[styles.title, {color: colors.title}]}>
-              Morning begins with Ombe coffee
+              Login With Your Preferred Account
             </Text>
             <View style={{marginBottom: 10}}>
               <SocialBtn
@@ -56,23 +58,22 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                   <FontAwesome name="envelope" size={22} color={COLORS.card} />
                 }
                 border={COLORS.primary}
-                onpress={() => navigation.navigate('SingIn')}
+                onpress={() => navigation.navigate('SignIn')}
               />
             </View>
+            <Divider dashed color={COLORS.label} />
             <View style={{marginBottom: 10}}>
               <SocialBtn
-                text="Login with facebook"
-                color={'#376AED'}
+                onpress={async () => {
+                  await guestLogin();
+                  navigation.navigate('DrawerNavigation', {screen: 'Home'});
+                }}
+                text="Login with Guest"
+                color={'#ff6900'}
                 textcolor={COLORS.card}
                 rounded
-                icon={
-                  <Ionicons
-                    name="logo-facebook"
-                    size={22}
-                    color={COLORS.card}
-                  />
-                }
-                border={'#376AED'}
+                icon={<FontAwesome name="user" size={22} color={COLORS.card} />}
+                border={'#ff6900'}
               />
             </View>
             <View>

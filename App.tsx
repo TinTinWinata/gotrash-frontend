@@ -6,6 +6,7 @@ import {StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
 import Route from './app/navigation/Route';
 import store from './app/redux/store';
+import {GoTrashProvider} from './app/provider/gotrash-provider';
 
 export default class App extends Component {
   componentDidMount() {
@@ -21,7 +22,9 @@ export default class App extends Component {
           }}>
           <StatusBar />
           <Provider store={store}>
-            <Route />
+            <GoTrashProvider>
+              <Route />
+            </GoTrashProvider>
           </Provider>
         </SafeAreaView>
       </SafeAreaProvider>

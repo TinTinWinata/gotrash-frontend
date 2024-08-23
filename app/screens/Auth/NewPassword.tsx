@@ -118,7 +118,7 @@ const NewPassword = ({navigation}: NewPasswordScreenProps) => {
             ]}>
             <Button
               title={'Continue'}
-              onPress={() => navigation.navigate('SingIn')}
+              onPress={() => navigation.navigate('SignIn')}
               style={{borderRadius: 48}}
             />
             <View style={[GlobalStyleSheet.bottombtn]}>
@@ -131,7 +131,7 @@ const NewPassword = ({navigation}: NewPasswordScreenProps) => {
               </Text>
               <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={() => navigation.navigate('SingIn')}>
+                onPress={() => navigation.navigate('SignIn')}>
                 <Text style={styles.title4}>Sign In</Text>
               </TouchableOpacity>
             </View>

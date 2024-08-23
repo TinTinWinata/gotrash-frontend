@@ -11,7 +11,7 @@ import {useTheme} from '@react-navigation/native';
 // import Onboarding from '../screens/Auth/Onboarding';
 import Onboarding from '../screens/Auth/Onboarding';
 import SignUp from '../screens/Auth/SignUp';
-import SingIn from '../screens/Auth/SingIn';
+import SignIn from '../screens/Auth/SignIn';
 import OTPAuthentication from '../screens/Auth/OTPAuthentication';
 import NewPassword from '../screens/Auth/NewPassword';
 import WelCome from '../screens/Auth/WelCome';
@@ -78,7 +78,7 @@ const StackNavigator = () => {
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="WelCome" component={WelCome} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="SingIn" component={SingIn} />
+        <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="OTPAuthentication" component={OTPAuthentication} />
         <Stack.Screen name="NewPassword" component={NewPassword} />
