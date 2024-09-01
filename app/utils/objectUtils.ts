@@ -1,9 +1,20 @@
 import {ImageSourcePropType} from 'react-native';
 
-export function convertObjectToFormData(object: Record<string, any>): FormData {
+export function convertObjectToFormData(
+  object: Record<string, any>,
+  properties?: string[],
+): FormData {
   const formData = new FormData();
-  for (const key of Object.keys(object)) {
-    formData.append(key, object[key]);
+  if (!properties || properties.length === 0) {
+    for (const key of Object.keys(object)) {
+      formData.append(key, object[key]);
+    }
+  } else {
+    for (const property of properties) {
+      if (object[property]) {
+        formData.append(property, object[property]);
+      }
+    }
   }
   return formData;
 }

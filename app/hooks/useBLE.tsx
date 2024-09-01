@@ -6,6 +6,7 @@ import {PERMISSIONS, requestMultiple} from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 
 import {btoa} from 'react-native-quick-base64';
+import {useGoTrash} from '../contexts/gotrashContext';
 
 const manager = new BleManager();
 const SERVICE_UUID = '180D';
@@ -13,7 +14,9 @@ const CHARACTERISTIC_UUID = '2A37';
 
 export default function useBLE() {
   const [device, setDevice] = useState<Device | null>(null);
+  const {user} = useGoTrash();
 
+  // Every 4 seconds
   useEffect(() => {
     const id = setInterval(loopDevice, 3000);
     return () => {
@@ -22,16 +25,17 @@ export default function useBLE() {
   }, [device]);
 
   const loopDevice = async () => {
-    if (!device) {
+    console.log('Looping Device ...');
+    if (!device || !user || !user.id) {
+      console.log('Returning... ', user?.id, device);
       return;
     }
     try {
-      console.log('Trying to writing characteristics...');
-      const data = '1';
+      console.log('Wriiting User Id...');
       await device.writeCharacteristicWithResponseForService(
         SERVICE_UUID,
         CHARACTERISTIC_UUID,
-        btoa(data),
+        btoa(user.id),
       );
       console.log('Data written to characteristic');
     } catch (err) {
@@ -62,7 +66,7 @@ export default function useBLE() {
         const apiLevel = await DeviceInfo.getApiLevel();
 
         if (apiLevel < 31) {
-          const permission = await PermissionsAndroid.request(
+          await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
             {
               title: 'Location Permission',
@@ -76,19 +80,19 @@ export default function useBLE() {
           //   scanAndConnect();
           // }
         } else {
-          const result = await requestMultiple([
+          await requestMultiple([
             PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
             PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
             PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
           ]);
 
-          const isGranted =
-            result['android.permission.BLUETOOTH_CONNECT'] ===
-              PermissionsAndroid.RESULTS.GRANTED &&
-            result['android.permission.BLUETOOTH_SCAN'] ===
-              PermissionsAndroid.RESULTS.GRANTED &&
-            result['android.permission.ACCESS_FINE_LOCATION'] ===
-              PermissionsAndroid.RESULTS.GRANTED;
+          // const isGranted =
+          //   result['android.permission.BLUETOOTH_CONNECT'] ===
+          //     PermissionsAndroid.RESULTS.GRANTED &&
+          //   result['android.permission.BLUETOOTH_SCAN'] ===
+          //     PermissionsAndroid.RESULTS.GRANTED &&
+          //   result['android.permission.ACCESS_FINE_LOCATION'] ===
+          //     PermissionsAndroid.RESULTS.GRANTED;
         }
       }
     } catch (error) {
@@ -97,9 +101,13 @@ export default function useBLE() {
   };
 
   const scanAndConnect = () => {
+    if (device) {
+      return;
+    }
+    console.log('Scanning Device ...');
     manager.startDeviceScan(null, null, (error, scannedDevice) => {
       if (error) {
-        console.error('Scan error: ', error);
+        console.error('Scan error: ', JSON.stringify(error));
         return;
       }
       if (scannedDevice) {
@@ -110,17 +118,15 @@ export default function useBLE() {
       }
     });
   };
+
   React.useEffect(() => {
-    if (Platform.OS === 'android') {
-      requestPermissions();
-    }
+    requestPermissions();
     const subscription = manager.onStateChange((state: State) => {
       setDevice(null);
       if (state === State.PoweredOn) {
         scanAndConnect();
       }
     }, true);
-
     return () => subscription.remove();
   }, []);
 }

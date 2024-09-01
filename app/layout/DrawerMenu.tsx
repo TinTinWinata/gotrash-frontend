@@ -10,66 +10,66 @@ import {closeDrawer} from '../redux/actions/drawerAction';
 import {GlobalStyleSheet} from '../constants/StyleSheet';
 
 const MenuItems = [
-  {
-    id: '0',
-    icon: IMAGES.home,
-    name: 'Home',
-    navigate: 'Home',
-  },
-  {
-    id: '1',
-    icon: IMAGES.producta,
-    name: 'Products',
-    navigate: 'Products',
-  },
-  {
-    id: '2',
-    icon: IMAGES.components,
-    name: 'Components',
-    navigate: 'Components',
-  },
-  {
-    id: '3',
-    icon: IMAGES.star,
-    name: 'Featured',
-    navigate: 'Writereview',
-  },
-  {
-    id: '4',
-    icon: IMAGES.heart,
-    name: 'Wishlist',
-    navigate: 'Wishlist',
-  },
+  // {
+  //   id: '0',
+  //   icon: IMAGES.home,
+  //   name: 'Home',
+  //   navigate: 'Home',
+  // },
+  // {
+  //   id: '1',
+  //   icon: IMAGES.producta,
+  //   name: 'Products',
+  //   navigate: 'Products',
+  // },
+  // {
+  //   id: '2',
+  //   icon: IMAGES.components,
+  //   name: 'Components',
+  //   navigate: 'Components',
+  // },
+  // {
+  //   id: '3',
+  //   icon: IMAGES.star,
+  //   name: 'Featured',
+  //   navigate: 'Writereview',
+  // },
+  // {
+  //   id: '4',
+  //   icon: IMAGES.heart,
+  //   name: 'Wishlist',
+  //   navigate: 'Wishlist',
+  // },
   {
     id: '5',
     icon: IMAGES.order,
     name: 'My Orders',
     navigate: 'Myorder',
   },
-  {
-    id: '6',
-    icon: IMAGES.shopping,
-    name: 'My Cart',
-    navigate: 'MyCart',
-  },
-  {
-    id: '7',
-    icon: IMAGES.chat,
-    name: 'Chat List',
-    navigate: 'Chat',
-  },
-  {
-    id: '8',
-    icon: IMAGES.user3,
-    name: 'Profile',
-    navigate: 'Profile',
-  },
-  {
-    id: '9',
-    icon: IMAGES.logout,
-    name: 'Logout',
-    navigate: 'WelCome',
-  },
+  // {
+  //   id: '6',
+  //   icon: IMAGES.shopping,
+  //   name: 'My Cart',
+  //   navigate: 'MyCart',
+  // },
+  // {
+  //   id: '7',
+  //   icon: IMAGES.chat,
+  //   name: 'Chat List',
+  //   navigate: 'Chat',
+  // },
+  // {
+  //   id: '8',
+  //   icon: IMAGES.user3,
+  //   name: 'Profile',
+  //   navigate: 'Profile',
+  // },
+  // {
+  //   id: '9',
+  //   icon: IMAGES.logout,
+  //   name: 'Logout',
+  //   navigate: 'WelCome',
+  // },
 ];
 
 const DrawerMenu = ({navigation}: any) => {
@@ -119,7 +119,7 @@ const DrawerMenu = ({navigation}: any) => {
             <FeatherIcon size={24} color={colors.title} name="x" />
           </TouchableOpacity>
         </View>
-        <View style={{paddingBottom: 10}}>
+        <View style={{paddingBottom: 10, minHeight: 600}}>
           {MenuItems.map((data: any, index: any) => {
             return (
               <TouchableOpacity
@@ -181,15 +181,15 @@ const DrawerMenu = ({navigation}: any) => {
             );
           })}
         </View>
-        <View style={{paddingHorizontal: 10}}>
+        {/* <View style={{paddingHorizontal: 10}}>
           <ThemeBtn />
-        </View>
+        </View> */}
         <View style={{paddingVertical: 15, paddingHorizontal: 10}}>
           <Text style={{...FONTS.fontMedium, fontSize: 16, color: '#868686'}}>
-            GoTrash Coffee App
+            GoTrash App
           </Text>
           <Text style={{...FONTS.fontMedium, fontSize: 12, color: '#B1B1C3'}}>
-            App Version 1.0.0
+            Demo Version
           </Text>
         </View>
       </View>

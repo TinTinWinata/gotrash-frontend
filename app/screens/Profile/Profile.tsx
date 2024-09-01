@@ -8,7 +8,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import Header from '../../layout/Header';
 import {useGoTrash} from '../../contexts/gotrashContext';
-import {convertToPascalCase} from '../../utils/stringUtils';
+import {convertPhoneNumber, convertToPascalCase} from '../../utils/stringUtils';
 
 type ProfileScreenProps = StackScreenProps<RootStackParamList, 'Profile'>;
 
@@ -22,19 +22,13 @@ const Profile = ({navigation}: ProfileScreenProps) => {
       id: '1',
       image: IMAGES.call,
       title: 'Mobile Phone',
-      subtitle: '+62 812 3456 7890',
+      subtitle: user?.phoneNumber ? convertPhoneNumber(user?.phoneNumber) : '',
     },
     {
       id: '2',
       image: IMAGES.email,
       title: 'Email Address',
       subtitle: user?.email,
-    },
-    {
-      id: '3',
-      image: IMAGES.map,
-      title: 'Address',
-      subtitle: 'Franklin Avenue, Corner St. \nLondon, 24125151',
     },
   ];
 

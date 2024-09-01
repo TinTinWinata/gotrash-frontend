@@ -59,10 +59,12 @@ import Tabs from '../screens/Components/Tabs';
 import Tables from '../screens/Components/Tables';
 import Toggles from '../screens/Components/Toggles';
 import AddGroup from '../screens/Group/AddGroup';
+import useBLE from '../hooks/useBLE';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator = () => {
+  useBLE();
   return (
     <View style={{width: '100%', flex: 1}}>
       <Stack.Navigator

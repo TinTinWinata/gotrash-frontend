@@ -9,7 +9,6 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import themeContext from '../contexts/themeContext';
 import {COLORS} from '../constants/theme';
 import StackNavigator from './StackNavigator';
-import useBLE from '../hooks/useBLE';
 import GoTrashProvider from '../providers/gotrashProvider';
 import LoaderProvider from '../providers/loaderProvider';
 
@@ -26,7 +25,6 @@ const Route = () => {
     }),
     [],
   );
-  // useBLE();
 
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,

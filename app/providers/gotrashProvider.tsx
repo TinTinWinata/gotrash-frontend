@@ -19,9 +19,11 @@ import {Trashbin} from '../types/trashbin';
 import {Address} from '../types/address';
 import {Order} from '../types/order';
 
+const API_BASE_URL = 'https://gotrash.site/api';
+
 function createAxiosInstance(token: string | null): AxiosInstance {
   return axios.create({
-    baseURL: 'https://gotrash.site/api',
+    baseURL: API_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token ? `Bearer ${token}` : undefined,
@@ -107,6 +109,60 @@ export default function GoTrashProvider({children}: ChildrenProps) {
       group,
     );
     if (response.data.status === 201) {
+      await fetchUser();
+    }
+    return response.data;
+  }
+
+  async function updateImage(imageUrl: string): Promise<BackendResponse<User>> {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    const formData = convertObjectToFormData(user, [
+      'username',
+      'email',
+      'phoneNumber',
+    ]);
+    const fileExtension = imageUrl.split('.').pop();
+    formData.append('file', {
+      uri: imageUrl,
+      type: 'image/' + fileExtension,
+      name: user.id + '.' + fileExtension,
+    });
+    const response = await api.patch<BackendResponse<User>>(
+      '/user/update/' + user.id,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    if (response.data.status >= 200 && response.data.status < 300) {
+      await fetchUser();
+    }
+    return response.data;
+  }
+
+  async function updateUser(newUser: User): Promise<BackendResponse<User>> {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    const formData = convertObjectToFormData(newUser, [
+      'username',
+      'email',
+      'phoneNumber',
+    ]);
+    const response = await api.patch<BackendResponse<User>>(
+      '/user/update/' + user.id,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    if (response.data.status >= 200 && response.data.status < 300) {
       await fetchUser();
     }
     return response.data;
@@ -240,6 +296,8 @@ export default function GoTrashProvider({children}: ChildrenProps) {
   return (
     <goTrashContext.Provider
       value={{
+        updateImage,
+        updateUser,
         setChoosedReward,
         choosedReward,
         orders,

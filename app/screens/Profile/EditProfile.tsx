@@ -16,10 +16,15 @@ import Input from '../../components/Input/Input';
 import ImagePicker from 'react-native-image-crop-picker';
 import Button from '../../components/Button/Button';
 import {COLORS, FONTS} from '../../constants/theme';
+import {useGoTrash} from '../../contexts/gotrashContext';
+import {Controller, useForm} from 'react-hook-form';
+import {User} from '../../types/user';
+import useLoader from '../../contexts/loaderContext';
 
 const EditProfile = () => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
+  const {user, updateImage} = useGoTrash();
 
   const navigation = useNavigation<any>();
 
@@ -27,8 +32,19 @@ const EditProfile = () => {
   const [isFocused1, setisFocused1] = useState(false);
   const [isFocused2, setisFocused2] = useState(false);
   const [isFocused3, setisFocused3] = useState(false);
+  const form = useForm<User>({
+    defaultValues: user,
+  });
+  const {updateUser} = useGoTrash();
+  const {setIsLoading} = useLoader();
+  const [imageUrl, setImageUrl] = useState(user?.imageUrl || '');
 
-  const [imageUrl, setImageUrl] = useState('');
+  const handleSubmit = async (e: User) => {
+    setIsLoading(true);
+    await updateUser(e);
+    setIsLoading(false);
+    navigation.navigate('Profile');
+  };
 
   const handleImageSelect = () => {
     if (Platform.OS == 'android') {
@@ -37,8 +53,13 @@ const EditProfile = () => {
           width: 200,
           height: 200,
           cropping: true,
-        }).then((image: {path: React.SetStateAction<string>}) => {
+        }).then(async (image: {path: React.SetStateAction<string>}) => {
+          console.log(image.path);
+          setIsLoading(true);
           setImageUrl(image.path);
+          await updateImage(image.path.toString());
+          setIsLoading(false);
+          navigation.navigate('Profile');
         });
       } catch (e) {
         console.log(e);
@@ -97,11 +118,11 @@ const EditProfile = () => {
             <View>
               <Text
                 style={[FONTS.fontMedium, {fontSize: 19, color: colors.title}]}>
-                James Smith
+                {user?.username}
               </Text>
               <Text
                 style={[FONTS.fontRegular, {fontSize: 12, color: colors.text}]}>
-                Last Visit : 17 Jan 2024
+                {user?.email}
               </Text>
             </View>
           </View>
@@ -125,80 +146,95 @@ const EditProfile = () => {
             ]}>
             <Text
               style={{...FONTS.fontRegular, fontSize: 14, color: colors.title}}>
-              Overall Rating
+              Personal Information
             </Text>
           </View>
           <View style={{marginBottom: 15, marginTop: 10}}>
-            <Input
-              onFocus={() => setisFocused(true)}
-              onBlur={() => setisFocused(false)}
-              isFocused={isFocused}
-              onChangeText={value => console.log(value)}
-              backround={colors.card}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="Full Name"
-              icon={
-                <Image
-                  source={IMAGES.user2}
-                  style={[styles.icon, {tintColor: colors.title}]}
+            <Controller
+              name="username"
+              control={form.control}
+              rules={{required: true}}
+              render={({field}) => (
+                <Input
+                  onFocus={() => setisFocused(true)}
+                  onBlur={() => {
+                    setisFocused(false);
+                    field.onBlur();
+                  }}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  isFocused={isFocused}
+                  backround={colors.card}
+                  style={{borderRadius: 48}}
+                  inputicon
+                  placeholder="Full Name"
+                  icon={
+                    <Image
+                      source={IMAGES.user2}
+                      style={[styles.icon, {tintColor: colors.title}]}
+                    />
+                  }
                 />
-              }
+              )}
             />
           </View>
-          <View style={{marginBottom: 15}}>
-            <Input
-              onFocus={() => setisFocused1(true)}
-              onBlur={() => setisFocused1(false)}
-              isFocused={isFocused1}
-              onChangeText={value => console.log(value)}
-              backround={colors.card}
-              style={{borderRadius: 48}}
-              keyboardType={'number-pad'}
-              inputicon
-              placeholder="Mobile No."
-              icon={
-                <Image
-                  source={IMAGES.Phoneduotone}
-                  style={[styles.icon, {tintColor: colors.title}]}
+          <Controller
+            name="phoneNumber"
+            control={form.control}
+            rules={{required: true}}
+            render={({field}) => (
+              <View style={{marginBottom: 15}}>
+                <Input
+                  onFocus={() => setisFocused1(true)}
+                  onBlur={() => {
+                    field.onBlur();
+                    setisFocused1(false);
+                  }}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  isFocused={isFocused1}
+                  backround={colors.card}
+                  style={{borderRadius: 48}}
+                  keyboardType={'number-pad'}
+                  inputicon
+                  placeholder="Mobile No."
+                  icon={
+                    <Image
+                      source={IMAGES.Phoneduotone}
+                      style={[styles.icon, {tintColor: colors.title}]}
+                    />
+                  }
                 />
-              }
-            />
-          </View>
+              </View>
+            )}
+          />
           <View style={{marginBottom: 15}}>
-            <Input
-              onFocus={() => setisFocused2(true)}
-              onBlur={() => setisFocused2(false)}
-              isFocused={isFocused2}
-              onChangeText={value => console.log(value)}
-              backround={colors.card}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="Email Address "
-              icon={
-                <Image
-                  source={IMAGES.email2}
-                  style={[styles.icon, {tintColor: colors.title}]}
+            <Controller
+              name="email"
+              control={form.control}
+              rules={{required: true}}
+              render={({field}) => (
+                <Input
+                  onFocus={() => setisFocused2(true)}
+                  onBlur={() => {
+                    field.onBlur();
+                    setisFocused2(false);
+                  }}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  isFocused={isFocused2}
+                  backround={colors.card}
+                  style={{borderRadius: 48}}
+                  inputicon
+                  placeholder="Email Address "
+                  icon={
+                    <Image
+                      source={IMAGES.email2}
+                      style={[styles.icon, {tintColor: colors.title}]}
+                    />
+                  }
                 />
-              }
-            />
-          </View>
-          <View style={{marginBottom: 15}}>
-            <Input
-              onFocus={() => setisFocused3(true)}
-              onBlur={() => setisFocused3(false)}
-              isFocused={isFocused3}
-              onChangeText={value => console.log(value)}
-              backround={colors.card}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="Location"
-              icon={
-                <Image
-                  source={IMAGES.Pinduotone}
-                  style={[styles.icon, {tintColor: colors.title}]}
-                />
-              }
+              )}
             />
           </View>
         </View>
@@ -208,7 +244,7 @@ const EditProfile = () => {
           title="Update Profile"
           color={COLORS.primary}
           text={COLORS.card}
-          onPress={() => navigation.navigate('Profile')}
+          onPress={form.handleSubmit(handleSubmit)}
           style={{borderRadius: 50}}
         />
       </View>
