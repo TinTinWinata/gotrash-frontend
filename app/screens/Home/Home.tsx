@@ -7,14 +7,12 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {IMAGES} from '../../constants/Images';
 import {COLORS, FONTS} from '../../constants/theme';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useDispatch} from 'react-redux';
-import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {addTowishList} from '../../redux/reducer/wishListReducer';
 import ImageSwiper from '../../components/ImageSwiper';
 import Cardstyle4 from '../../components/Card/Cardstyle4';
@@ -27,17 +25,10 @@ import {
 } from '../../constants/reward';
 import {Reward} from '../../types/reward';
 import {RewardCategory} from '../../types/reward-category';
-import Button from '../../components/Button/Button';
-import useLoader from '../../contexts/loaderContext';
 
-type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
+export const Home = () => {
+  const navigation = useNavigation<any>();
 
-export const Home = ({navigation}: HomeScreenProps) => {
-  // const wishList = useSelector((state:any) => state.wishList.wishList);
-  // console.log(wishList);
-
-  const {setIsLoading} = useLoader();
-  const {seedRewardAndCategory} = useGoTrash();
   const {user} = useGoTrash();
   const dispatch = useDispatch();
 
@@ -64,7 +55,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                   fontSize: 14,
                   color: colors.title,
                 }}>
-                Good Morning
+                Welcome
               </Text>
               <Text
                 style={{
@@ -179,7 +170,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                 styles.brandsubtitle3,
                 {fontSize: 18, color: colors.title},
               ]}>
-              See All Items
+              Reward Category
             </Text>
           </View>
           <View
@@ -205,7 +196,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
-                        navigation.navigate('Products');
+                        navigation.navigate('Store');
                       }}
                       key={index}
                       style={[
@@ -224,10 +215,6 @@ export const Home = ({navigation}: HomeScreenProps) => {
                           {gap: 20, justifyContent: 'flex-start'},
                         ]}>
                         <Text style={{color: COLORS.primary}}>{data.icon}</Text>
-                        {/* <Image
-                          style={[GlobalStyleSheet.image3]}
-                          source={data.image}
-                        /> */}
                         <View>
                           <Text
                             style={{

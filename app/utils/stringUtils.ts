@@ -8,6 +8,9 @@ export function convertToPascalCase(text: string, join = ''): string {
 }
 
 export function formatNumber(value: number): string {
+  if (!value) {
+    return '';
+  }
   const options = {minimumFractionDigits: 0, maximumFractionDigits: 0};
   const formattedNumber = value.toLocaleString('en-US', options);
   return formattedNumber;

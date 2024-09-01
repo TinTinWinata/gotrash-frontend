@@ -9,48 +9,8 @@ import {GlobalStyleSheet} from '../../constants/StyleSheet';
 
 const SwipeData = [
   {
-    image: IMAGES.small1,
-    title: 'New Arrivals Alert!',
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.small2,
-    title: 'Flash Sale Announcement',
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.brand5,
-    title: 'Exclusive Discounts Inside',
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.small4,
-    title: 'Limited Stock - Act Fast!',
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.small5,
-    title: 'Get Ready to Shop',
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.brand2,
-    title: "Don't Miss Out on Savings",
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.small7,
-    title: 'Flash Sale Announcement',
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.brand3,
-    title: "Don't Miss Out on Savings",
-    date: '15 July 2024',
-  },
-  {
-    image: IMAGES.brand1,
-    title: 'Get Ready to Shop',
+    image: IMAGES.icLauncher,
+    title: 'Selamat Datang di Aplikasi GoTrash',
     date: '15 July 2024',
   },
 ];
@@ -58,8 +18,6 @@ const SwipeData = [
 const Notification = () => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-
-  const navigation = useNavigation<any>();
 
   const [lists, setLists] = useState<any>(SwipeData);
 
@@ -73,9 +31,9 @@ const Notification = () => {
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
       <Header
-        title="Notifications (12)"
+        title="Notifications (1)"
         leftIcon="back"
-        rightIcon1={'search'}
+        rightChildren={<View style={{width: 45}} />}
       />
       <ScrollView contentContainerStyle={{paddingBottom: 50}}>
         <View

@@ -12,6 +12,7 @@ import {GlobalStyleSheet} from '../constants/StyleSheet';
 import {SIZES, FONTS, COLORS} from '../constants/theme';
 import {IMAGES} from '../constants/Images';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {Text} from 'react-native';
 
 type Props = {
   state: any;
@@ -164,8 +165,6 @@ const BottomMenu = ({state, navigation, descriptors}: Props) => {
                         : IMAGES.Home
                     }
                   />
-                  {/* </Animated.View> */}
-                  {/* <Text style={[styles.navText,{color:isFocused ? COLORS.primary : colors.title}]}>{label}</Text> */}
                 </TouchableOpacity>
               </View>
             );

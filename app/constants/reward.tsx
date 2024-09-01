@@ -2,6 +2,7 @@ import {Reward} from '../types/reward';
 import {RewardCategory} from '../types/reward-category';
 import {IMAGES} from './Images';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 
 export const TOP_REWARDS_CATEGORY_DATA: Reward[] = [
@@ -58,6 +59,7 @@ export const REWARDS_CATEGORY_DATA: RewardCategory[] = [
     name: 'Barang',
     rewards: [
       {
+        isNeedSize: true,
         coin: 1200,
         description:
           'Bantal tidur silikon yang empuk dan nyaman dari GoTrash. Dirancang untuk memberikan kualitas tidur terbaik.',
@@ -76,6 +78,7 @@ export const REWARDS_CATEGORY_DATA: RewardCategory[] = [
         rewardCategoryId: '',
       },
       {
+        isNeedSize: true,
         coin: 7500,
         description:
           'Jaket eksklusif edisi 2024 dari GoTrash. Cocok untuk aktivitas outdoor dengan gaya yang keren.',
@@ -137,7 +140,7 @@ export const REWARDS_CATEGORY_DATA: RewardCategory[] = [
         rewardCategoryId: '',
       },
     ],
-    icon: <SimpleLineIcon name="present" size={20} />,
+    icon: <IonIcon name="fast-food-outline" size={20} />,
   },
   {
     imageUrl: IMAGES.rewards1,
@@ -198,7 +201,22 @@ export const REWARDS_CATEGORY_DATA: RewardCategory[] = [
         rewardCategoryId: '',
       },
     ],
-    icon: <SimpleLineIcon name="present" size={20} />,
+    icon: <IonIcon name="ticket-outline" size={20} />,
+  },
+  {
+    imageUrl: IMAGES.rewardOther1,
+    name: 'Lainnya',
+    rewards: [
+      {
+        coin: 100,
+        description: 'Redeem 1 Unfinished Streak',
+        id: '15',
+        imageUrl: IMAGES.rewardOther1,
+        name: 'Streak Redemption',
+        rewardCategoryId: '',
+      },
+    ],
+    icon: <IonIcon name="ticket-outline" size={20} />,
   },
 ];
 

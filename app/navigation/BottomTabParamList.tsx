@@ -5,4 +5,5 @@ export type BottomTabParamList = {
   TrashMap: undefined;
   Store: undefined;
   Group: undefined;
+  Location: undefined;
 };

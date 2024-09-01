@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
-import {BottomTabBarProps, createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBarProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import {BottomTabParamList} from './BottomTabParamList';
-import WishlistScreen from '../screens/Wishlist/Wishlist';
-import MyCartScreen from '../screens/MyCart/MyCart';
 import StoreScreen from '../screens/Store/Store';
 import HomeScreen from '../screens/Home/Home';
 import ProfileScreen from '../screens/Profile/Profile';
 import TrashMapScreen from '../screens/TrashMap/TrashMap';
-import BottomMenu from '../layout/BottomMenu';
 import {View} from 'react-native';
 import {SIZES} from '../constants/theme';
 import {useDrawerStatus} from '@react-navigation/drawer';
@@ -19,7 +19,6 @@ import Animated, {
 import {useTheme} from '@react-navigation/native';
 import CustomNavigation from '../components/Footers/FooterStyle2/CustomNavigation';
 import GroupScreen from '../screens/Group/Group';
-import {BottomNavigationProps} from 'react-native-paper';
 // import { Animated } from 'react-native';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
@@ -77,7 +76,7 @@ const BottomNavigation = () => {
             <CustomNavigation {...props} />
           )}>
           <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="TrashMap" component={TrashMapScreen} />
+          <Tab.Screen name="Location" component={TrashMapScreen} />
           <Tab.Screen name="Store" component={StoreScreen} />
           <Tab.Screen name="Group" component={GroupScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />

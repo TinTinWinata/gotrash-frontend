@@ -16,6 +16,7 @@ import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {COLORS, FONTS, SIZES} from '../../constants/theme';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import Button from '../../components/Button/Button';
+import LottieView from 'lottie-react-native';
 
 const DATA = [
   {
@@ -46,7 +47,60 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
 
-  const IndexImage = [IMAGES.onborder5, IMAGES.onborder3, IMAGES.onborder4];
+  const IndexLottie = [
+    <LottieView
+      source={require('../../assets/lotties/phone.json')}
+      style={{
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+        width: '100%',
+        height: '70%',
+        marginHorizontal: 'auto',
+      }}
+      autoPlay
+      loop
+    />,
+    <LottieView
+      source={require('../../assets/lotties/bluetooth.json')}
+      style={{
+        position: 'absolute',
+        left: 7,
+        bottom: -30,
+        width: '100%',
+        height: '70%',
+        marginHorizontal: 'auto',
+      }}
+      autoPlay
+      loop
+    />,
+    <LottieView
+      source={require('../../assets/lotties/trash.json')}
+      style={{
+        position: 'absolute',
+        left: -15,
+        bottom: 0,
+        width: '100%',
+        height: '70%',
+        marginHorizontal: 'auto',
+      }}
+      autoPlay
+      loop
+    />,
+    <LottieView
+      source={require('../../assets/lotties/coin.json')}
+      style={{
+        position: 'absolute',
+        left: 0,
+        bottom: -20,
+        width: '100%',
+        height: '70%',
+        marginHorizontal: 'auto',
+      }}
+      autoPlay
+      loop
+    />,
+  ];
 
   const scrollRef = useRef<any>();
 
@@ -90,16 +144,18 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
           <View
             style={[
               GlobalStyleSheet.container,
-              {marginTop: 160, padding: 0, flex: 1},
+              {
+                marginTop: 80,
+                padding: 0,
+                flex: 1,
+              },
             ]}>
             <Animated.View
               style={{
-                transform: [{scale: imageScale}], // Apply scale transform
+                position: 'relative',
+                height: 430,
               }}>
-              <Image
-                style={styles.image2}
-                source={IndexImage[sliderIndex - 1]}
-              />
+              {IndexLottie[sliderIndex - 1]}
             </Animated.View>
           </View>
           <View

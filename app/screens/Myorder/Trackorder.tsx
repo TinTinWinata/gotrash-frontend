@@ -81,7 +81,7 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
   return (
     <View style={{backgroundColor: colors.backround, flex: 1}}>
       <Header
-        title="Tracking Trash"
+        title="GoTrash Tracker"
         leftIcon="back"
         titleRight
         //titleLeft

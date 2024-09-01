@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {IMAGES} from '../constants/Images';
 import {COLORS, FONTS} from '../constants/theme';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import ThemeBtn from '../components/ThemeBtn';
 import {useDispatch} from 'react-redux';
 import {closeDrawer} from '../redux/actions/drawerAction';
 import {GlobalStyleSheet} from '../constants/StyleSheet';
@@ -64,12 +63,12 @@ const MenuItems = [
   //   name: 'Profile',
   //   navigate: 'Profile',
   // },
-  // {
-  //   id: '9',
-  //   icon: IMAGES.logout,
-  //   name: 'Logout',
-  //   navigate: 'WelCome',
-  // },
+  {
+    id: '9',
+    icon: IMAGES.logout,
+    name: 'Logout',
+    navigate: 'WelCome',
+  },
 ];
 
 const DrawerMenu = ({navigation}: any) => {
@@ -78,7 +77,7 @@ const DrawerMenu = ({navigation}: any) => {
 
   const {colors}: {colors: any} = theme;
 
-  const [active, setactive] = useState(MenuItems[0]);
+  // const [active, setactive] = useState(MenuItems[0]);
 
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>

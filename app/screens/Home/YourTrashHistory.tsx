@@ -2,11 +2,8 @@ import React from 'react';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {COLORS, FONTS} from '../../constants/theme';
-import {useTheme} from 'react-native-paper';
 
 export default function YourTrashHistory() {
-  const theme = useTheme();
-  const {colors}: {colors: any} = theme;
   return (
     <View
       style={[

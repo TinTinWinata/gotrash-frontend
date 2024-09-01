@@ -14,6 +14,7 @@ import {GlobalStyleSheet} from '../../../constants/StyleSheet';
 
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
+import {Text} from 'react-native';
 
 const home = require('../../../assets/images/icons/home.png');
 const profile = require('../../../assets/images/icons/user3.png');
@@ -21,7 +22,7 @@ const group = require('../../../assets/images/icons/send.png');
 const map = require('../../../assets/images/icons/map.png');
 const market = require('../../../assets/images/icons/producta.png');
 
-const NO_NEED_EXTRA_GAP_SCREEN = new Set(['TrashMap']);
+const NO_NEED_EXTRA_GAP_SCREEN = new Set(['Location']);
 
 const CustomNavigation = ({
   state,
@@ -208,7 +209,7 @@ function Item({index, route, state, navigation, descriptors}: ItemProps) {
             source={
               label === 'Home'
                 ? home
-                : label === 'TrashMap'
+                : label === 'Location'
                 ? map
                 : label === 'Store'
                 ? market
@@ -220,7 +221,11 @@ function Item({index, route, state, navigation, descriptors}: ItemProps) {
             }
           />
         </Animated.View>
-        {/* <Text style={[styles.navText,{color:colors.title,opacity:isFocused ? 0 : 1}]}>{label}</Text> */}
+        {!isFocused && (
+          <Text style={[styles.navText, {color: '#454545', opacity: 0.5}]}>
+            {label}
+          </Text>
+        )}
       </TouchableOpacity>
     </View>
   );

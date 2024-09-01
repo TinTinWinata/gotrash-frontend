@@ -13,7 +13,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import RangeSlider from '../../components/RangeSlider';
 import {useGoTrash} from '../../contexts/gotrashContext';
-import {REWARDS_MAP} from '../../constants/reward';
+import {REWARDS_CATEGORY_DATA, REWARDS_MAP} from '../../constants/reward';
 import {Reward} from '../../types/reward';
 import {getImageSource} from '../../utils/objectUtils';
 
@@ -115,9 +115,13 @@ const ProductsDetails = ({navigation, route}: ProductsDetailsScreenProps) => {
               ]}>
               {reward?.description}
             </Text>
-            <View style={{marginTop: -40, marginBottom: 10}}>
-              <RangeSlider />
-            </View>
+            {reward?.isNeedSize ? (
+              <View style={{marginTop: -40, marginBottom: 10}}>
+                <RangeSlider />
+              </View>
+            ) : (
+              <View style={{height: 20}} />
+            )}
             <View style={[GlobalStyleSheet.flex, {paddingVertical: 15}]}>
               <View
                 style={{

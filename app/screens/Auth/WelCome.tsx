@@ -13,6 +13,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import Divider from '../../components/Dividers/Divider';
 import {useGoTrash} from '../../contexts/gotrashContext';
 import useLoader from '../../contexts/loaderContext';
+import {ColorProperties} from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
+import LottieView from 'lottie-react-native';
 
 type WelComeScreenProps = StackScreenProps<RootStackParamList, 'WelCome'>;
 
@@ -23,7 +25,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
   const {setIsLoading} = useLoader();
 
   return (
-    <View style={{flex: 1, backgroundColor: colors.card}}>
+    <View style={{flex: 1, backgroundColor: '#FFFFE9'}}>
       {/* <Image style={styles.welcomeimage} source={IMAGES.welcome} /> */}
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View
@@ -31,7 +33,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
             GlobalStyleSheet.container,
             {padding: 0, marginTop: 60, flex: 1},
           ]}>
-          <Image
+          {/* <Image
             style={{
               height: undefined,
               width: '100%',
@@ -39,18 +41,33 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
               zIndex: 99,
             }}
             source={IMAGES.welcome2}
+          /> */}
+        </View>
+        <View style={{position: 'relative', height: 400}}>
+          <LottieView
+            source={require('../../assets/lotties/login.json')}
+            style={{
+              position: 'absolute',
+              left: 0,
+              bottom: 0,
+              width: '100%',
+              height: '70%',
+              marginHorizontal: 'auto',
+            }}
+            autoPlay
+            loop
           />
         </View>
-        <LinearGradient colors={['rgba(4,118,78,0)', 'rgba(4,118,78,.5)']}>
+        <View style={{backgroundColor: COLORS.primary}}>
           <View
             style={[
               GlobalStyleSheet.container,
               {paddingHorizontal: 35, paddingBottom: 50},
             ]}>
-            <Text style={[styles.title, {color: colors.title}]}>
+            {/* <Text style={[styles.title, {color: colors.title}]}>
               Login With Your Preferred Account
-            </Text>
-            <View style={{marginBottom: 2}}>
+            </Text> */}
+            {/* <View style={{marginBottom: 2}}>
               <SocialBtn
                 text="Login with email"
                 color={COLORS.primary}
@@ -62,9 +79,15 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                 border={COLORS.primary}
                 onpress={() => navigation.navigate('SignIn')}
               />
-            </View>
-            <Divider dashed color={COLORS.label} style={{opacity: 0.3}} />
-            <View style={{marginBottom: 10}}>
+            </View> */}
+            <Divider
+              dashed
+              color={COLORS.white}
+              style={{
+                opacity: 0.75,
+              }}
+            />
+            <View style={{marginBottom: 5, marginTop: 40}}>
               <SocialBtn
                 onpress={async () => {
                   setIsLoading(true);
@@ -72,15 +95,25 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                   setIsLoading(false);
                   navigation.navigate('DrawerNavigation', {screen: 'Home'});
                 }}
-                text="Login with Guest"
-                color={'#ff6900'}
-                textcolor={COLORS.card}
+                border={COLORS.white}
+                color={COLORS.white}
+                textcolor={COLORS.primary}
+                text="Login as Guest"
                 rounded
-                icon={<FontAwesome name="user" size={22} color={COLORS.card} />}
-                border={'#ff6900'}
+                // icon={<FontAwesome name="user" size={22} color={COLORS.card} />}
               />
+              <Text
+                onPress={() => navigation.navigate('Onboarding')}
+                style={{
+                  ...FONTS.fontSemiBold,
+                  color: 'white',
+                  textAlign: 'center',
+                  marginTop: 10,
+                }}>
+                Back to Onboarding
+              </Text>
             </View>
-            <View>
+            {/* <View>
               <SocialBtn
                 text="Login with Google"
                 color={COLORS.card}
@@ -93,9 +126,9 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                   />
                 }
               />
-            </View>
+            </View> */}
           </View>
-        </LinearGradient>
+        </View>
       </ScrollView>
     </View>
   );

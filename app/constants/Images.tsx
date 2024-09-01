@@ -68,6 +68,8 @@ export const IMAGES = {
   logout: require('../assets/images/icons/logout.png'),
   call: require('../assets/images/icons/call.png'),
   happy: require('../assets/images/icons/happy.png'),
+  launchScreen: require('../assets/images/launch_screen.png'),
+  icLauncher: require('../assets/images/ic_launcher.png'),
   send: require('../assets/images/icons/send.png'),
   volume: require('../assets/images/icons/volume.png'),
   phone: require('../assets/images/icons/phone.png'),
@@ -183,6 +185,8 @@ export const IMAGES = {
   topRewards3: require('../assets/images/top_rewards/3.png'),
   topRewards4: require('../assets/images/top_rewards/4.png'),
   topRewards5: require('../assets/images/top_rewards/5.png'),
+
+  rewardOther1: require('../assets/images/rewards_other/1.jpg'),
 
   rewards1: require('../assets/images/rewards/1.jpg'),
   rewards2: require('../assets/images/rewards/2.jpg'),
