@@ -2,7 +2,7 @@ import React from 'react';
 // import * as React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import BottomNavigation from './BottomNavigation';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import DrawerMenu from '../layout/DrawerMenu';
 

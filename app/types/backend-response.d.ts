@@ -6,6 +6,8 @@ export type BackendResponse<T> = {
 };
 
 export type BackendData = {
-  createdAt: string;
-  updatedAt: string;
+  id?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  version?: number;
 };

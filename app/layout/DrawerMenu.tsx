@@ -68,7 +68,7 @@ const MenuItems = [
     id: '9',
     icon: IMAGES.logout,
     name: 'Logout',
-    navigate: 'SignIn',
+    navigate: 'WelCome',
   },
 ];
 
@@ -186,7 +186,7 @@ const DrawerMenu = ({navigation}: any) => {
         </View>
         <View style={{paddingVertical: 15, paddingHorizontal: 10}}>
           <Text style={{...FONTS.fontMedium, fontSize: 16, color: '#868686'}}>
-            Ombe Coffee App
+            GoTrash Coffee App
           </Text>
           <Text style={{...FONTS.fontMedium, fontSize: 12, color: '#B1B1C3'}}>
             App Version 1.0.0

@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {COLORS, FONTS} from '../../constants/theme';
+import {convertToPascalCase} from '../../utils/stringUtils';
 
 type Props = {
   title: string;
@@ -43,7 +44,7 @@ const Button = ({title, onPress, color, style, size, text}: Props) => {
             color && {color: COLORS.white},
             text && {color: text},
           ]}>
-          {title}
+          {convertToPascalCase(title, ' ')}
         </Text>
       </View>
     </TouchableOpacity>
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     lineHeight: 24,
-    textTransform: 'uppercase',
   },
 });
 

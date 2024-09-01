@@ -5,7 +5,6 @@ import {
 } from '@react-navigation/stack';
 import {RootStackParamList} from './RootStackParamList';
 import {View} from 'react-native';
-import {useTheme} from '@react-navigation/native';
 
 // import Demo from '../screens/Home/Demo';
 // import Onboarding from '../screens/Auth/Onboarding';
@@ -59,12 +58,11 @@ import SwipeableScreen from '../screens/Components/Swipeable';
 import Tabs from '../screens/Components/Tabs';
 import Tables from '../screens/Components/Tables';
 import Toggles from '../screens/Components/Toggles';
+import AddGroup from '../screens/Group/AddGroup';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator = () => {
-  const theme = useTheme();
-
   return (
     <View style={{width: '100%', flex: 1}}>
       <Stack.Navigator
@@ -104,7 +102,7 @@ const StackNavigator = () => {
         <Stack.Screen name="Singlechat" component={Singlechat} />
         <Stack.Screen name="Call" component={Call} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
-
+        <Stack.Screen name="AddGroup" component={AddGroup} />
         <Stack.Screen name="Components" component={Components} />
         <Stack.Screen name="Accordion" component={AccordionScreen} />
         <Stack.Screen name="BottomSheet" component={BottomSheet} />

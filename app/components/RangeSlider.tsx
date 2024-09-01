@@ -50,23 +50,25 @@ const RangeSlider = () => {
               {color: colors.title, opacity: 0.5},
               value === 0 && {...FONTS.fontSemiBold, opacity: 1},
             ]}>
-            Small
+            M
           </Text>
           <Text
             style={[
               styles.title,
               {color: colors.title, opacity: 0.5},
               value === 1 && {...FONTS.fontSemiBold, opacity: 1},
+              {marginLeft: 20},
             ]}>
-            Medium
+            L
           </Text>
           <Text
             style={[
               styles.title,
               {color: colors.title, opacity: 0.5},
               value === 2 && {...FONTS.fontSemiBold, opacity: 1},
+              {marginLeft: 15},
             ]}>
-            Large
+            XL
           </Text>
           <Text
             style={[
@@ -74,7 +76,7 @@ const RangeSlider = () => {
               {color: colors.title, opacity: 0.5},
               value === 3 && {...FONTS.fontSemiBold, opacity: 1},
             ]}>
-            Xtra Large
+            XXL
           </Text>
         </View>
       </View>

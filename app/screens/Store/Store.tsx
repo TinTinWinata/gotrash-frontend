@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import {
   View,
@@ -19,101 +19,49 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import {addToCart} from '../../redux/reducer/cartReducer';
 import CategoryCart from '../../components/CategoryCart';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-
-const CardStyleData = [
-  {
-    id: '5',
-    image: IMAGES.item1,
-    title: 'Hot Creamy Cappuccino Latte Ombe',
-    price: '$12.6',
-    brand: 'Coffee',
-  },
-  {
-    id: '6',
-    image: IMAGES.item2,
-    title: 'Hot Cappuccino Latte with Mocha',
-    price: '$13.6',
-    brand: 'Coffee',
-  },
-  {
-    id: '7',
-    image: IMAGES.item3,
-    title: 'Sweet Lemon Indonesian Tea',
-    price: '$51.6',
-    brand: 'Tea, Lemon',
-  },
-  {
-    id: '8',
-    image: IMAGES.item13,
-    title: 'Arabica Latte Ombe Coffee',
-    price: '$51.6',
-    brand: 'Coffee',
-  },
-  {
-    id: '9',
-    image: IMAGES.item14,
-    title: 'Original Latte Ombe Hot Coffee ',
-    price: '$51.6',
-    brand: 'Coffee',
-  },
-];
-
-const FirstRoute = () => (
-  <ScrollView
-    contentContainerStyle={{paddingBottom: 20, marginTop: 10}}
-    showsVerticalScrollIndicator={false}>
-    <CategoryCart data={CardStyleData} />
-  </ScrollView>
-);
-
-const SecondRoute = () => (
-  <ScrollView
-    contentContainerStyle={{paddingBottom: 20, marginTop: 10}}
-    showsVerticalScrollIndicator={false}>
-    <CategoryCart data={CardStyleData} />
-  </ScrollView>
-);
-const ThreeRoute = () => (
-  <ScrollView
-    contentContainerStyle={{paddingBottom: 20, marginTop: 10}}
-    showsVerticalScrollIndicator={false}>
-    <CategoryCart data={CardStyleData} />
-  </ScrollView>
-);
-
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  Three: ThreeRoute,
-});
+import {
+  REWARDS_CATEGORY_DATA,
+  REWARDS_CATEGORY_MAP,
+  TOP_REWARDS_CATEGORY_DATA,
+} from '../../constants/reward';
 
 type StoreScreenProps = StackScreenProps<RootStackParamList, 'Store'>;
 
-const Store = ({navigation}: StoreScreenProps) => {
-  const dispatch = useDispatch();
+type Route = {
+  key: string;
+  title: string;
+};
 
+const Store = ({navigation}: StoreScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-
-  const sheetRef = useRef<any>(null);
-
-  const addItemToCart = (data: any) => {
-    dispatch(addToCart(data));
-  };
 
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
 
-  const [routes] = React.useState([
-    {key: 'first', title: 'Breverages'},
-    {key: 'second', title: 'Brewed Coffee'},
-    {key: 'Three', title: 'Blended Coffee'},
-  ]);
+  const [routes] = useState<Route[]>(
+    REWARDS_CATEGORY_DATA.map(data => ({key: data.name, title: data.name})),
+  );
+
+  const renderScene = ({route}: {route: Route}) => {
+    const rewards = REWARDS_CATEGORY_MAP[route.key];
+    return (
+      <ScrollView
+        contentContainerStyle={{paddingBottom: 20, marginTop: 10}}
+        showsVerticalScrollIndicator={false}>
+        <CategoryCart data={rewards} />
+      </ScrollView>
+    );
+  };
 
   return (
     <SafeAreaView style={{backgroundColor: colors.card, flex: 1}}>
-      <Header title="Store" leftIcon="back" rightIcon3={'cart'} />
+      <Header
+        title="Store"
+        leftIcon="back"
+        rightChildren={<View style={{width: 50}} />}
+      />
       <View
         style={[
           GlobalStyleSheet.container,
@@ -126,7 +74,7 @@ const Store = ({navigation}: StoreScreenProps) => {
         ]}>
         <View>
           <TextInput
-            placeholder="Search Best items for You"
+            placeholder="Cari yang terbaik untuk kamu"
             style={[
               styles.TextInput,
               {color: COLORS.title, backgroundColor: '#FAFAFA'},

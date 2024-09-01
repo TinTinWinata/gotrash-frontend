@@ -17,7 +17,7 @@ const cardData = [
   {
     id: '0',
     image: IMAGES.item1,
-    title: 'Hot Creamy Cappuccino Latte Ombe',
+    title: 'Hot Creamy Cappuccino Latte GoTrash',
     price: '$12.6',
     brand: 'Coffee',
   },
@@ -38,14 +38,14 @@ const cardData = [
   {
     id: '3',
     image: IMAGES.item13,
-    title: 'Arabica Latte Ombe Coffee',
+    title: 'Arabica Latte GoTrash Coffee',
     price: '$51.6',
     brand: 'Coffee',
   },
   {
     id: '4',
     image: IMAGES.item14,
-    title: 'Original Latte Ombe Hot Coffee ',
+    title: 'Original Latte GoTrash Hot Coffee ',
     price: '$51.6',
     brand: 'Coffee',
   },

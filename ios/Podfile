@@ -14,7 +14,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'ombe' do
+target 'gotrash' do
   config = use_native_modules!
 
   permissions_path = '../node_modules/react-native-permissions/ios'
@@ -26,7 +26,7 @@ target 'ombe' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'ombeTests' do
+  target 'gotrashTests' do
     inherit! :complete
     # Pods for testing
   end

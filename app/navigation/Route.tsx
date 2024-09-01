@@ -10,6 +10,8 @@ import themeContext from '../contexts/themeContext';
 import {COLORS} from '../constants/theme';
 import StackNavigator from './StackNavigator';
 import useBLE from '../hooks/useBLE';
+import GoTrashProvider from '../providers/gotrashProvider';
+import LoaderProvider from '../providers/loaderProvider';
 
 const Route = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -60,7 +62,11 @@ const Route = () => {
     <SafeAreaProvider>
       <themeContext.Provider value={authContext}>
         <NavigationContainer theme={theme}>
-          <StackNavigator />
+          <LoaderProvider>
+            <GoTrashProvider>
+              <StackNavigator />
+            </GoTrashProvider>
+          </LoaderProvider>
         </NavigationContainer>
       </themeContext.Provider>
     </SafeAreaProvider>

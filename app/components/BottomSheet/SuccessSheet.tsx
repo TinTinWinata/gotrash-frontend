@@ -5,7 +5,11 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import {COLORS, FONTS} from '../../constants/theme';
 
-const SuccessSheet = () => {
+type SuccessSheetProps = {
+  text?: string;
+};
+
+const SuccessSheet = ({text = ''}: SuccessSheetProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
 
@@ -13,16 +17,17 @@ const SuccessSheet = () => {
     <View
       style={{
         alignItems: 'center',
-        paddingHorizontal: 35,
-        paddingVertical: 20,
+        paddingHorizontal: 0,
+        height: '100%',
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
         backgroundColor: theme.dark ? 'rgba(255,255,255,.1)' : colors.card,
       }}>
       <View
         style={{
           alignItems: 'center',
           justifyContent: 'center',
-          marginBottom: 15,
-          marginTop: 10,
         }}>
         <View
           style={{
@@ -51,7 +56,7 @@ const SuccessSheet = () => {
         Congratulations!
       </Text>
       <Text style={{...FONTS.font, color: colors.text, textAlign: 'center'}}>
-        Your Order Successfully Delivered
+        {text}
       </Text>
     </View>
   );

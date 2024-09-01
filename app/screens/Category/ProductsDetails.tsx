@@ -1,5 +1,5 @@
-import {useTheme} from '@react-navigation/native';
-import React from 'react';
+import {RouteProp, useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {IMAGES} from '../../constants/Images';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
@@ -9,56 +9,61 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {ScrollView} from 'react-native-gesture-handler';
 import CheckoutItems from '../../components/CheckoutItems';
-import {useDispatch} from 'react-redux';
-import {addToCart} from '../../redux/reducer/cartReducer';
-import Swiper from 'react-native-swiper';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import RangeSlider from '../../components/RangeSlider';
-
-const ItemImages = [IMAGES.item4, IMAGES.item5, IMAGES.item6];
+import {useGoTrash} from '../../contexts/gotrashContext';
+import {REWARDS_MAP} from '../../constants/reward';
+import {Reward} from '../../types/reward';
+import {getImageSource} from '../../utils/objectUtils';
 
 type ProductsDetailsScreenProps = StackScreenProps<
   RootStackParamList,
   'ProductsDetails'
->;
+> & {
+  route: RouteProp<RootStackParamList, 'ProductsDetails'>;
+};
 
-const ProductsDetails = ({navigation}: ProductsDetailsScreenProps) => {
+const ProductsDetails = ({navigation, route}: ProductsDetailsScreenProps) => {
   const theme = useTheme();
+  const {id} = route.params;
   const {colors}: {colors: any} = theme;
+  const {getRewardById, setChoosedReward} = useGoTrash();
+  const [reward, setReward] = useState<Reward>();
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const dispatch = useDispatch();
-
-  const addItemToCart = () => {
-    dispatch(
-      addToCart({
-        id: '15',
-        image: IMAGES.item11,
-        title: 'Hot Creamy Cappuccino Latte Ombe',
-        price: '$12.6',
-        brand: 'Coffee',
-      } as any),
-    );
-  };
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        if (REWARDS_MAP[id]) {
+          setReward(REWARDS_MAP[id]);
+        } else {
+          const data = await getRewardById(id);
+          setReward(data);
+        }
+      }
+    })();
+  }, [id]);
 
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={[styles.imagecard]}>
-          <Swiper showsPagination={false} loop={false}>
-            {ItemImages.map((data, index) => (
-              <View key={index}>
-                <Image
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                    resizeMode: 'contain',
-                  }}
-                  source={data}
-                />
-              </View>
-            ))}
-          </Swiper>
+          {/* <Swiper showsPagination={false} loop={false}> */}
+          <View>
+            {getImageSource(reward?.imageUrl!) && (
+              <Image
+                style={{
+                  borderRadius: 0,
+                  height: '100%',
+                  width: '100%',
+                  // resizeMode: 'contain',
+                }}
+                source={getImageSource(reward?.imageUrl!)}
+              />
+            )}
+          </View>
+          {/* </Swiper> */}
           <View style={[styles.toparre]}>
             <TouchableOpacity
               onPress={() => navigation.goBack()}
@@ -67,25 +72,6 @@ const ProductsDetails = ({navigation}: ProductsDetailsScreenProps) => {
                 {backgroundColor: 'rgba(246,246,246,.3)'},
               ]}>
               <FeatherIcon size={24} color={COLORS.card} name={'arrow-left'} />
-            </TouchableOpacity>
-            <Text
-              style={{...FONTS.fontSemiBold, fontSize: 20, color: COLORS.card}}>
-              Details
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                addItemToCart();
-                navigation.navigate('MyCart');
-              }}
-              style={[
-                styles.backbtn,
-                {backgroundColor: 'rgba(246,246,246,.3)'},
-              ]}>
-              <FeatherIcon
-                size={20}
-                color={COLORS.card}
-                name={'shopping-cart'}
-              />
             </TouchableOpacity>
           </View>
         </View>
@@ -113,11 +99,11 @@ const ProductsDetails = ({navigation}: ProductsDetailsScreenProps) => {
                   color: COLORS.card,
                   lineHeight: 34,
                 }}>
-                4.5
+                5.0
               </Text>
             </View>
             <Text style={[styles.brandTitle, {color: colors.title}]}>
-              Ice Chocolate Coffee
+              {reward?.name}
             </Text>
             <Text
               style={[
@@ -127,8 +113,7 @@ const ProductsDetails = ({navigation}: ProductsDetailsScreenProps) => {
                   paddingVertical: 15,
                 },
               ]}>
-              “Lorem ipsum dolor sit amet,{'\n'}consectetur adipiscing elit, sed
-              do
+              {reward?.description}
             </Text>
             <View style={{marginTop: -40, marginBottom: 10}}>
               <RangeSlider />
@@ -153,19 +138,24 @@ const ProductsDetails = ({navigation}: ProductsDetailsScreenProps) => {
                       styles.subtitle2,
                       {color: colors.title, lineHeight: 30},
                     ]}>
-                    5.8
+                    {reward?.coin! * quantity}
                   </Text>
                 </View>
                 <Text
                   style={{...FONTS.fontMedium, fontSize: 16, color: '#9A9A9A'}}>
-                  $8.0
+                  coins
                 </Text>
               </View>
               <View>
-                <CheckoutItems productList={true} />
+                <CheckoutItems
+                  onChangeQuantity={i => {
+                    setQuantity(i);
+                  }}
+                  productList={true}
+                />
               </View>
             </View>
-            <Text
+            {/* <Text
               style={{
                 ...FONTS.fontLight,
                 fontSize: 12,
@@ -174,14 +164,17 @@ const ProductsDetails = ({navigation}: ProductsDetailsScreenProps) => {
               }}>
               *)Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
               tempor incididunt ut labore
-            </Text>
+            </Text> */}
           </View>
         </View>
       </ScrollView>
       <View style={[GlobalStyleSheet.container, {paddingTop: 0}]}>
         <Button
-          onPress={() => navigation.navigate('DeliveryAddress')}
-          title="Place order"
+          onPress={() => {
+            navigation.navigate('DeliveryAddress');
+            setChoosedReward(reward!);
+          }}
+          title="Beli Sekarang"
           color={COLORS.primary}
           text={COLORS.card}
           style={{borderRadius: 50}}
@@ -206,7 +199,6 @@ const styles = StyleSheet.create({
   imagecard: {
     width: '100%',
     height: SIZES.height / 2,
-    paddingTop: 60,
     backgroundColor: COLORS.primary,
     paddingBottom: 30,
   },

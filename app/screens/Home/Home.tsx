@@ -5,14 +5,12 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  TextInput,
   StyleSheet,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {IMAGES} from '../../constants/Images';
 import {COLORS, FONTS} from '../../constants/theme';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useDispatch} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -20,105 +18,17 @@ import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {addTowishList} from '../../redux/reducer/wishListReducer';
 import ImageSwiper from '../../components/ImageSwiper';
 import Cardstyle4 from '../../components/Card/Cardstyle4';
-import {useGoTrash} from '../../contexts/gotrash-context';
-import {convertToPascalCase} from '../../utils/stringUtils';
+import {useGoTrash} from '../../contexts/gotrashContext';
+import {convertToPascalCase, formatNumber} from '../../utils/stringUtils';
 import YourTrashHistory from './YourTrashHistory';
-
-const ArrivalData = [
-  {
-    id: '1',
-    title: 'Beverages',
-    subtitle: '41 Menus',
-    image: IMAGES.cup,
-  },
-  {
-    id: '2',
-    title: 'Foods',
-    subtitle: '37 Menus',
-    image: IMAGES.hamburger,
-  },
-  {
-    id: '3',
-    title: 'Beverages',
-    subtitle: '41 Menus',
-    image: IMAGES.cup,
-  },
-  {
-    id: '4',
-    title: 'Foods',
-    subtitle: '37 Menus',
-    image: IMAGES.hamburger,
-  },
-];
-
-const CardStyleData = [
-  {
-    id: '0',
-    image: IMAGES.item1,
-    title: 'Hot Creamy Cappuccino Latte Ombe',
-    price: '$12.6',
-    countnumber: '50 Pts',
-  },
-  {
-    id: '1',
-    image: IMAGES.item2,
-    title: 'Creamy Mocha Ome Coffee',
-    price: '$13.6',
-    countnumber: '50 Pts',
-  },
-  {
-    id: '2',
-    image: IMAGES.item3,
-    title: 'Original Latte Ombe Hot Coffee',
-    price: '$12.6',
-    countnumber: '50 Pts',
-  },
-];
-
-const SwiperData = [
-  {
-    id: '1',
-    image: IMAGES.item11,
-    title: 'Creamy Ice Coffe',
-    price: '5.8',
-    discount: '$8.0',
-  },
-  {
-    id: '2',
-    image: IMAGES.item12,
-    title: 'Creamy Ice Coffe',
-    price: '5.8',
-    discount: '$8.0',
-  },
-  {
-    id: '3',
-    image: IMAGES.item11,
-    title: 'Creamy Ice Coffe',
-    price: '5.8',
-    discount: '$8.0',
-  },
-  {
-    id: '4',
-    image: IMAGES.item12,
-    title: 'Creamy Ice Coffe',
-    price: '5.8',
-    discount: '$8.0',
-  },
-  {
-    id: '5',
-    image: IMAGES.item11,
-    title: 'Creamy Ice Coffe',
-    price: '5.8',
-    discount: '$8.0',
-  },
-  {
-    id: '6',
-    image: IMAGES.item12,
-    title: 'Creamy Ice Coffe',
-    price: '5.8',
-    discount: '$8.0',
-  },
-];
+import {
+  REWARDS_CATEGORY_DATA,
+  TOP_REWARDS_CATEGORY_DATA,
+} from '../../constants/reward';
+import {Reward} from '../../types/reward';
+import {RewardCategory} from '../../types/reward-category';
+import Button from '../../components/Button/Button';
+import useLoader from '../../contexts/loaderContext';
 
 type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
 
@@ -126,6 +36,8 @@ export const Home = ({navigation}: HomeScreenProps) => {
   // const wishList = useSelector((state:any) => state.wishList.wishList);
   // console.log(wishList);
 
+  const {setIsLoading} = useLoader();
+  const {seedRewardAndCategory} = useGoTrash();
   const {user} = useGoTrash();
   const dispatch = useDispatch();
 
@@ -194,6 +106,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.5}
+                // @ts-ignore
                 onPress={() => navigation.openDrawer()}
                 style={[GlobalStyleSheet.background3, {}]}>
                 <Image
@@ -251,7 +164,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
         </View>
         <View style={{alignItems: 'center'}}>
           <View style={[GlobalStyleSheet.container, {padding: 0}]}>
-            <ImageSwiper data={SwiperData} />
+            <ImageSwiper data={TOP_REWARDS_CATEGORY_DATA} />
           </View>
         </View>
 
@@ -287,7 +200,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                   marginRight: 10,
                   marginBottom: 20,
                 }}>
-                {ArrivalData.map((data: any, index) => {
+                {REWARDS_CATEGORY_DATA.map((data: RewardCategory, index) => {
                   return (
                     <TouchableOpacity
                       activeOpacity={0.8}
@@ -310,10 +223,11 @@ export const Home = ({navigation}: HomeScreenProps) => {
                           GlobalStyleSheet.flexcenter,
                           {gap: 20, justifyContent: 'flex-start'},
                         ]}>
-                        <Image
+                        <Text style={{color: COLORS.primary}}>{data.icon}</Text>
+                        {/* <Image
                           style={[GlobalStyleSheet.image3]}
                           source={data.image}
-                        />
+                        /> */}
                         <View>
                           <Text
                             style={{
@@ -321,7 +235,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                               fontSize: 16,
                               color: colors.title,
                             }}>
-                            {data.title}
+                            {data.name}
                           </Text>
                           <Text
                             style={{
@@ -329,7 +243,7 @@ export const Home = ({navigation}: HomeScreenProps) => {
                               fontSize: 14,
                               color: COLORS.primary,
                             }}>
-                            {data.subtitle}
+                            {data.rewards.length} items available
                           </Text>
                         </View>
                       </View>
@@ -366,21 +280,37 @@ export const Home = ({navigation}: HomeScreenProps) => {
           </View>
         </View>
         <View style={[GlobalStyleSheet.container, {paddingHorizontal: 30}]}>
-          {CardStyleData.map((data: any, index: any) => {
+          {REWARDS_CATEGORY_DATA[0].rewards.map((data: Reward, index: any) => {
             return (
               <View key={index} style={{marginBottom: 40}}>
                 <Cardstyle4
-                  id={data.id}
-                  image={data.image}
-                  price={data.price}
-                  countnumber={data.countnumber}
-                  title={data.title}
-                  onPress={() => navigation.navigate('ProductsDetails')}
+                  brand="GoTrash"
+                  product={true}
+                  id={data.id || ''}
+                  image={data.imageUrl}
+                  onPress2={() =>
+                    navigation.navigate('ProductsDetails', {id: data.id!})
+                  }
+                  price={formatNumber(data.coin)}
+                  title={data.name}
+                  onPress={() =>
+                    navigation.navigate('ProductsDetails', {id: data.id!})
+                  }
                   onPress5={() => addItemToWishList(data)}
                 />
               </View>
             );
           })}
+          {/* !DO NOT USE THIS BUTTON IN PRODUCTION! */}
+          {/* <Button
+            style={{marginBottom: 20}}
+            title="Seed Reward and Category"
+            onPress={async () => {
+              setIsLoading(true);
+              await seedRewardAndCategory();
+              setIsLoading(false);
+            }}
+          /> */}
         </View>
       </ScrollView>
     </View>

@@ -17,29 +17,10 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button/Button';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
-
-const saveData = [
-  {
-    image: IMAGES.Home4,
-    title: 'Home Address',
-    text: '123 Main Street, Anytown, USA 12345',
-  },
-  {
-    image: IMAGES.map,
-    title: 'Office Address',
-    text: '456 Elm Avenue, Smallville, CA 98765',
-  },
-  {
-    image: IMAGES.Home4,
-    title: 'Home Address',
-    text: '789 Maple Lane, Suburbia, NY 54321',
-  },
-  {
-    image: IMAGES.shop,
-    title: 'Shop Address',
-    text: '654 Pine Road, Countryside, FL 34567',
-  },
-];
+import {getImageSource} from '../../utils/objectUtils';
+import {ADDRESS_IMAGES} from '../../constants/address';
+import {useGoTrash} from '../../contexts/gotrashContext';
+import useLoader from '../../contexts/loaderContext';
 
 type DeliveryAddressScreenProps = StackScreenProps<
   RootStackParamList,
@@ -49,8 +30,16 @@ type DeliveryAddressScreenProps = StackScreenProps<
 const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-
-  const [isChecked, setIsChecked] = useState(saveData[0]);
+  const {successLoading} = useLoader();
+  const {addresses, removeAddress, choosedReward, addOrder} = useGoTrash();
+  const [isChecked, setIsChecked] = useState<number>(0);
+  const handleSubmit = () => {
+    navigation.navigate('Myorder');
+    if (choosedReward) {
+      addOrder(choosedReward);
+    }
+    successLoading('Your reward has been placed! We will deliver it soon!');
+  };
 
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
@@ -63,11 +52,11 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View
           style={[GlobalStyleSheet.container, {paddingTop: 5, marginTop: 10}]}>
-          {saveData.map((data, index) => {
+          {addresses?.map((data, index) => {
             return (
               <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={() => setIsChecked(data)}
+                onPress={() => setIsChecked(index)}
                 style={[
                   styles.addresscard,
                   {
@@ -93,7 +82,7 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
                         GlobalStyleSheet.image2,
                         {tintColor: COLORS.title},
                       ]}
-                      source={data.image}
+                      source={getImageSource(ADDRESS_IMAGES[data.title])}
                     />
                   </View>
                   <View style={{flex: 1}}>
@@ -125,7 +114,7 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
                       alignItems: 'center',
                       justifyContent: 'center',
                     },
-                    isChecked === data && {
+                    isChecked === index && {
                       backgroundColor: COLORS.primary,
                     },
                   ]}>
@@ -137,7 +126,7 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
                         backgroundColor: colors.card,
                         borderRadius: 50,
                       },
-                      isChecked === data && {
+                      isChecked === index && {
                         backgroundColor: colors.card,
                       },
                     ]}
@@ -171,6 +160,34 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
             </View>
             <FeatherIcon size={22} color={COLORS.title} name={'arrow-right'} />
           </TouchableOpacity>
+          {/* <TouchableOpacity
+            activeOpacity={0.8}
+            style={[
+              styles.addAddress,
+              {
+                backgroundColor: COLORS.dangerLight,
+              },
+            ]}
+            onPress={() => {
+              for (let i = 0; i < addresses.length; i++) {
+                removeAddress(i);
+              }
+            }}>
+            <View style={{flexDirection: 'row', gap: 10}}>
+              <Image
+                style={[GlobalStyleSheet.image2, {tintColor: COLORS.title}]}
+                source={IMAGES.delete}
+              />
+              <Text
+                style={{
+                  ...FONTS.fontRegular,
+                  fontSize: 14,
+                  color: COLORS.title,
+                }}>
+                Remove All Addresses
+              </Text>
+            </View>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
       <View style={[GlobalStyleSheet.container, {}]}>
@@ -178,7 +195,7 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
           title="Continue"
           color={COLORS.primary}
           text={COLORS.card}
-          onPress={() => navigation.navigate('Payment')}
+          onPress={handleSubmit}
           style={{borderRadius: 48}}
         />
       </View>

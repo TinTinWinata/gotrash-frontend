@@ -8,7 +8,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 type Props = {
   title?: string;
-  leftIcon?: string;
+  leftIcon?: string | React.ReactNode;
   leftAction?: any;
   transparent?: any;
   productId?: string;
@@ -19,6 +19,7 @@ type Props = {
   rightIcon2?: any;
   rightIcon3?: string;
   rightIcon4?: any;
+  rightChildren?: React.ReactNode;
 };
 
 const Header = ({
@@ -34,6 +35,7 @@ const Header = ({
   rightIcon4,
   rightIcon2,
   rightIcon3,
+  rightChildren,
 }: Props) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
@@ -70,12 +72,14 @@ const Header = ({
             justifyContent: 'space-between',
           },
         ]}>
-        {leftIcon === 'back' && (
+        {leftIcon === 'back' ? (
           <TouchableOpacity
             onPress={() => (leftAction ? leftAction() : navigation.goBack())}
             style={[styles.actionBtn, {backgroundColor: '#F6F6F6'}]}>
             <FeatherIcon size={24} color={COLORS.title} name={'arrow-left'} />
           </TouchableOpacity>
+        ) : (
+          leftIcon
         )}
         <View style={{flex: 1}}>
           {productId ? (
@@ -104,6 +108,7 @@ const Header = ({
             </Text>
           )}
         </View>
+        {rightChildren}
         {rightIcon1 == 'search' && (
           <TouchableOpacity
             activeOpacity={0.5}
@@ -113,6 +118,14 @@ const Header = ({
           </TouchableOpacity>
         )}
         {rightIcon2 == 'Edit' && (
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('EditProfile')}
+            style={[styles.actionBtn, {}]}>
+            <FontAwesome size={22} color={colors.title} name={'pencil'} />
+          </TouchableOpacity>
+        )}
+        {rightIcon2 == 'Add' && (
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => navigation.navigate('EditProfile')}

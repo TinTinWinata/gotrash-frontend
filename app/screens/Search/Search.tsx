@@ -22,7 +22,7 @@ const SearchData = [
     title: 'Sweet Lemon Indonesian Tea',
   },
   {
-    title: 'Arabica Latte Ombe Coffee',
+    title: 'Arabica Latte GoTrash Coffee',
   },
   {
     title: 'Original Hot Coffee',

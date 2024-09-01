@@ -22,7 +22,7 @@ const WriteReviewData = [
   {
     id: '40',
     image: IMAGES.item1,
-    title: 'Hot Creamy Cappuccino Latte Ombe',
+    title: 'Hot Creamy Cappuccino Latte GoTrash',
     price: '$12.6',
     brand: 'Coffee',
   },

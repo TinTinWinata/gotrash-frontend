@@ -76,7 +76,7 @@ const Cardstyle4 = ({
             width: '100%',
             backgroundColor: COLORS.primary,
             borderRadius: 22,
-            aspectRatio: 1 / 1.2,
+            aspectRatio: product ? 0.875 : 1,
             alignItems: 'center',
             justifyContent: 'center',
             overflow: 'hidden',
@@ -103,15 +103,16 @@ const Cardstyle4 = ({
           <Text
             style={[
               styles.brandsubtitle3,
-              {fontSize: 16, color: COLORS.card, lineHeight: 34},
+              {fontSize: 16, color: COLORS.card, lineHeight: 35, marginTop: 2},
             ]}>
-            3.8
+            5.0
           </Text>
         </View>
       </View>
       <View
         style={{
           width: '60%',
+          marginTop: 15,
           paddingHorizontal: 20,
           paddingRight: product ? 10 : 0,
         }}>
@@ -135,11 +136,22 @@ const Cardstyle4 = ({
             {brand}
           </Text>
         </View>
-        <View style={[GlobalStyleSheet.flex, {marginTop: Myorder ? 45 : 30}]}>
-          <Text
-            style={{...FONTS.fontSemiBold, fontSize: 18, color: colors.title}}>
-            {price}
-          </Text>
+        <View style={[GlobalStyleSheet.flex, {marginTop: 20}]}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}>
+            <Text
+              style={{
+                ...FONTS.fontSemiBold,
+                fontSize: 18,
+                color: colors.title,
+              }}>
+              {price}
+            </Text>
+            <Text style={{...FONTS.fontRegular, marginTop: -6}}>coins</Text>
+          </View>
           {product ? (
             <TouchableOpacity
               activeOpacity={0.9}
@@ -178,7 +190,9 @@ const Cardstyle4 = ({
               </Text>
             </TouchableOpacity>
           ) : Myorder ? (
-            completed ? (
+            !btntitle ? (
+              <></>
+            ) : completed ? (
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={onPress4}

@@ -157,7 +157,7 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
           ]}>
           <Button
             style={{borderRadius: 52}}
-            title="GET STARTED"
+            title="Get Started"
             onPress={() => navigation.navigate('WelCome')}
           />
         </View>

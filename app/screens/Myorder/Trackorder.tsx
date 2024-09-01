@@ -1,5 +1,5 @@
-import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import {RouteProp, useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -13,39 +13,75 @@ import Header from '../../layout/Header';
 import {COLORS, FONTS} from '../../constants/theme';
 import {IMAGES} from '../../constants/Images';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
+import Geolocation from 'react-native-geolocation-service';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {useGoTrash} from '../../contexts/gotrashContext';
+import {Trashbin} from '../../types/trashbin';
 
-type TrackorderScreenProps = StackScreenProps<RootStackParamList, 'Trackorder'>;
+type TrackorderScreenProps = StackScreenProps<
+  RootStackParamList,
+  'Trackorder'
+> & {
+  route: RouteProp<RootStackParamList, 'Trackorder'>;
+};
 
-const Trackorder = ({navigation}: TrackorderScreenProps) => {
+type Location = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+};
+
+const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
+  const {id} = route.params;
+  const {getTrashbinById} = useGoTrash();
+  const [pickupLocation, setPickupLocation] = useState<Location>();
+  const [dropLocation, setDropLocation] = useState<Location>();
 
-  const [state, setstate] = useState({
-    pickcupCords: {
-      latitude: 23.12028,
-      longitude: 81.30379,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-    droplocationCords: {
-      latitude: 23.05343,
-      longitude: 81.3752,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  });
+  const [data, setData] = useState<Trashbin>();
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        const trashbin = await getTrashbinById(id);
+        if (trashbin) {
+          setData(trashbin);
+          setDropLocation({
+            latitude: trashbin.latitude,
+            longitude: trashbin.longitude,
+            latitudeDelta: 0.75,
+            longitudeDelta: 0.75,
+          });
+        }
+        Geolocation.getCurrentPosition(
+          position => {
+            setPickupLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: 0.75,
+              longitudeDelta: 0.75,
+            });
+          },
+          error => {
+            console.log('Location error:', error);
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
+      }
+    })();
+  }, [id]);
 
-  const GOOGLE_MAPS_APIKEY = 'AIzaSyCmpq6ns1sG4YZY0wiGT6dZwrUV1P4Lfr0';
-
-  const {pickcupCords, droplocationCords} = state;
+  if (!data || !pickupLocation || !dropLocation) {
+    return <></>;
+  }
 
   return (
     <View style={{backgroundColor: colors.backround, flex: 1}}>
       <Header
-        title="Tracking Orders"
+        title="Tracking Trash"
         leftIcon="back"
         titleRight
         //titleLeft
@@ -58,11 +94,11 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
                 <MapView
                   provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                   style={styles.map}
-                  initialRegion={pickcupCords}>
-                  <Marker coordinate={pickcupCords} />
-                  <Marker coordinate={droplocationCords} />
+                  initialRegion={pickupLocation}>
+                  <Marker coordinate={pickupLocation} />
+                  <Marker coordinate={dropLocation} />
                 </MapView>
-                <View
+                {/* <View
                   style={{
                     height: 84,
                     width: 141,
@@ -100,14 +136,14 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
                     }}>
                     5-10 min
                   </Text>
-                </View>
+                </View> */}
               </View>
             </View>
           )}
         </View>
         <View style={[GlobalStyleSheet.container, styles.TrackCard]}>
           <View style={[GlobalStyleSheet.flex, {padding: 30}]}>
-            <View style={{flexDirection: 'row', alignItems: 'center', gap: 20}}>
+            {/* <View style={{flexDirection: 'row', alignItems: 'center', gap: 20}}>
               <Image
                 style={{
                   height: 50,
@@ -129,8 +165,8 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
                   ID 2445556
                 </Text>
               </View>
-            </View>
-            <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+            </View> */}
+            {/* <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Call')}
                 activeOpacity={0.8}
@@ -146,7 +182,7 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
                   source={IMAGES.chat}
                 />
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
           <View
             style={[
@@ -166,7 +202,7 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
                 }}
               />
             </View>
-            <View style={[styles.flex, {marginTop: 5}]}>
+            <View style={[styles.flex, {marginTop: 20}]}>
               <View
                 style={[
                   styles.cardcricle,
@@ -179,17 +215,17 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
                   source={IMAGES.map}
                 />
               </View>
-              <View>
+              <View style={{paddingRight: 80}}>
                 <Text style={[styles.cardtitle, {color: colors.title}]}>
-                  Sweet Corner St.{' '}
+                  {data.name}
                 </Text>
                 <Text style={[styles.cardsubtitle, {color: '#747475'}]}>
-                  SFranklin Avenue 2263
+                  {data.address}
                 </Text>
               </View>
             </View>
             <View style={[styles.trackLine, {borderColor: '#C4C4C4'}]} />
-            <View style={[styles.flex, {marginTop: 40}]}>
+            <View style={[styles.flex, {marginTop: 30}]}>
               <View
                 style={[
                   styles.cardcricle,
@@ -206,10 +242,10 @@ const Trackorder = ({navigation}: TrackorderScreenProps) => {
               </View>
               <View>
                 <Text style={[styles.cardtitle, {color: colors.title}]}>
-                  Ombe Coffee Shop
+                  Your Location
                 </Text>
                 <Text style={[styles.cardsubtitle, {color: '#747475'}]}>
-                  Sent at 08:23 AM
+                  Location
                 </Text>
               </View>
             </View>
@@ -235,7 +271,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderTopLeftRadius: 34,
     borderTopRightRadius: 34,
-    marginTop: -70,
+    marginTop: -40,
   },
   TrackCard2: {
     flex: 1,

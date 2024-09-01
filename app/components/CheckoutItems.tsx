@@ -4,11 +4,16 @@ import {useTheme} from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {COLORS, FONTS} from '../constants/theme';
 
-const CheckoutItems = ({productList}: any) => {
+type CheckoutItemsProps = {
+  productList?: boolean;
+  onChangeQuantity?: (quantity: number) => void;
+};
+
+const CheckoutItems = ({productList, onChangeQuantity}: CheckoutItemsProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
 
-  const [itemQuantity, setItemQuantity] = useState(10);
+  const [itemQuantity, setItemQuantity] = useState(1);
 
   return (
     <View
@@ -23,7 +28,12 @@ const CheckoutItems = ({productList}: any) => {
       }}>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => itemQuantity > 1 && setItemQuantity(itemQuantity - 1)}
+        onPress={() => {
+          if (itemQuantity > 1) {
+            setItemQuantity(itemQuantity - 1);
+            onChangeQuantity && onChangeQuantity(itemQuantity - 1);
+          }
+        }}
         style={{
           height: productList ? 40 : 35,
           width: productList ? 40 : 35,
@@ -58,7 +68,10 @@ const CheckoutItems = ({productList}: any) => {
       </Text>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => setItemQuantity(itemQuantity + 1)}
+        onPress={() => {
+          setItemQuantity(itemQuantity + 1);
+          onChangeQuantity && onChangeQuantity(itemQuantity + 1);
+        }}
         style={{
           height: productList ? 40 : 35,
           width: productList ? 40 : 35,

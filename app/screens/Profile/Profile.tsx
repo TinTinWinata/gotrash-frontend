@@ -1,36 +1,14 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {IMAGES} from '../../constants/Images';
 import {COLORS, FONTS} from '../../constants/theme';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import Header from '../../layout/Header';
-import {useGoTrash} from '../../contexts/gotrash-context';
+import {useGoTrash} from '../../contexts/gotrashContext';
 import {convertToPascalCase} from '../../utils/stringUtils';
-
-const profilecartData = [
-  {
-    id: '1',
-    title: 'Creamy Latte Coffee',
-    subtitle: 'Beverages',
-    image: IMAGES.item15,
-  },
-  {
-    id: '2',
-    title: 'Ombe Ice Coffee Latte',
-    subtitle: 'Beverages',
-    image: IMAGES.item16,
-  },
-];
 
 type ProfileScreenProps = StackScreenProps<RootStackParamList, 'Profile'>;
 
@@ -74,7 +52,7 @@ const Profile = ({navigation}: ProfileScreenProps) => {
           <View style={[styles.sectionimg]}>
             <Image
               style={{height: 104, width: 104}}
-              source={{uri: user?.profileImage}}
+              source={{uri: user?.imageUrl}}
             />
           </View>
           <Text
@@ -135,7 +113,7 @@ const Profile = ({navigation}: ProfileScreenProps) => {
             })}
           </View>
         </View>
-        <View style={[GlobalStyleSheet.container, {padding: 0}]}>
+        {/* <View style={[GlobalStyleSheet.container, {padding: 0}]}>
           <View style={[GlobalStyleSheet.flex, {paddingHorizontal: 30}]}>
             <Text
               style={[
@@ -224,7 +202,7 @@ const Profile = ({navigation}: ProfileScreenProps) => {
               </View>
             </ScrollView>
           </View>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );

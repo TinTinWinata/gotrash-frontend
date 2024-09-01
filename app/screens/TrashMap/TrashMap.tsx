@@ -5,16 +5,24 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {Text} from 'react-native-paper';
 import Geolocation from 'react-native-geolocation-service';
 import {COLORS} from '../../constants/theme';
+import {useGoTrash} from '../../contexts/gotrashContext';
+import {useQuery} from '@tanstack/react-query';
+import {Trashbin} from '../../types/trashbin';
 
 const TrashMap = () => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
+  const {getTrashbins} = useGoTrash();
 
-  // Default location of Jakarlta
-  const [latitude, setLatitude] = useState<number>(-6.2088);
-  const [longitude, setLongitude] = useState<number>(106);
+  // Default location of Jakarta
+  const [latitude, setLatitude] = useState<number>(-6.1983457);
+  const [longitude, setLongitude] = useState<number>(106.7772286);
   const navigation = useNavigation();
   const [locationFetched, setLocationFetched] = useState(false);
+  const {data, isLoading} = useQuery({
+    queryKey: ['trashBins'],
+    queryFn: getTrashbins,
+  });
 
   const getLocation = () => {
     if (!Geolocation) {
@@ -22,7 +30,6 @@ const TrashMap = () => {
     }
     Geolocation.getCurrentPosition(
       position => {
-        console.log('Position : ', position);
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
         setLocationFetched(true);
@@ -66,10 +73,14 @@ const TrashMap = () => {
     requestLocationPermission();
   }, []);
 
-  const handleMarkerPress = () => {
+  const handleMarkerPress = (current: Trashbin) => {
     // @ts-ignore
-    navigation.navigate('Trackorder');
+    navigation.navigate('Trackorder', {id: current.id});
   };
+
+  if (isLoading) {
+    return <></>;
+  }
 
   return (
     <View style={{backgroundColor: colors.background}}>
@@ -78,33 +89,39 @@ const TrashMap = () => {
         initialRegion={{
           latitude,
           longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.55,
+          longitudeDelta: 0.55,
         }}
         provider={PROVIDER_GOOGLE}
-        style={{height: '100%', width: '100%'}}>
-        <Marker
-          coordinate={{latitude: -6.2017585, longitude: 106.6298194}}
-          onPress={handleMarkerPress}
-          // title="Bina Nusantara University"
-          // description="Go Trash"
-        >
-          <View
-            style={{
-              backgroundColor: COLORS.primaryLight,
-              padding: 2.5,
-              borderWidth: 1.5,
-              borderColor: COLORS.primary,
-              borderRadius: 10,
-            }}>
-            <Text
+        style={{
+          height: '100%',
+          width: '100%',
+        }}>
+        {data?.map((trashbin, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: trashbin.latitude,
+              longitude: trashbin.longitude,
+            }}
+            onPress={() => handleMarkerPress(trashbin)}>
+            <View
               style={{
-                fontSize: 20,
+                backgroundColor: COLORS.primaryLight,
+                padding: 2.5,
+                borderWidth: 1.5,
+                borderColor: COLORS.primary,
+                borderRadius: 10,
               }}>
-              🗑️
-            </Text>
-          </View>
-        </Marker>
+              <Text
+                style={{
+                  fontSize: 20,
+                }}>
+                🗑️
+              </Text>
+            </View>
+          </Marker>
+        ))}
       </MapView>
     </View>
   );

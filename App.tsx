@@ -6,8 +6,9 @@ import {StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
 import Route from './app/navigation/Route';
 import store from './app/redux/store';
-import {GoTrashProvider} from './app/provider/gotrash-provider';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
+const queryClient = new QueryClient();
 export default class App extends Component {
   componentDidMount() {
     SplashScreen.hide();
@@ -21,11 +22,11 @@ export default class App extends Component {
             flex: 1,
           }}>
           <StatusBar />
-          <Provider store={store}>
-            <GoTrashProvider>
+          <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
               <Route />
-            </GoTrashProvider>
-          </Provider>
+            </Provider>
+          </QueryClientProvider>
         </SafeAreaView>
       </SafeAreaProvider>
     );

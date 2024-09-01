@@ -108,18 +108,18 @@ const SignIn = ({navigation}: SignInScreenProps) => {
                 },
               ]}>
               <Text style={[styles.text, {color: colors.title}]}>
-                Forgot Password?
+                Want to back?
               </Text>
               <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={() => navigation.navigate('ForgotPassword')}>
+                onPress={() => navigation.navigate('WelCome')}>
                 <Text
                   style={{
                     ...FONTS.fontMedium,
                     fontSize: 14,
                     color: COLORS.primary,
                   }}>
-                  Reset here
+                  Back
                 </Text>
               </TouchableOpacity>
             </View>

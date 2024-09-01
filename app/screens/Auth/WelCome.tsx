@@ -11,7 +11,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Divider from '../../components/Dividers/Divider';
-import {useGoTrash} from '../../contexts/gotrash-context';
+import {useGoTrash} from '../../contexts/gotrashContext';
+import useLoader from '../../contexts/loaderContext';
 
 type WelComeScreenProps = StackScreenProps<RootStackParamList, 'WelCome'>;
 
@@ -19,6 +20,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
   const {guestLogin} = useGoTrash();
+  const {setIsLoading} = useLoader();
 
   return (
     <View style={{flex: 1, backgroundColor: colors.card}}>
@@ -48,7 +50,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
             <Text style={[styles.title, {color: colors.title}]}>
               Login With Your Preferred Account
             </Text>
-            <View style={{marginBottom: 10}}>
+            <View style={{marginBottom: 2}}>
               <SocialBtn
                 text="Login with email"
                 color={COLORS.primary}
@@ -61,11 +63,13 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                 onpress={() => navigation.navigate('SignIn')}
               />
             </View>
-            <Divider dashed color={COLORS.label} />
+            <Divider dashed color={COLORS.label} style={{opacity: 0.3}} />
             <View style={{marginBottom: 10}}>
               <SocialBtn
                 onpress={async () => {
+                  setIsLoading(true);
                   await guestLogin();
+                  setIsLoading(false);
                   navigation.navigate('DrawerNavigation', {screen: 'Home'});
                 }}
                 text="Login with Guest"

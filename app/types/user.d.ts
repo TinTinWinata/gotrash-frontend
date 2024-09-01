@@ -1,10 +1,12 @@
 import {BackendData} from './backend-response';
+import {Group} from './group';
 
 export type User = BackendData & {
   id: number;
   username: string;
   password: string;
   email: string;
-  profileImage: string;
+  imageUrl: string;
   coin: number;
+  group: Group;
 };

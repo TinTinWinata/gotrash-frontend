@@ -10,6 +10,9 @@ import Button from '../../components/Button/Button';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {IMAGES} from '../../constants/Images';
+import {Controller, useForm} from 'react-hook-form';
+import {Address} from '../../types/address';
+import {useGoTrash} from '../../contexts/gotrashContext';
 
 type AddDeliveryAddressScreenProps = StackScreenProps<
   RootStackParamList,
@@ -19,7 +22,7 @@ type AddDeliveryAddressScreenProps = StackScreenProps<
 const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-
+  const {addAddress} = useGoTrash();
   const productSizes = ['Home', 'Shop', 'Office'];
 
   const [activeSize, setActiveSize] = useState(productSizes[0]);
@@ -27,10 +30,17 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
   const [isFocused, setisFocused] = useState(false);
   const [isFocused1, setisFocused1] = useState(false);
   const [isFocused2, setisFocused2] = useState(false);
-  const [isFocused3, setisFocused3] = useState(false);
-  const [isFocused4, setisFocused4] = useState(false);
-  const [isFocused5, setisFocused5] = useState(false);
-  const [isFocused6, setisFocused6] = useState(false);
+
+  const form = useForm<Address>({
+    defaultValues: {
+      title: 'Home Address',
+    },
+  });
+
+  const handleSubmit = (e: Address) => {
+    addAddress(e);
+    navigation.goBack();
+  };
 
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
@@ -61,48 +71,70 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
             Contact Details
           </Text>
           <View style={styles.inputCard}>
-            <Input
-              onFocus={() => setisFocused(true)}
-              onBlur={() => setisFocused(false)}
-              isFocused={isFocused}
-              onChangeText={value => console.log(value)}
-              backround={colors.card}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="Full Name"
-              icon={
-                <Image
-                  source={IMAGES.user2}
-                  style={[
-                    styles.icon,
-                    {tintColor: theme.dark ? COLORS.card : COLORS.title},
-                  ]}
+            <Controller
+              name="contactName"
+              control={form.control}
+              rules={{required: true}}
+              render={({field}) => (
+                <Input
+                  onFocus={() => setisFocused(true)}
+                  onBlur={() => {
+                    setisFocused(false);
+                    field.onBlur();
+                  }}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  isFocused={isFocused}
+                  backround={colors.card}
+                  style={{borderRadius: 48}}
+                  inputicon
+                  placeholder="Full Name"
+                  icon={
+                    <Image
+                      source={IMAGES.user2}
+                      style={[
+                        styles.icon,
+                        {tintColor: theme.dark ? COLORS.card : COLORS.title},
+                      ]}
+                    />
+                  }
                 />
-              }
+              )}
             />
           </View>
-          <View style={{marginBottom: 5}}>
-            <Input
-              onFocus={() => setisFocused1(true)}
-              onBlur={() => setisFocused1(false)}
-              isFocused={isFocused1}
-              backround={colors.card}
-              onChangeText={value => console.log(value)}
-              style={{borderRadius: 48}}
-              keyboardType={'number-pad'}
-              inputicon
-              placeholder="Mobile No."
-              icon={
-                <Image
-                  source={IMAGES.Phoneduotone}
-                  style={[
-                    styles.icon,
-                    {tintColor: theme.dark ? COLORS.card : COLORS.title},
-                  ]}
+          <Controller
+            name="contactPhone"
+            control={form.control}
+            rules={{required: true}}
+            render={({field}) => (
+              <View style={{marginBottom: 5}}>
+                <Input
+                  onFocus={() => setisFocused1(true)}
+                  onBlur={() => {
+                    setisFocused1(false);
+                    field.onBlur();
+                  }}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  isFocused={isFocused1}
+                  backround={colors.card}
+                  style={{borderRadius: 48}}
+                  keyboardType={'number-pad'}
+                  inputicon
+                  placeholder="Mobile No."
+                  icon={
+                    <Image
+                      source={IMAGES.Phoneduotone}
+                      style={[
+                        styles.icon,
+                        {tintColor: theme.dark ? COLORS.card : COLORS.title},
+                      ]}
+                    />
+                  }
                 />
-              }
-            />
-          </View>
+              </View>
+            )}
+          />
         </View>
         <View
           style={[
@@ -122,112 +154,38 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
             ]}>
             Address
           </Text>
-          <View style={styles.inputCard}>
-            <Input
-              onFocus={() => setisFocused2(true)}
-              onBlur={() => setisFocused2(false)}
-              isFocused={isFocused2}
-              onChangeText={value => console.log(value)}
-              backround={colors.card}
-              keyboardType={'number-pad'}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="Pin Code"
-              icon={
-                <Image
-                  source={IMAGES.Pinduotone}
-                  style={[
-                    styles.icon,
-                    {tintColor: theme.dark ? COLORS.card : COLORS.title},
-                  ]}
+          <Controller
+            name="text"
+            control={form.control}
+            rules={{required: true}}
+            render={({field}) => (
+              <View style={styles.inputCard}>
+                <Input
+                  onFocus={() => setisFocused2(true)}
+                  onBlur={() => {
+                    setisFocused2(false);
+                    field.onBlur();
+                  }}
+                  isFocused={isFocused2}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  backround={colors.card}
+                  style={{borderRadius: 48}}
+                  inputicon
+                  placeholder="Address"
+                  icon={
+                    <Image
+                      source={IMAGES.Pinduotone}
+                      style={[
+                        styles.icon,
+                        {tintColor: theme.dark ? COLORS.card : COLORS.title},
+                      ]}
+                    />
+                  }
                 />
-              }
-            />
-          </View>
-          <View style={{marginBottom: 15}}>
-            <Input
-              onFocus={() => setisFocused3(true)}
-              onBlur={() => setisFocused3(false)}
-              isFocused={isFocused3}
-              backround={colors.card}
-              onChangeText={value => console.log(value)}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="Address"
-              icon={
-                <Image
-                  source={IMAGES.Pinduotone}
-                  style={[
-                    styles.icon,
-                    {tintColor: theme.dark ? COLORS.card : COLORS.title},
-                  ]}
-                />
-              }
-            />
-          </View>
-          <View style={{marginBottom: 15}}>
-            <Input
-              onFocus={() => setisFocused4(true)}
-              onBlur={() => setisFocused4(false)}
-              isFocused={isFocused4}
-              backround={colors.card}
-              onChangeText={value => console.log(value)}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="Locality/Town"
-              icon={
-                <Image
-                  source={IMAGES.Pinduotone}
-                  style={[
-                    styles.icon,
-                    {tintColor: theme.dark ? COLORS.card : COLORS.title},
-                  ]}
-                />
-              }
-            />
-          </View>
-          <View style={{marginBottom: 15}}>
-            <Input
-              onFocus={() => setisFocused5(true)}
-              onBlur={() => setisFocused5(false)}
-              isFocused={isFocused5}
-              backround={colors.card}
-              onChangeText={value => console.log(value)}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="City/District"
-              icon={
-                <Image
-                  source={IMAGES.Pinduotone}
-                  style={[
-                    styles.icon,
-                    {tintColor: theme.dark ? COLORS.card : COLORS.title},
-                  ]}
-                />
-              }
-            />
-          </View>
-          <View style={{marginBottom: 10}}>
-            <Input
-              onFocus={() => setisFocused6(true)}
-              onBlur={() => setisFocused6(false)}
-              isFocused={isFocused6}
-              backround={colors.card}
-              onChangeText={value => console.log(value)}
-              style={{borderRadius: 48}}
-              inputicon
-              placeholder="State"
-              icon={
-                <Image
-                  source={IMAGES.Pinduotone}
-                  style={[
-                    styles.icon,
-                    {tintColor: theme.dark ? COLORS.card : COLORS.title},
-                  ]}
-                />
-              }
-            />
-          </View>
+              </View>
+            )}
+          />
         </View>
         <View
           style={[
@@ -256,7 +214,10 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
               return (
                 <TouchableOpacity
                   activeOpacity={0.5}
-                  onPress={() => setActiveSize(data)}
+                  onPress={() => {
+                    setActiveSize(data);
+                    form.setValue('title', `${data} Address`);
+                  }}
                   key={index}
                   style={[
                     {
@@ -293,7 +254,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
           title="Save Address"
           color={COLORS.primary}
           text={COLORS.card}
-          onPress={() => navigation.navigate('DeliveryAddress')}
+          onPress={form.handleSubmit(handleSubmit)}
           style={{borderRadius: 48}}
         />
       </View>

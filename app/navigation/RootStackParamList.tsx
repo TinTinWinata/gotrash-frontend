@@ -30,14 +30,16 @@ export type RootStackParamList = {
   Verification: undefined;
   Call: undefined;
   EditProfile: undefined;
+  AddGroup: undefined;
   Trackorder: undefined;
   Products: undefined;
+  Group: undefined;
   Language: undefined;
   MyCart: undefined;
   Category: undefined;
   Notifications: undefined;
   Questions: undefined;
-  ProductsDetails: undefined;
+  ProductsDetails: {id: string};
   Writereview: undefined;
   Profile: undefined;
   Wishlist: undefined;

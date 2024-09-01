@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "ombe.app"
-               BlueprintName = "ombe"
-               ReferencedContainer = "container:ombe.xcodeproj">
+               BuildableName = "gotrash.app"
+               BlueprintName = "gotrash"
+               ReferencedContainer = "container:gotrash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "ombeTests.xctest"
-               BlueprintName = "ombeTests"
-               ReferencedContainer = "container:ombe.xcodeproj">
+               BuildableName = "gotrashTests.xctest"
+               BlueprintName = "gotrashTests"
+               ReferencedContainer = "container:gotrash.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ombe.app"
-            BlueprintName = "ombe"
-            ReferencedContainer = "container:ombe.xcodeproj">
+            BuildableName = "gotrash.app"
+            BlueprintName = "gotrash"
+            ReferencedContainer = "container:gotrash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ombe.app"
-            BlueprintName = "ombe"
-            ReferencedContainer = "container:ombe.xcodeproj">
+            BuildableName = "gotrash.app"
+            BlueprintName = "gotrash"
+            ReferencedContainer = "container:gotrash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

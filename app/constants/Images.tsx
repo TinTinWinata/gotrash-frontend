@@ -177,4 +177,28 @@ export const IMAGES = {
   flags12: require('../assets/images/flags/pic12.png'),
   flags13: require('../assets/images/flags/pic13.png'),
   flags14: require('../assets/images/flags/pic14.png'),
+
+  topRewards1: require('../assets/images/top_rewards/1.png'),
+  topRewards2: require('../assets/images/top_rewards/2.png'),
+  topRewards3: require('../assets/images/top_rewards/3.png'),
+  topRewards4: require('../assets/images/top_rewards/4.png'),
+  topRewards5: require('../assets/images/top_rewards/5.png'),
+
+  rewards1: require('../assets/images/rewards/1.jpg'),
+  rewards2: require('../assets/images/rewards/2.jpg'),
+  rewards3: require('../assets/images/rewards/3.jpg'),
+  rewards4: require('../assets/images/rewards/4.jpg'),
+  rewards5: require('../assets/images/rewards/5.jpg'),
+
+  rewardsFood1: require('../assets/images/rewards_food/1.jpg'),
+  rewardsFood2: require('../assets/images/rewards_food/2.jpg'),
+  rewardsFood3: require('../assets/images/rewards_food/3.jpg'),
+  rewardsFood4: require('../assets/images/rewards_food/4.jpg'),
+
+  rewardsVacation1: require('../assets/images/rewards_vacation/1.jpg'),
+  rewardsVacation2: require('../assets/images/rewards_vacation/2.jpg'),
+  rewardsVacation3: require('../assets/images/rewards_vacation/3.jpg'),
+  rewardsVacation4: require('../assets/images/rewards_vacation/4.jpg'),
+  rewardsVacation5: require('../assets/images/rewards_vacation/5.jpg'),
+  rewardsVacation6: require('../assets/images/rewards_vacation/6.jpg'),
 };
