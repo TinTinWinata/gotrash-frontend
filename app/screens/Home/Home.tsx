@@ -67,6 +67,37 @@ export const Home = () => {
               </Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(255, 178, 6, 0.22)',
+                  borderRadius: 99,
+                  marginRight: 3,
+                  paddingHorizontal: 13,
+                  paddingVertical: 3,
+                  gap: 5,
+                }}>
+                <Image
+                  style={{
+                    height: 25,
+                    objectFit: 'contain',
+                    width: 18.5,
+                  }}
+                  source={IMAGES.fire}
+                />
+                <Text
+                  style={{
+                    ...FONTS.fontSemiBold,
+                    marginTop: 5,
+                    color: '#FF9500',
+                    fontSize: 16,
+                  }}>
+                  24
+                </Text>
+              </View>
               <TouchableOpacity
                 onPress={() => navigation.navigate('Notification')}
                 activeOpacity={0.5}
