@@ -52,10 +52,19 @@ const SuccessModal = () => {
           </View>
         </View>
         <Text style={{...FONTS.h5, color: colors.title, marginBottom: 10}}>
-          Congratulations!
+          Sampah Berhasil Dibuang!
         </Text>
         <Text style={{...FONTS.font, color: colors.text, textAlign: 'center'}}>
-          Your Order Successfully Delivered
+          Kamu mendapatkan{' '}
+          <Text
+            style={{
+              fontWeight: 700,
+              color: COLORS.primary,
+              marginHorizontal: 10,
+            }}>
+            5 coins
+          </Text>{' '}
+          sebagai hadiah atas pembuangan sampah yang benar!
         </Text>
       </View>
     </>

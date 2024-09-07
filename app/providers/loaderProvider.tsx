@@ -1,5 +1,5 @@
 import {BlurView} from '@react-native-community/blur';
-import {createRef, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import {ChildrenProps} from '../types/children-only';
 import {loaderContext} from '../contexts/loaderContext.tsx';
 import React from 'react';

@@ -25,6 +25,7 @@ import {
 } from '../../constants/reward';
 import {Reward} from '../../types/reward';
 import {RewardCategory} from '../../types/reward-category';
+import ModalBox from '../Components/ModalBox';
 
 export const Home = () => {
   const navigation = useNavigation<any>();

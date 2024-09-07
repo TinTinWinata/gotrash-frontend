@@ -11,6 +11,7 @@ import {COLORS} from '../constants/theme';
 import StackNavigator from './StackNavigator';
 import GoTrashProvider from '../providers/gotrashProvider';
 import LoaderProvider from '../providers/loaderProvider';
+import BLEProvider from '../providers/bleProvider';
 
 const Route = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -62,7 +63,9 @@ const Route = () => {
         <NavigationContainer theme={theme}>
           <LoaderProvider>
             <GoTrashProvider>
-              <StackNavigator />
+              <BLEProvider>
+                <StackNavigator />
+              </BLEProvider>
             </GoTrashProvider>
           </LoaderProvider>
         </NavigationContainer>

@@ -1,7 +1,7 @@
 import {BackendData} from './backend-response';
 import {Group} from './group';
 
-export type User = BackendData & {
+export type User = {
   id: number;
   username: string;
   phoneNumber: string;
@@ -10,4 +10,4 @@ export type User = BackendData & {
   imageUrl: string;
   coin: number;
   group: Group;
-};
+} & BackendData;
