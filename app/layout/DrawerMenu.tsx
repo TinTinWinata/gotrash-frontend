@@ -21,11 +21,17 @@ const MenuItems = [
   //   name: 'Products',
   //   navigate: 'Products',
   // },
+  // {
+  //   id: '2',
+  //   icon: IMAGES.components,
+  //   name: 'Components',
+  //   navigate: 'Components',
+  // },
   {
-    id: '2',
-    icon: IMAGES.components,
-    name: 'Components',
-    navigate: 'Components',
+    id: '3',
+    icon: IMAGES.star,
+    name: 'Mission',
+    navigate: 'Mission',
   },
   // {
   //   id: '3',

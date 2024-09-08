@@ -6,6 +6,7 @@ import {Reward} from '../types/reward';
 import {Trashbin} from '../types/trashbin';
 import {Address} from '../types/address';
 import {Order} from '../types/order';
+import {Notification} from '../types/notification';
 
 type GoTrashContext = {
   guestLogin: () => Promise<User | null>;
@@ -18,6 +19,8 @@ type GoTrashContext = {
   getTrashbinById(id: string): Promise<Trashbin>;
   getRewardById(id: string): Promise<Reward>;
   addAddress(address: Address): void;
+  getUsers(): Promise<User[]>;
+  addGroupNotificationInvite(userIds: string[], group: Group): Promise<void>;
   updateUser(user: User): Promise<BackendResponse<User>>;
   addresses: Address[];
   orders: Order[];
@@ -26,6 +29,11 @@ type GoTrashContext = {
   setChoosedReward: (reward: Reward) => void;
   addOrder(reward: Reward): void;
   removeAddress(idx: number): void;
+  getGroup(): Promise<Group | null>;
+  getNotifications(): Promise<Notification[]>;
+  deleteNotification(id: string): Promise<void>;
+  joinGroup(groupId: string): Promise<Group>;
+  forceLogin(id: string): Promise<boolean>;
 };
 
 export const goTrashContext = createContext<GoTrashContext>(

@@ -59,6 +59,8 @@ import Tabs from '../screens/Components/Tabs';
 import Tables from '../screens/Components/Tables';
 import Toggles from '../screens/Components/Toggles';
 import AddGroup from '../screens/Group/AddGroup';
+import Mission from '../screens/Mission/Mission';
+import AddUserToGroup from '../screens/Group/AddUserToGroup';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -96,12 +98,14 @@ const StackNavigator = () => {
         <Stack.Screen name="Checkout" component={Checkout} />
         <Stack.Screen name="Myorder" component={Myorder} />
         <Stack.Screen name="Trackorder" component={Trackorder} />
+        <Stack.Screen name="Mission" component={Mission} />
         <Stack.Screen name="Writereview" component={Writereview} />
         <Stack.Screen name="Rewards" component={Rewards} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Singlechat" component={Singlechat} />
         <Stack.Screen name="Call" component={Call} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="AddUserToGroup" component={AddUserToGroup} />
         <Stack.Screen name="AddGroup" component={AddGroup} />
         <Stack.Screen name="Components" component={Components} />
         <Stack.Screen name="Accordion" component={AccordionScreen} />

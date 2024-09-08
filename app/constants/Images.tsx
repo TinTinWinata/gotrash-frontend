@@ -66,6 +66,7 @@ export const IMAGES = {
   shopping: require('../assets/images/icons/shopping3.png'),
   chat: require('../assets/images/icons/chat2.png'),
   logout: require('../assets/images/icons/logout.png'),
+  coin: require('../assets/images/icons/coins.png'),
   fire: require('../assets/images/fire.png'),
   call: require('../assets/images/icons/call.png'),
   happy: require('../assets/images/icons/happy.png'),

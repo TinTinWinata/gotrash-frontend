@@ -40,6 +40,7 @@ export type RootStackParamList = {
   Notifications: undefined;
   Questions: undefined;
   ProductsDetails: {id: string};
+  Mission: undefined;
   Writereview: undefined;
   Profile: undefined;
   Wishlist: undefined;

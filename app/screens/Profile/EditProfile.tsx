@@ -181,7 +181,7 @@ const EditProfile = () => {
           <Controller
             name="phoneNumber"
             control={form.control}
-            rules={{required: true}}
+            rules={{required: false}}
             render={({field}) => (
               <View style={{marginBottom: 15}}>
                 <Input

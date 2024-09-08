@@ -42,7 +42,7 @@ export default function GroupView({group}: GroupViewProps) {
           shadowRadius: 18.27,
           elevation: 4,
           overflow: 'hidden',
-          marginTop: 70,
+          marginTop: 40,
           borderRadius: 10,
           backgroundColor: COLORS.primary,
           width: '75%',
@@ -71,8 +71,9 @@ export default function GroupView({group}: GroupViewProps) {
             style={{
               margin: 'auto',
               width: '100%',
-              height: 126,
-              borderRadius: 5,
+              height: 150,
+              borderRadius: 0,
+              objectFit: 'cover',
             }}
             source={getImageSource(group.targetReward.imageUrl)}
           />
@@ -116,13 +117,13 @@ export default function GroupView({group}: GroupViewProps) {
             marginHorizontal: 40,
             flexGrow: 1,
           }}>
-          Member Contribution
+          Group Leaderboard
         </Text>
         <View
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 3,
+            gap: 10,
             marginTop: 10,
           }}>
           {group.members.map((members, index) => (

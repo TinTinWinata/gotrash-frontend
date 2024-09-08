@@ -87,13 +87,35 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                 opacity: 0.75,
               }}
             />
-            <View style={{marginBottom: 5, marginTop: 40}}>
+            <View
+              style={{
+                marginBottom: 5,
+                marginTop: 40,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+              }}>
+              <SocialBtn
+                onpress={async () => {
+                  // setIsLoading(true);
+                  // await guestLogin();
+                  // setIsLoading(false);
+                  navigation.navigate('SignIn');
+                }}
+                border={COLORS.white}
+                color={COLORS.white}
+                textcolor={COLORS.primary}
+                text="Login"
+                rounded
+                // icon={<FontAwesome name="user" size={22} color={COLORS.card} />}
+              />
               <SocialBtn
                 onpress={async () => {
                   setIsLoading(true);
                   await guestLogin();
                   setIsLoading(false);
-                  navigation.navigate('DrawerNavigation', {screen: 'Home'});
+                  navigation.navigate('Home');
+                  // navigation.navigate('Draw/erNavigation', {screen: 'Home'});
                 }}
                 border={COLORS.white}
                 color={COLORS.white}
@@ -108,7 +130,6 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                   ...FONTS.fontSemiBold,
                   color: 'white',
                   textAlign: 'center',
-                  marginTop: 10,
                 }}>
                 Back to Onboarding
               </Text>

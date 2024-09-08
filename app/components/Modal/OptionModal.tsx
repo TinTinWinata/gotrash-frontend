@@ -8,9 +8,11 @@ import Button from '../Button/Button';
 
 type Props = {
   close: any;
+  onConfirm?: () => void;
+  title?: string;
 };
 
-const OptionModal = ({close}: Props) => {
+const OptionModal = ({close, onConfirm, title = 'You want to'}: Props) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
 
@@ -31,13 +33,13 @@ const OptionModal = ({close}: Props) => {
           name="information-circle-sharp"
           style={{marginBottom: 8}}
           color={colors.title}
-          size={60}
+          size={30}
         />
         <Text style={{...FONTS.h5, color: colors.title, marginBottom: 5}}>
           Are You Confirm?
         </Text>
         <Text style={{...FONTS.font, color: colors.text, textAlign: 'center'}}>
-          You want to cancel the order of T-shirt.
+          {title}
         </Text>
         <View style={{flexDirection: 'row', marginTop: 25}}>
           <Button
@@ -47,7 +49,10 @@ const OptionModal = ({close}: Props) => {
             title="Cancel"
           />
           <Button
-            onPress={() => close(false)}
+            onPress={() => {
+              close(false);
+              onConfirm && onConfirm();
+            }}
             title="Confirm"
             color={COLORS.primary}
           />

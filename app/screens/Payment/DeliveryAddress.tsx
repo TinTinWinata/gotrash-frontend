@@ -21,6 +21,7 @@ import {getImageSource} from '../../utils/objectUtils';
 import {ADDRESS_IMAGES} from '../../constants/address';
 import {useGoTrash} from '../../contexts/gotrashContext';
 import useLoader from '../../contexts/loaderContext';
+import Divider from '../../components/Dividers/Divider';
 
 type DeliveryAddressScreenProps = StackScreenProps<
   RootStackParamList,
@@ -31,7 +32,7 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
   const {successLoading} = useLoader();
-  const {addresses, removeAddress, choosedReward, addOrder} = useGoTrash();
+  const {addresses, choosedReward, addOrder} = useGoTrash();
   const [isChecked, setIsChecked] = useState<number>(0);
   const handleSubmit = () => {
     navigation.navigate('Myorder');
@@ -160,6 +161,9 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
             </View>
             <FeatherIcon size={22} color={COLORS.title} name={'arrow-right'} />
           </TouchableOpacity>
+          <View style={{backgroundColor: 'white'}}>
+            <Divider dashed={true} />
+          </View>
           {/* <TouchableOpacity
             activeOpacity={0.8}
             style={[

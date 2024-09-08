@@ -16,15 +16,19 @@ import {RootStackParamList} from '../../navigation/RootStackParamList';
 import Input from '../../components/Input/Input';
 import {IMAGES} from '../../constants/Images';
 import Button from '../../components/Button/Button';
+import {useGoTrash} from '../../contexts/gotrashContext';
+import useLoader from '../../contexts/loaderContext';
 
 type SignInScreenProps = StackScreenProps<RootStackParamList, 'SignIn'>;
 
 const SignIn = ({navigation}: SignInScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-
+  const {forceLogin} = useGoTrash();
+  const {setIsLoading} = useLoader();
   const [isFocused, setisFocused] = useState(false);
   const [isFocused2, setisFocused2] = useState(false);
+  const [username, setUsername] = useState<string>('');
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.card}}>
@@ -66,10 +70,11 @@ const SignIn = ({navigation}: SignInScreenProps) => {
               <Input
                 onFocus={() => setisFocused(true)}
                 onBlur={() => setisFocused(false)}
-                onChangeText={value => console.log(value)}
+                value={username}
+                onChangeText={value => setUsername(value)}
                 isFocused={isFocused}
                 inputBorder
-                defaultValue="williamsmith"
+                defaultValue="tintinwinata"
               />
             </View>
             <View style={[GlobalStyleSheet.container, {padding: 0}]}>
@@ -91,9 +96,12 @@ const SignIn = ({navigation}: SignInScreenProps) => {
           <View style={{marginTop: 30}}>
             <Button
               title={'LOGIN'}
-              onPress={() =>
-                navigation.navigate('DrawerNavigation', {screen: 'Home'})
-              }
+              onPress={async () => {
+                setIsLoading(true);
+                await forceLogin(username);
+                setIsLoading(false);
+                navigation.navigate('Home');
+              }}
               style={{borderRadius: 52}}
             />
             <View

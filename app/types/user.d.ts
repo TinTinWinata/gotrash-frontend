@@ -6,8 +6,10 @@ export type User = {
   username: string;
   phoneNumber: string;
   password: string;
+  finishedMission?: string[];
   email: string;
   imageUrl: string;
   coin: number;
   group: Group;
+  rating: number;
 } & BackendData;

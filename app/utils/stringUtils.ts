@@ -1,4 +1,7 @@
 export function convertToPascalCase(text: string, join = ''): string {
+  if (!text) {
+    return '';
+  }
   const cleanedText = text.replace(/[^a-zA-Z0-9\s]/g, '');
   const words = cleanedText.split(/\s+/);
   const pascalCaseText = words

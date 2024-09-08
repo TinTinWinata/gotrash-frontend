@@ -18,6 +18,9 @@ import useLoader from '../contexts/loaderContext.tsx';
 import {Trashbin} from '../types/trashbin';
 import {Address} from '../types/address';
 import {Order} from '../types/order';
+import {MISSION_LIST} from '../constants/mission.tsx';
+import {Mission} from '../types/mission';
+import {Notification} from '../types/notification';
 
 const API_BASE_URL = 'https://gotrash.site/api';
 
@@ -41,6 +44,23 @@ export default function GoTrashProvider({children}: ChildrenProps) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [choosedReward, setChoosedReward] = useState<Reward>();
 
+  async function getUsers(): Promise<User[]> {
+    const response = await api.get<BackendResponse<User[]>>('/users');
+    return response.data.data.filter(data => data.id !== user?.id);
+  }
+
+  async function getGroup(): Promise<Group | null> {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    if (!user.group) {
+      return null;
+    }
+    const response = await api.get<BackendResponse<Group>>(
+      '/group/' + user.group.id,
+    );
+    return response.data.data;
+  }
   async function fetchUser() {
     let userData = await AsyncStorage.getItem('user');
     if (userData) {
@@ -49,7 +69,11 @@ export default function GoTrashProvider({children}: ChildrenProps) {
         '/user/' + userObject.id,
       );
       if (response && response.data?.data) {
-        setUser(response.data.data);
+        const tempUser = response.data.data;
+        if (userObject.finishedMission) {
+          tempUser.finishedMission = userObject.finishedMission;
+        }
+        setUser(tempUser);
       }
     }
   }
@@ -81,6 +105,32 @@ export default function GoTrashProvider({children}: ChildrenProps) {
     AsyncStorage.setItem('orders', JSON.stringify(newOrders));
   }
 
+  async function forceLogin(id: string): Promise<boolean> {
+    const response = await api.get<BackendResponse<User>>('/user/' + id);
+    if (response.status >= 200 && response.status < 300) {
+      saveUser(response.data.data);
+      return true;
+    }
+    return false;
+  }
+
+  async function deleteNotification(id: string): Promise<void> {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    await api.delete('/notification/delete/' + id);
+  }
+
+  async function getNotifications(): Promise<Notification[]> {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    const response = await api.get<BackendResponse<Notification[]>>(
+      '/notification/user/' + user.id,
+    );
+    return response.data.data;
+  }
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -90,6 +140,7 @@ export default function GoTrashProvider({children}: ChildrenProps) {
       navigation.navigate('DrawerNavigation', {screen: 'Home'});
       setIsLoading(false);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function removeAddress(idx: number) {
@@ -97,6 +148,23 @@ export default function GoTrashProvider({children}: ChildrenProps) {
     newAddresses.splice(idx, 1);
     setAddresses(newAddresses);
     AsyncStorage.setItem('addresses', JSON.stringify(newAddresses));
+  }
+
+  async function addGroupNotificationInvite(
+    userIds: string[],
+    group: Group,
+  ): Promise<void> {
+    await Promise.all(
+      userIds.map(async userId => {
+        const payload = {
+          title: `You have been invited to group ${group.groupName}`,
+          description: `INVITED_GROUP_${group.id}`,
+          userId: userId,
+        };
+        await api.post('/notification/add', payload);
+      }),
+    );
+    return;
   }
 
   async function createGroup(group: Group): Promise<BackendResponse<Group>> {
@@ -139,9 +207,49 @@ export default function GoTrashProvider({children}: ChildrenProps) {
       },
     );
     if (response.data.status >= 200 && response.data.status < 300) {
+      await addFinishedMission('3');
       await fetchUser();
     }
     return response.data;
+  }
+  async function addCoin(coin: number) {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    // Try catch because for now (9/8/2024) the api is not implemented
+    try {
+      const response = await api.post<BackendResponse<any>>(
+        '/user/mission/coin',
+        {
+          userId: user.id,
+          coin,
+        },
+      );
+      if (response.data.status >= 200 && response.data.status < 300) {
+        await fetchUser();
+      }
+    } catch (err) {}
+  }
+  function getMissionReward(mission: Mission): number {
+    const reward = mission.reward;
+    const coin = parseInt(reward.split(' ')[0], 10);
+    return coin;
+  }
+
+  async function addFinishedMission(missionId: string) {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    const mission = MISSION_LIST.find(m => m.id === missionId);
+    if (!mission) {
+      throw new Error('Mission not found!');
+    }
+    // Add coins
+    await addCoin(getMissionReward(mission));
+
+    // Saved finished missions
+    const finishedMissions = user.finishedMission || [];
+    saveUser({...user, finishedMission: [...finishedMissions, missionId]});
   }
 
   async function updateUser(newUser: User): Promise<BackendResponse<User>> {
@@ -163,6 +271,7 @@ export default function GoTrashProvider({children}: ChildrenProps) {
       },
     );
     if (response.data.status >= 200 && response.data.status < 300) {
+      await addFinishedMission('3');
       await fetchUser();
     }
     return response.data;
@@ -280,6 +389,23 @@ export default function GoTrashProvider({children}: ChildrenProps) {
     setUser(newUser);
   }
 
+  async function joinGroup(groupId: string): Promise<Group> {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    const response = await api.post<BackendResponse<Group>>(
+      '/group/add-member',
+      {
+        groupId,
+        userId: user.id,
+      },
+    );
+    if (response.data.status >= 200 && response.data.status < 300) {
+      await fetchUser();
+    }
+    return response.data.data;
+  }
+
   async function guestLogin(): Promise<User | null> {
     const response = await api.post<BackendResponse<User>>('/user/addGuest');
     if (response?.data?.data) {
@@ -296,6 +422,8 @@ export default function GoTrashProvider({children}: ChildrenProps) {
   return (
     <goTrashContext.Provider
       value={{
+        deleteNotification,
+        addGroupNotificationInvite,
         updateImage,
         updateUser,
         setChoosedReward,
@@ -314,6 +442,11 @@ export default function GoTrashProvider({children}: ChildrenProps) {
         getRewards,
         removeAddress,
         getRewardById,
+        getGroup: getGroup,
+        getUsers: getUsers,
+        getNotifications,
+        forceLogin,
+        joinGroup,
       }}>
       {children}
     </goTrashContext.Provider>

@@ -5,6 +5,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import {COLORS, FONTS} from '../constants/theme';
 import {GlobalStyleSheet} from '../constants/StyleSheet';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 type Props = {
   title?: string;
@@ -128,9 +129,9 @@ const Header = ({
         {rightIcon2 == 'Add' && (
           <TouchableOpacity
             activeOpacity={0.5}
-            onPress={() => navigation.navigate('EditProfile')}
+            onPress={() => navigation.navigate('AddUserToGroup')}
             style={[styles.actionBtn, {}]}>
-            <FontAwesome size={22} color={colors.title} name={'pencil'} />
+            <AntDesign size={22} color={colors.title} name={'addusergroup'} />
           </TouchableOpacity>
         )}
         {rightIcon3 == 'cart' && (
