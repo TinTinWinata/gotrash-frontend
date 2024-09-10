@@ -61,6 +61,7 @@ import Toggles from '../screens/Components/Toggles';
 import AddGroup from '../screens/Group/AddGroup';
 import Mission from '../screens/Mission/Mission';
 import AddUserToGroup from '../screens/Group/AddUserToGroup';
+import StreakScreen from '../screens/Streak/Streak';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -106,6 +107,7 @@ const StackNavigator = () => {
         <Stack.Screen name="Call" component={Call} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="AddUserToGroup" component={AddUserToGroup} />
+        <Stack.Screen name="Streak" component={StreakScreen} />
         <Stack.Screen name="AddGroup" component={AddGroup} />
         <Stack.Screen name="Components" component={Components} />
         <Stack.Screen name="Accordion" component={AccordionScreen} />

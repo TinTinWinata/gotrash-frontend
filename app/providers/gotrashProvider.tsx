@@ -21,6 +21,8 @@ import {Order} from '../types/order';
 import {MISSION_LIST} from '../constants/mission.tsx';
 import {Mission} from '../types/mission';
 import {Notification} from '../types/notification';
+import {StreakTrash} from '../types/streak-trash';
+import {Trash} from '../types/trash';
 
 const API_BASE_URL = 'https://gotrash.site/api';
 
@@ -167,6 +169,18 @@ export default function GoTrashProvider({children}: ChildrenProps) {
     return;
   }
 
+  async function getStreakHistory(): Promise<StreakTrash[]> {
+    if (!user) {
+      throw new Error('User not found!');
+    }
+    const response = await api.get<BackendResponse<StreakTrash[]>>(
+      '/user/streak/' + user.id,
+    );
+    return response.data.data.filter(
+      (data: StreakTrash) => data.trashHistory.length > 0,
+    );
+  }
+
   async function createGroup(group: Group): Promise<BackendResponse<Group>> {
     if (!user) {
       throw new Error('User not found!');
@@ -207,7 +221,9 @@ export default function GoTrashProvider({children}: ChildrenProps) {
       },
     );
     if (response.data.status >= 200 && response.data.status < 300) {
-      await addFinishedMission('3');
+      if (!user.finishedMission?.includes('3')) {
+        await addFinishedMission('3');
+      }
       await fetchUser();
     }
     return response.data;
@@ -406,6 +422,11 @@ export default function GoTrashProvider({children}: ChildrenProps) {
     return response.data.data;
   }
 
+  async function getTrashById(id: string): Promise<Trash> {
+    const response = await api.get<BackendResponse<Trash>>('/trash/' + id);
+    return response.data.data;
+  }
+
   async function guestLogin(): Promise<User | null> {
     const response = await api.post<BackendResponse<User>>('/user/addGuest');
     if (response?.data?.data) {
@@ -447,6 +468,8 @@ export default function GoTrashProvider({children}: ChildrenProps) {
         getNotifications,
         forceLogin,
         joinGroup,
+        getStreakHistory,
+        getTrashById,
       }}>
       {children}
     </goTrashContext.Provider>

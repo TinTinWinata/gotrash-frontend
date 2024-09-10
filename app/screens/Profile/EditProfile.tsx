@@ -31,7 +31,6 @@ const EditProfile = () => {
   const [isFocused, setisFocused] = useState(false);
   const [isFocused1, setisFocused1] = useState(false);
   const [isFocused2, setisFocused2] = useState(false);
-  const [isFocused3, setisFocused3] = useState(false);
   const form = useForm<User>({
     defaultValues: user,
   });

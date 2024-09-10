@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   View,
   Text,
@@ -25,12 +25,15 @@ import {
 } from '../../constants/reward';
 import {Reward} from '../../types/reward';
 import {RewardCategory} from '../../types/reward-category';
+import useBle from '../../contexts/bleContext';
+import {State} from 'react-native-ble-plx';
 
 export const Home = () => {
   const navigation = useNavigation<any>();
 
   const {user} = useGoTrash();
   const dispatch = useDispatch();
+  const {device, state} = useBle();
 
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
@@ -38,6 +41,16 @@ export const Home = () => {
   const addItemToWishList = (data: any) => {
     dispatch(addTowishList(data));
   };
+
+  const bleColor = useMemo(() => {
+    if (device !== null) {
+      return COLORS.primary;
+    }
+    if (state === State.PoweredOn) {
+      return COLORS.info;
+    }
+    return COLORS.danger;
+  }, [device, state]);
 
   return (
     <View style={{backgroundColor: colors.card, flex: 1}}>
@@ -49,14 +62,31 @@ export const Home = () => {
           ]}>
           <View style={[GlobalStyleSheet.flex]}>
             <View>
-              <Text
+              <View
                 style={{
-                  ...FONTS.fontRegular,
-                  fontSize: 14,
-                  color: colors.title,
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  gap: 5,
                 }}>
-                Welcome
-              </Text>
+                <View
+                  style={{
+                    width: 7,
+                    height: 7,
+                    marginBottom: 2,
+                    borderRadius: 999,
+                    backgroundColor: bleColor,
+                  }}
+                />
+                <Text
+                  style={{
+                    ...FONTS.fontRegular,
+                    fontSize: 14,
+                    color: colors.title,
+                  }}>
+                  Welcome
+                </Text>
+              </View>
               <Text
                 style={{
                   ...FONTS.fontSemiBold,
@@ -68,6 +98,7 @@ export const Home = () => {
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View
+                onTouchEnd={() => navigation.navigate('Streak')}
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
@@ -95,7 +126,7 @@ export const Home = () => {
                     color: '#FF9500',
                     fontSize: 16,
                   }}>
-                  24
+                  {user?.currentStreak}
                 </Text>
               </View>
               <TouchableOpacity
@@ -227,7 +258,7 @@ export const Home = () => {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
-                        navigation.navigate('Store');
+                        navigation.navigate('Store', {id: data.name});
                       }}
                       key={index}
                       style={[

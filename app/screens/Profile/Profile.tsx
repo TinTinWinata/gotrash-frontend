@@ -12,7 +12,7 @@ import {convertPhoneNumber, convertToPascalCase} from '../../utils/stringUtils';
 
 type ProfileScreenProps = StackScreenProps<RootStackParamList, 'Profile'>;
 
-const Profile = ({navigation}: ProfileScreenProps) => {
+const Profile = ({}: ProfileScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
   const {user} = useGoTrash();

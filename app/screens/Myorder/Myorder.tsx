@@ -97,8 +97,9 @@ const Myorder = ({}: MyorderScreenProps) => {
   return (
     <View style={{backgroundColor: colors.card, flex: 1}}>
       <Header
+        leftIcon="back"
         title="My Order"
-        leftIcon={<View style={{width: 20}} />}
+        // leftIcon={<View style={{width: 20}} />}
         rightIcon4="home"
       />
       <View

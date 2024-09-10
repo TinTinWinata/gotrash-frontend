@@ -5,6 +5,9 @@ import {COLORS, FONTS} from '../../constants/theme';
 import {getImageSource} from '../../utils/objectUtils';
 import * as Progress from 'react-native-progress';
 import {formatNumber} from '../../utils/stringUtils';
+import Divider from '../../components/Dividers/Divider';
+import {useReducedMotion} from 'react-native-reanimated';
+import {IMAGES} from '../../constants/Images';
 
 type GroupViewProps = {
   group: Group;
@@ -117,14 +120,14 @@ export default function GroupView({group}: GroupViewProps) {
             marginHorizontal: 40,
             flexGrow: 1,
           }}>
-          Group Leaderboard
+          Leaderboard
         </Text>
         <View
           style={{
             display: 'flex',
             flexDirection: 'column',
             gap: 10,
-            marginTop: 10,
+            marginTop: 20,
           }}>
           {group.members.map((members, index) => (
             <View
@@ -133,19 +136,6 @@ export default function GroupView({group}: GroupViewProps) {
                 backgroundColor: COLORS.card,
                 borderRadius: 18,
                 width: '100%',
-                paddingHorizontal: 10,
-                paddingLeft: 25,
-                paddingVertical: 15,
-                borderWidth: 1,
-                borderColor: '#EFEFEF',
-                shadowColor: 'rgba(4,118,78,.6)',
-                shadowOffset: {
-                  width: 0,
-                  height: 4,
-                },
-                shadowOpacity: 0.34,
-                shadowRadius: 18.27,
-                elevation: 4,
               }}>
               <View
                 style={{
@@ -155,6 +145,30 @@ export default function GroupView({group}: GroupViewProps) {
                   alignItems: 'center',
                   justifyContent: 'flex-start',
                 }}>
+                <View style={{width: 20}}>
+                  {index === 0 && (
+                    <Image
+                      style={{width: 22, height: 22}}
+                      source={IMAGES.gold}
+                    />
+                  )}
+                  {index === 1 && (
+                    <Image
+                      style={{width: 22, height: 22}}
+                      source={IMAGES.silver}
+                    />
+                  )}
+                  {index > 1 && (
+                    <Text
+                      style={{
+                        ...FONTS.fontSemiBold,
+                        color: COLORS.primary,
+                        fontSize: 20,
+                      }}>
+                      {index + 1}
+                    </Text>
+                  )}
+                </View>
                 <Image
                   style={{
                     width: 40,
@@ -163,7 +177,7 @@ export default function GroupView({group}: GroupViewProps) {
                   }}
                   source={{uri: members.imageUrl}}
                 />
-                <View>
+                <View style={{width: '65%'}}>
                   <Text
                     style={{
                       ...FONTS.fontSemiBold,
@@ -174,15 +188,19 @@ export default function GroupView({group}: GroupViewProps) {
                   </Text>
                   <Text
                     style={{
-                      ...FONTS.fontMedium,
-                      fontSize: 14,
-                      color: COLORS.text,
-                      opacity: 0.4,
+                      ...FONTS.fontSemiBold,
+                      fontWeight: 500,
+                      fontSize: 13,
+                      opacity: 0.6,
                     }}>
-                    {members.coin} Coins
+                    {members.email}
                   </Text>
                 </View>
+                <View style={{}}>
+                  <Text style={{...FONTS.fontMedium}}>{members.rating} R</Text>
+                </View>
               </View>
+              <Divider dashed={true}></Divider>
             </View>
           ))}
         </View>

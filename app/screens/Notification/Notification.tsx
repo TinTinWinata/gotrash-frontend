@@ -7,6 +7,7 @@ import {
   LayoutAnimation,
   Modal,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 import Header from '../../layout/Header';
 import {IMAGES} from '../../constants/Images';
@@ -15,12 +16,13 @@ import SwipeBox from '../../components/SwipeBox';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {useQuery} from '@tanstack/react-query';
 import {useGoTrash} from '../../contexts/gotrashContext';
-import {COLORS} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import {SwipeData} from '../../types/swipe-data';
 import {Notification} from '../../types/notification';
 import {formatDate} from '../../utils/dateUtils';
 import OptionModal from '../../components/Modal/OptionModal';
 import useLoader from '../../contexts/loaderContext';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 const NotificationScreen = () => {
   const theme = useTheme();
@@ -98,6 +100,33 @@ const NotificationScreen = () => {
         leftIcon="back"
         rightChildren={<View style={{width: 45}} />}
       />
+      {!isLoading && data?.length === 0 && (
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 20,
+          }}>
+          <IonIcon
+            name="notifications-off"
+            size={100}
+            color={'gray'}
+            style={{opacity: 0.3}}
+          />
+          <Text
+            style={{
+              ...FONTS.fontSemiBold,
+              fontSize: 20,
+              textAlign: 'center',
+              marginBottom: 80,
+            }}>
+            You don't have any{'\n'}notifications!
+          </Text>
+        </View>
+      )}
       {isLoading ? (
         <View
           style={{

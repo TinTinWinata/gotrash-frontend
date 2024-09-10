@@ -7,6 +7,8 @@ export type RootStackParamList = {
   Demo: undefined;
   ChooseLanguage: undefined;
   QrCodeScanner: undefined;
+  AddUserToGroup: undefined;
+  Streak: undefined;
   WelCome: undefined;
   SignUp: undefined;
   SignIn: undefined;
@@ -27,6 +29,7 @@ export type RootStackParamList = {
   Chat: undefined;
   Support: undefined;
   History: undefined;
+  Store: {id: string};
   Verification: undefined;
   Call: undefined;
   EditProfile: undefined;

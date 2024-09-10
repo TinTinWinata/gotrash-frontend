@@ -16,7 +16,7 @@ import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import Geolocation from 'react-native-geolocation-service';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Callout, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useGoTrash} from '../../contexts/gotrashContext';
 import {Trashbin} from '../../types/trashbin';
 
@@ -43,6 +43,7 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
   const [dropLocation, setDropLocation] = useState<Location>();
 
   const [data, setData] = useState<Trashbin>();
+
   useEffect(() => {
     (async () => {
       if (id) {
@@ -52,8 +53,8 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
           setDropLocation({
             latitude: trashbin.latitude,
             longitude: trashbin.longitude,
-            latitudeDelta: 0.75,
-            longitudeDelta: 0.75,
+            latitudeDelta: 0.3,
+            longitudeDelta: 0.3,
           });
         }
         Geolocation.getCurrentPosition(
@@ -61,8 +62,8 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
             setPickupLocation({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
-              latitudeDelta: 0.75,
-              longitudeDelta: 0.75,
+              latitudeDelta: 0.3,
+              longitudeDelta: 0.3,
             });
           },
           error => {
@@ -81,9 +82,10 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
   return (
     <View style={{backgroundColor: colors.backround, flex: 1}}>
       <Header
-        title="GoTrash Tracker"
+        title="GoTrash Location"
         leftIcon="back"
         titleRight
+        rightChildren={<View style={{width: 20}} />}
         //titleLeft
       />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -94,20 +96,50 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
                 <MapView
                   provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                   style={styles.map}
-                  initialRegion={pickupLocation}>
-                  <Marker coordinate={pickupLocation} />
+                  initialRegion={dropLocation}>
+                  {/* <Marker coordinate={pickupLocation} /> */}
                   <Marker coordinate={dropLocation} />
+                  <Marker coordinate={dropLocation}>
+                    <View
+                      style={{
+                        height: 130,
+                        width: 141,
+                        backgroundColor: '#fff',
+                        borderRadius: 20,
+                        padding: 10,
+                        marginBottom: 60,
+                        alignItems: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: '#A1A1A1',
+                          marginBottom: 5,
+                        }}>
+                        Trash Location
+                      </Text>
+                      <Image
+                        source={{uri: data.imageUrl}}
+                        style={{
+                          width: '100%',
+                          height: 80,
+                          resizeMode: 'cover',
+                          borderRadius: 5,
+                        }}
+                      />
+                    </View>
+                  </Marker>
                 </MapView>
                 {/* <View
                   style={{
-                    height: 84,
+                    height: 130,
                     width: 141,
                     backgroundColor: COLORS.card,
                     borderRadius: 20,
                     padding: 20,
                     position: 'absolute',
                     top: '55%',
-                    left: 170,
+                    left: 160,
                   }}>
                   <View
                     style={{
@@ -128,14 +160,15 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
                     }}>
                     Estimated Time
                   </Text>
-                  <Text
+                  <Image
+                    source={{uri: data.imageUrl}}
                     style={{
-                      ...FONTS.fontSemiBold,
-                      fontSize: 18,
-                      color: COLORS.title,
-                    }}>
-                    5-10 min
-                  </Text>
+                      width: '100%',
+                      height: '80%',
+                      objectFit: 'cover',
+                      borderRadius: 5,
+                    }}
+                  />
                 </View> */}
               </View>
             </View>

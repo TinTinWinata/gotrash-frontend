@@ -17,10 +17,12 @@ import {useGoTrash} from '../contexts/gotrashContext';
 const manager = new BleManager();
 const SERVICE_UUID = '180D';
 const CHARACTERISTIC_UUID = '2A37';
+const NOTIFICATION_UUID = '0000a102-0000-1000-8000-00805f9b34fb';
 
 import {ChildrenProps} from '../types/children-only';
-import bleContext from '../contexts/bleContext';
-import SuccessModal from '../components/Modal/SuccessModal';
+import {Trash} from '../types/trash';
+import SuccessTrashModal from '../components/Modal/SuccessTrashModal';
+import {bleContext} from '../contexts/bleContext';
 
 interface TrashResult {
   trashId: string;
@@ -30,10 +32,12 @@ interface TrashResult {
 export default function BLEProvider({children}: ChildrenProps) {
   const [device, setDevice] = useState<Device | null>(null);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const {user} = useGoTrash();
+  const {user, getTrashById} = useGoTrash();
+  const [trash, setTrash] = useState<Trash>();
   const [value, setValue] = useState<TrashResult>();
+  const [state, setState] = useState<State | null>(null);
 
-  const loopDevice = async () => {
+  async function readNotification() {
     if (!device || !user || !user.id) {
       return;
     }
@@ -42,33 +46,42 @@ export default function BLEProvider({children}: ChildrenProps) {
       for (const service of services) {
         const characteristics = await service.characteristics();
         for (const characteristic of characteristics) {
-          console.log('Characteristic: ', characteristic.uuid);
-          if (characteristic.uuid === '00002a37-0000-1000-8000-00805f9b34fb') {
+          if (characteristic.uuid === NOTIFICATION_UUID) {
             const readValue = await device.readCharacteristicForService(
               service.uuid,
               characteristic.uuid,
             );
             if (readValue.value) {
               const stringValue = atob(readValue.value);
-              // console.log('read value : ', readValue.value);
-              // console.log('string value : ', stringValue);
-              const [trashId, userId] = stringValue.split(',');
+              const [userId, trashId] = stringValue.split(',');
               if (trashId && userId) {
-                setIsOpenModal(true);
-                if (trashId !== value?.trashId && user.id === userId) {
-                  setValue({trashId, userId});
+                if (
+                  trashId !== value?.trashId &&
+                  (user.id as number).toString() === userId
+                ) {
+                  const tr = await getTrashById(trashId);
+                  if (tr) {
+                    setIsOpenModal(true);
+                    setTrash(tr);
+                    setValue({trashId, userId});
+                  }
                 }
               }
             }
           }
         }
       }
-
       console.log('Data read from characteristic');
     } catch (err) {
-      await device.discoverAllServicesAndCharacteristics();
-      await device.connect();
+      // await device.discoverAllServicesAndCharacteristics();
+      // await device.connect();
       console.error('Error read data from characteristic: ', err);
+    }
+  }
+
+  async function writeId() {
+    if (!device || !user || !user.id) {
+      return;
     }
     try {
       await device.writeCharacteristicWithResponseForService(
@@ -77,11 +90,20 @@ export default function BLEProvider({children}: ChildrenProps) {
         // @ts-expect-error ID can be integer not a string
         btoa(user.id.toString()),
       );
+      console.log('Data written to characteristic');
     } catch (err) {
-      await device.discoverAllServicesAndCharacteristics();
-      await device.connect();
+      // await device.discoverAllServicesAndCharacteristics();
+      // await device.connect();
       console.error('Error writing data to characteristic: ', err);
     }
+  }
+
+  const loopDevice = async () => {
+    if (!device || !user || !user.id) {
+      return;
+    }
+    await writeId();
+    await readNotification();
   };
 
   const connectToDevice = async (dev: Device) => {
@@ -91,10 +113,10 @@ export default function BLEProvider({children}: ChildrenProps) {
       }
       const connectedDevice = await dev.connect();
       await connectedDevice.discoverAllServicesAndCharacteristics();
-      console.log('Connected to Device!');
+      console.log('Connected to Device! : ', connectedDevice.name);
       setDevice(connectedDevice);
     } catch (error) {
-      scanAndConnect();
+      // scanAndConnect();
       console.error('Connection error: ', error);
     }
   };
@@ -157,9 +179,6 @@ export default function BLEProvider({children}: ChildrenProps) {
       });
     } catch (err) {
       console.log('[Error Starting Device Scan] ', err);
-      setTimeout(() => {
-        scanAndConnect();
-      }, 3000);
     }
   };
 
@@ -169,20 +188,32 @@ export default function BLEProvider({children}: ChildrenProps) {
     return () => {
       clearInterval(id);
     };
-  }, [device]);
+  }, [device, user, value]);
 
   React.useEffect(() => {
-    requestPermissions();
-    const subscription = manager.onStateChange((state: State) => {
-      setDevice(null);
+    const intervalId = setInterval(() => {
       if (state === State.PoweredOn) {
         scanAndConnect();
       }
-    }, true);
-    return () => subscription.remove();
+    }, 10000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [state, user]);
+
+  React.useEffect(() => {
+    requestPermissions();
+    // Development don't required this
+    // const subscription = manager.onStateChange((st: State) => {
+    //   setDevice(null);
+    //   setState(st);
+    // }, true);
+    // return () => {
+    //   subscription.remove();
+    // };
   }, []);
   return (
-    <bleContext.Provider value={{}}>
+    <bleContext.Provider value={{state, device}}>
       <Modal animationType="slide" transparent={true} visible={isOpenModal}>
         <View
           style={{
@@ -201,7 +232,7 @@ export default function BLEProvider({children}: ChildrenProps) {
               backgroundColor: 'rgba(0,0,0,.3)',
             }}
           />
-          <SuccessModal />
+          {trash && <SuccessTrashModal trash={trash} />}
         </View>
       </Modal>
       {children}

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTheme} from '@react-navigation/native';
 import {
   View,
@@ -8,21 +8,17 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {COLORS, FONTS} from '../../constants/theme';
-import {IMAGES} from '../../constants/Images';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import Header from '../../layout/Header';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import {SafeAreaView} from 'react-native';
-import {useDispatch} from 'react-redux';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import {addToCart} from '../../redux/reducer/cartReducer';
 import CategoryCart from '../../components/CategoryCart';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {TabView, TabBar} from 'react-native-tab-view';
 import {
   REWARDS_CATEGORY_DATA,
   REWARDS_CATEGORY_MAP,
-  TOP_REWARDS_CATEGORY_DATA,
 } from '../../constants/reward';
 
 type StoreScreenProps = StackScreenProps<RootStackParamList, 'Store'>;
@@ -32,10 +28,10 @@ type Route = {
   title: string;
 };
 
-const Store = ({navigation}: StoreScreenProps) => {
+const Store = ({route}: StoreScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-
+  console.log(route.params);
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
@@ -43,6 +39,18 @@ const Store = ({navigation}: StoreScreenProps) => {
   const [routes] = useState<Route[]>(
     REWARDS_CATEGORY_DATA.map(data => ({key: data.name, title: data.name})),
   );
+
+  useEffect(() => {
+    if (route?.params?.id) {
+      const {id} = route.params;
+      const rewardIndex = REWARDS_CATEGORY_DATA.findIndex(
+        data => data.name === id,
+      );
+      if (rewardIndex !== -1) {
+        setIndex(rewardIndex);
+      }
+    }
+  }, [route.params]);
 
   const renderScene = ({route}: {route: Route}) => {
     const rewards = REWARDS_CATEGORY_MAP[route.key];

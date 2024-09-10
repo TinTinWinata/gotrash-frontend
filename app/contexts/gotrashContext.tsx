@@ -7,6 +7,8 @@ import {Trashbin} from '../types/trashbin';
 import {Address} from '../types/address';
 import {Order} from '../types/order';
 import {Notification} from '../types/notification';
+import {StreakTrash} from '../types/streak-trash';
+import {Trash} from '../types/trash';
 
 type GoTrashContext = {
   guestLogin: () => Promise<User | null>;
@@ -32,7 +34,9 @@ type GoTrashContext = {
   getGroup(): Promise<Group | null>;
   getNotifications(): Promise<Notification[]>;
   deleteNotification(id: string): Promise<void>;
+  getStreakHistory(): Promise<StreakTrash[]>;
   joinGroup(groupId: string): Promise<Group>;
+  getTrashById(id: string): Promise<Trash>;
   forceLogin(id: string): Promise<boolean>;
 };
 
