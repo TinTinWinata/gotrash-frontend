@@ -95,7 +95,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                 flexDirection: 'column',
                 gap: 10,
               }}>
-              <SocialBtn
+              {/* <SocialBtn
                 onpress={async () => {
                   // setIsLoading(true);
                   // await guestLogin();
@@ -108,7 +108,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                 text="Login"
                 rounded
                 // icon={<FontAwesome name="user" size={22} color={COLORS.card} />}
-              />
+              /> */}
               <SocialBtn
                 onpress={async () => {
                   setIsLoading(true);

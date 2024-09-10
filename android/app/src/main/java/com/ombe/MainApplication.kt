@@ -1,4 +1,4 @@
-package com.bluejacket.gotrash
+package binus.slc.gotrash
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -204,13 +204,13 @@ export default function BLEProvider({children}: ChildrenProps) {
   React.useEffect(() => {
     requestPermissions();
     // Development don't required this
-    // const subscription = manager.onStateChange((st: State) => {
-    //   setDevice(null);
-    //   setState(st);
-    // }, true);
-    // return () => {
-    //   subscription.remove();
-    // };
+    const subscription = manager.onStateChange((st: State) => {
+      setDevice(null);
+      setState(st);
+    }, true);
+    return () => {
+      subscription.remove();
+    };
   }, []);
   return (
     <bleContext.Provider value={{state, device}}>
