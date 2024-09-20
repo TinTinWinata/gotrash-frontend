@@ -98,7 +98,7 @@ const Myorder = ({}: MyorderScreenProps) => {
     <View style={{backgroundColor: colors.card, flex: 1}}>
       <Header
         leftIcon="back"
-        title="My Order"
+        title="Order Saya"
         // leftIcon={<View style={{width: 20}} />}
         rightIcon4="home"
       />
@@ -139,7 +139,7 @@ const Myorder = ({}: MyorderScreenProps) => {
                   color: activeFilter === 'all' ? COLORS.card : COLORS.card,
                 },
               ]}>
-              All
+              Semua
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -162,7 +162,7 @@ const Myorder = ({}: MyorderScreenProps) => {
                   color: activeFilter === 'ongoing' ? COLORS.card : COLORS.card,
                 },
               ]}>
-              Ongoing
+              Sedang Berjalan
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -186,7 +186,7 @@ const Myorder = ({}: MyorderScreenProps) => {
                     activeFilter === 'completed' ? COLORS.card : COLORS.card,
                 },
               ]}>
-              Completed
+              Selesai
             </Text>
           </TouchableOpacity>
         </View>

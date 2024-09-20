@@ -22,7 +22,7 @@ const StreakScreen = ({}: StreakScreenProps) => {
   });
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <Header title="Streak History" leftIcon="back" titleRight />
+      <Header title="Riwayat Streak" leftIcon="back" titleRight />
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View
           style={{
@@ -54,7 +54,7 @@ const StreakScreen = ({}: StreakScreenProps) => {
                   textAlign: 'center',
                   marginBottom: 50,
                 }}>
-                You don't have any{'\n'}streak yet!
+                Kamu belum memiliki {'\n'}streak!
               </Text>
             </View>
           )}

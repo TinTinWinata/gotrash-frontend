@@ -21,13 +21,13 @@ const Profile = ({}: ProfileScreenProps) => {
     {
       id: '1',
       image: IMAGES.call,
-      title: 'Mobile Phone',
+      title: 'Nomor Telephone',
       subtitle: user?.phoneNumber ? convertPhoneNumber(user?.phoneNumber) : '',
     },
     {
       id: '2',
       image: IMAGES.email,
-      title: 'Email Address',
+      title: 'Alamat Email',
       subtitle: user?.email,
     },
   ];

@@ -3,20 +3,20 @@ import {Mission} from '../types/mission';
 export const MISSION_LIST: Mission[] = [
   {
     id: '1',
-    name: 'Throw out the trash on Thursday',
+    name: 'Buang Sampah pada hari Kamis',
     reward: '500 Coins',
-    smallDescription: 'Valid only until December 2024',
+    smallDescription: 'Berlaku hanya sampai Juni 2025',
   },
   {
     id: '2',
-    name: 'Throw out the trash on Wednesday',
+    name: 'Buang Sampah pada hari Rabu',
     reward: '300 Coins',
-    smallDescription: 'Valid only until December 2024',
+    smallDescription: 'Berlaku hanya sampai Juni 2025',
   },
   {
     id: '3',
-    name: 'Update your profile!',
+    name: 'Perbarui profil Anda!',
     reward: '400 Coins',
-    smallDescription: 'Valid only until December 2024',
+    smallDescription: 'Berlaku hanya sampai Juni 2025',
   },
 ];

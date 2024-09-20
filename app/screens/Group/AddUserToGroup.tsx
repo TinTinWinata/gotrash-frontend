@@ -34,7 +34,7 @@ export default function AddUserToGroup() {
     setIsLoading(false);
     navigation.goBack();
     await successLoading(
-      'User has been invited! Please ask them to check their notifications!',
+      'Teman anda telah diundang! Silahkan cek notifikasi di aplikasi teman anda!',
     );
   };
   const handleChoose = (id: string) => {

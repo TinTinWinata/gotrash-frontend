@@ -17,7 +17,6 @@ export default function LoaderProvider({children}: ChildrenProps) {
   const [sheetText, setSheetText] = useState<string>('');
 
   async function successLoading(text: string) {
-    console.log('Sheet ref : ', sheetRef.current);
     await sheetRef.current?.open();
     setSheetText(text);
   }

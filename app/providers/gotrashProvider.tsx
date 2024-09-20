@@ -26,6 +26,8 @@ import {Trash} from '../types/trash';
 
 const API_BASE_URL = 'https://gotrash.site/api';
 
+const ASYNC_STORAGE_PREFIX = 'gotrash_v4_';
+
 function createAxiosInstance(token: string | null): AxiosInstance {
   return axios.create({
     baseURL: API_BASE_URL,
@@ -63,32 +65,38 @@ export default function GoTrashProvider({children}: ChildrenProps) {
     );
     return response.data.data;
   }
-  async function fetchUser() {
-    let userData = await AsyncStorage.getItem('user');
-    if (userData) {
-      const userObject = JSON.parse(userData) as User;
-      const response = await api.get<BackendResponse<User>>(
-        '/user/' + userObject.id,
-      );
-      if (response && response.data?.data) {
-        const tempUser = response.data.data;
-        if (userObject.finishedMission) {
-          tempUser.finishedMission = userObject.finishedMission;
-        }
-        setUser(tempUser);
-      }
+  async function fetchUser(): Promise<boolean> {
+    let userData = await AsyncStorage.getItem(ASYNC_STORAGE_PREFIX + 'user');
+    if (!userData) {
+      return false;
     }
+    const userObject = JSON.parse(userData) as User;
+    const response = await api.get<BackendResponse<User>>(
+      '/user/' + userObject.id,
+    );
+    if (response && response.data?.data) {
+      const tempUser = response.data.data;
+      if (userObject.finishedMission) {
+        tempUser.finishedMission = userObject.finishedMission;
+      }
+      setUser(tempUser);
+    }
+    return true;
   }
 
   async function fetchAddress() {
-    const addressData = await AsyncStorage.getItem('addresses');
+    const addressData = await AsyncStorage.getItem(
+      ASYNC_STORAGE_PREFIX + 'addresses',
+    );
     if (addressData) {
       setAddresses(JSON.parse(addressData));
     }
   }
 
   async function fetchOrders() {
-    const orderData = await AsyncStorage.getItem('orders');
+    const orderData = await AsyncStorage.getItem(
+      ASYNC_STORAGE_PREFIX + 'orders',
+    );
     if (orderData) {
       setOrders(JSON.parse(orderData));
     }
@@ -97,14 +105,20 @@ export default function GoTrashProvider({children}: ChildrenProps) {
   function addAddress(address: Address) {
     const newAddresses = [...addresses, address];
     setAddresses(newAddresses);
-    AsyncStorage.setItem('addresses', JSON.stringify(newAddresses));
+    AsyncStorage.setItem(
+      ASYNC_STORAGE_PREFIX + 'addresses',
+      JSON.stringify(newAddresses),
+    );
   }
 
   function addOrder(reward: Reward) {
     const order: Order = {...reward, status: 'ongoing'};
     const newOrders = [...orders, order];
     setOrders(newOrders);
-    AsyncStorage.setItem('orders', JSON.stringify(newOrders));
+    AsyncStorage.setItem(
+      ASYNC_STORAGE_PREFIX + 'orders',
+      JSON.stringify(newOrders),
+    );
   }
 
   async function forceLogin(id: string): Promise<boolean> {
@@ -136,10 +150,16 @@ export default function GoTrashProvider({children}: ChildrenProps) {
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      await fetchUser();
-      await fetchAddress();
-      await fetchOrders();
-      navigation.navigate('DrawerNavigation', {screen: 'Home'});
+      try {
+        const users = await fetchUser();
+        if (users) {
+          await fetchAddress();
+          await fetchOrders();
+          navigation.navigate('DrawerNavigation', {screen: 'Home'});
+        }
+      } catch (err) {
+        console.log('[Error on Fetch User]', err);
+      }
       setIsLoading(false);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,7 +169,10 @@ export default function GoTrashProvider({children}: ChildrenProps) {
     const newAddresses = [...addresses];
     newAddresses.splice(idx, 1);
     setAddresses(newAddresses);
-    AsyncStorage.setItem('addresses', JSON.stringify(newAddresses));
+    AsyncStorage.setItem(
+      ASYNC_STORAGE_PREFIX + 'addresses',
+      JSON.stringify(newAddresses),
+    );
   }
 
   async function addGroupNotificationInvite(
@@ -221,9 +244,7 @@ export default function GoTrashProvider({children}: ChildrenProps) {
       },
     );
     if (response.data.status >= 200 && response.data.status < 300) {
-      if (!user.finishedMission?.includes('3')) {
-        await addFinishedMission('3');
-      }
+      await addFinishedMission('3');
       await fetchUser();
     }
     return response.data;
@@ -255,6 +276,9 @@ export default function GoTrashProvider({children}: ChildrenProps) {
   async function addFinishedMission(missionId: string) {
     if (!user) {
       throw new Error('User not found!');
+    }
+    if (user.finishedMission?.includes(missionId)) {
+      return;
     }
     const mission = MISSION_LIST.find(m => m.id === missionId);
     if (!mission) {
@@ -401,7 +425,10 @@ export default function GoTrashProvider({children}: ChildrenProps) {
   }
 
   async function saveUser(newUser: User) {
-    await AsyncStorage.setItem('user', JSON.stringify(newUser));
+    await AsyncStorage.setItem(
+      ASYNC_STORAGE_PREFIX + 'user',
+      JSON.stringify(newUser),
+    );
     setUser(newUser);
   }
 
@@ -470,6 +497,7 @@ export default function GoTrashProvider({children}: ChildrenProps) {
         joinGroup,
         getStreakHistory,
         getTrashById,
+        fetchUser,
       }}>
       {children}
     </goTrashContext.Provider>

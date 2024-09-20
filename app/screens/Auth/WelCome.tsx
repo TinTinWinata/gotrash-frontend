@@ -1,26 +1,18 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
-import {useTheme} from '@react-navigation/native';
-import {IMAGES} from '../../constants/Images';
 import {COLORS, FONTS} from '../../constants/theme';
 import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import SocialBtn from '../../components/Socials/SocialBtn';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {StyleSheet} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import Divider from '../../components/Dividers/Divider';
 import {useGoTrash} from '../../contexts/gotrashContext';
 import useLoader from '../../contexts/loaderContext';
-import {ColorProperties} from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 import LottieView from 'lottie-react-native';
 
 type WelComeScreenProps = StackScreenProps<RootStackParamList, 'WelCome'>;
 
 const WelCome = ({navigation}: WelComeScreenProps) => {
-  const theme = useTheme();
-  const {colors}: {colors: any} = theme;
   const {guestLogin} = useGoTrash();
   const {setIsLoading} = useLoader();
 
@@ -114,13 +106,14 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                   setIsLoading(true);
                   await guestLogin();
                   setIsLoading(false);
-                  navigation.navigate('Home');
-                  // navigation.navigate('Draw/erNavigation', {screen: 'Home'});
+                  navigation.navigate('DrawerNavigation', {
+                    screen: 'Home',
+                  });
                 }}
                 border={COLORS.white}
                 color={COLORS.white}
                 textcolor={COLORS.primary}
-                text="Login as Guest"
+                text="Masuk Sebagai Guest"
                 rounded
                 // icon={<FontAwesome name="user" size={22} color={COLORS.card} />}
               />
@@ -131,7 +124,7 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
                   color: 'white',
                   textAlign: 'center',
                 }}>
-                Back to Onboarding
+                Kembali ke Pengenalan
               </Text>
             </View>
             {/* <View>
@@ -154,25 +147,5 @@ const WelCome = ({navigation}: WelComeScreenProps) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  welcomeimage: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  title: {
-    ...FONTS.fontSemiBold,
-    fontSize: 24,
-    color: COLORS.title,
-    textAlign: 'center',
-    paddingHorizontal: 30,
-    paddingBottom: 20,
-  },
-});
 
 export default WelCome;

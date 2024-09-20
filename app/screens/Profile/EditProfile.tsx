@@ -68,7 +68,7 @@ const EditProfile = () => {
 
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
-      <Header title="Edit Profile" leftIcon="back" titleRight />
+      <Header title="Ubah Profile" leftIcon="back" titleRight />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -145,7 +145,7 @@ const EditProfile = () => {
             ]}>
             <Text
               style={{...FONTS.fontRegular, fontSize: 14, color: colors.title}}>
-              Personal Information
+              Informasi Personal
             </Text>
           </View>
           <View style={{marginBottom: 15, marginTop: 10}}>
@@ -166,7 +166,7 @@ const EditProfile = () => {
                   backround={colors.card}
                   style={{borderRadius: 48}}
                   inputicon
-                  placeholder="Full Name"
+                  placeholder="Nama Anda"
                   icon={
                     <Image
                       source={IMAGES.user2}
@@ -196,7 +196,7 @@ const EditProfile = () => {
                   style={{borderRadius: 48}}
                   keyboardType={'number-pad'}
                   inputicon
-                  placeholder="Mobile No."
+                  placeholder="Nomor Telephone"
                   icon={
                     <Image
                       source={IMAGES.Phoneduotone}
@@ -225,7 +225,7 @@ const EditProfile = () => {
                   backround={colors.card}
                   style={{borderRadius: 48}}
                   inputicon
-                  placeholder="Email Address "
+                  placeholder="Alamat Email"
                   icon={
                     <Image
                       source={IMAGES.email2}
@@ -240,7 +240,7 @@ const EditProfile = () => {
       </ScrollView>
       <View style={[GlobalStyleSheet.container]}>
         <Button
-          title="Update Profile"
+          title="Ubah Profile"
           color={COLORS.primary}
           text={COLORS.card}
           onPress={form.handleSubmit(handleSubmit)}

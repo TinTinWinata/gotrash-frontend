@@ -87,7 +87,7 @@ const MissionScreen = ({}: MissionScreenProps) => {
             backgroundColor: 'rgba(217, 217, 217, 0.51)',
           }}>
           <Text style={{...FONTS.fontSemiBold, fontSize: 20}}>
-            Mission Progress
+            Progress Misi
           </Text>
           <View
             style={{
@@ -107,7 +107,7 @@ const MissionScreen = ({}: MissionScreenProps) => {
             </Text>
           </View>
           <Text style={{...FONTS.fontMedium, fontSize: 12, color: '#A0A0A0'}}>
-            Finish all the mission and get special rewards from us!
+            Selesaikan semua misi dan dapatkan hadiah spesial dari kami!
           </Text>
         </View>
       </View>

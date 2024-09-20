@@ -7,7 +7,6 @@ import {
   Image,
   StyleSheet,
   Platform,
-  TouchableOpacity,
 } from 'react-native';
 import Header from '../../layout/Header';
 import {COLORS, FONTS} from '../../constants/theme';
@@ -16,7 +15,7 @@ import {GlobalStyleSheet} from '../../constants/StyleSheet';
 import Geolocation from 'react-native-geolocation-service';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
-import MapView, {Callout, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useGoTrash} from '../../contexts/gotrashContext';
 import {Trashbin} from '../../types/trashbin';
 
@@ -34,10 +33,10 @@ type Location = {
   longitudeDelta: number;
 };
 
-const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
+const Trackorder = ({route}: TrackorderScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
-  const {id} = route.params;
+  const {id} = route.params as any;
   const {getTrashbinById} = useGoTrash();
   const [pickupLocation, setPickupLocation] = useState<Location>();
   const [dropLocation, setDropLocation] = useState<Location>();
@@ -47,6 +46,7 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
   useEffect(() => {
     (async () => {
       if (id) {
+        console.log('Fetching id : ', id);
         const trashbin = await getTrashbinById(id);
         if (trashbin) {
           setData(trashbin);
@@ -73,6 +73,7 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
         );
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (!data || !pickupLocation || !dropLocation) {
@@ -82,7 +83,7 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
   return (
     <View style={{backgroundColor: colors.backround, flex: 1}}>
       <Header
-        title="GoTrash Location"
+        title="Lokasi GoTrash"
         leftIcon="back"
         titleRight
         rightChildren={<View style={{width: 20}} />}
@@ -110,23 +111,17 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
                         marginBottom: 60,
                         alignItems: 'center',
                       }}>
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          color: '#A1A1A1',
-                          marginBottom: 5,
-                        }}>
-                        Trash Location
-                      </Text>
-                      <Image
-                        source={{uri: data.imageUrl}}
-                        style={{
-                          width: '100%',
-                          height: 80,
-                          resizeMode: 'cover',
-                          borderRadius: 5,
-                        }}
-                      />
+                      {data.imageUrl && (
+                        <Image
+                          source={{uri: data.imageUrl}}
+                          style={{
+                            width: '100%',
+                            height: 108,
+                            resizeMode: 'cover',
+                            borderRadius: 5,
+                          }}
+                        />
+                      )}
                     </View>
                   </Marker>
                 </MapView>
@@ -275,11 +270,9 @@ const Trackorder = ({navigation, route}: TrackorderScreenProps) => {
               </View>
               <View>
                 <Text style={[styles.cardtitle, {color: colors.title}]}>
-                  Your Location
+                  Lokasi Anda
                 </Text>
-                <Text style={[styles.cardsubtitle, {color: '#747475'}]}>
-                  Location
-                </Text>
+                {/* <Text style={[styles.cardsubtitle, {color: '#747475'}]}></Text> */}
               </View>
             </View>
           </View>

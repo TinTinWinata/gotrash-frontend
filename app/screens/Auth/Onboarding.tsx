@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   Text,
   View,
-  Image,
   ScrollView,
   Animated,
   Platform,
@@ -10,7 +9,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import {IMAGES} from '../../constants/Images';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
 import {COLORS, FONTS, SIZES} from '../../constants/theme';
@@ -20,24 +18,24 @@ import LottieView from 'lottie-react-native';
 
 const DATA = [
   {
-    title: 'Open GoTrash App',
+    title: 'Buka Aplikasi GoTrash',
     subtitle:
-      'Start by opening the GoTrash app to begin your journey towards a cleaner environment and earn rewards.',
+      'Mulailah dengan membuka aplikasi GoTrash untuk memulai perjalanan Anda menuju lingkungan yang lebih bersih dan dapatkan hadiah.',
   },
   {
-    title: 'Activate Bluetooth',
+    title: 'Aktifkan Bluetooth',
     subtitle:
-      'Ensure Bluetooth is activated so the app can connect to nearby trash bins equipped with our technology.',
+      'Pastikan Bluetooth diaktifkan agar aplikasi dapat terhubung dengan tempat sampah terdekat yang dilengkapi teknologi kami.',
   },
   {
-    title: 'Throw Garbage',
+    title: 'Buang Sampah',
     subtitle:
-      'Dispose of your trash in the designated bins. Our system will automatically detect it and award you points.',
+      'Buang sampah Anda ke dalam tempat sampah yang telah ditentukan. Sistem kami akan mendeteksinya secara otomatis dan memberikan poin kepada Anda.',
   },
   {
-    title: 'Earn Rewards',
+    title: 'Dapatkan Hadiah',
     subtitle:
-      'Collect points with every disposal and convert them into rewards. Make a difference and get rewarded!',
+      'Kumpulkan poin setiap kali Anda membuang sampah dan tukarkan dengan hadiah. Jadikan perbedaan dan dapatkan penghargaan!',
   },
 ];
 
@@ -114,12 +112,6 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
     setSliderIndex(Math.round(contentOffsetX / SIZES.width) + 1);
   };
 
-  const scrollToIndex = (index: number) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({x: index * SIZES.width, animated: true});
-    }
-  };
-
   const [imageScale] = useState(new Animated.Value(0));
 
   useEffect(() => {
@@ -135,6 +127,7 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
         useNativeDriver: true, // Add this line for better performance
       }),
     ]).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sliderIndex]);
 
   return (
@@ -213,7 +206,7 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
           ]}>
           <Button
             style={{borderRadius: 52}}
-            title="Get Started"
+            title="Mulai Sekarang"
             onPress={() => navigation.navigate('WelCome')}
           />
         </View>
@@ -224,7 +217,6 @@ const Onboarding = ({navigation}: OnboardingScreenProps) => {
 
 function Indicator({i, scrollValue}: any) {
   const theme = useTheme();
-  const {colors}: {colors: any} = theme;
 
   const translateX = scrollValue.interpolate({
     inputRange: [

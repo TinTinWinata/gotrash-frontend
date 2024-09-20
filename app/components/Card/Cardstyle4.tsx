@@ -186,7 +186,7 @@ const Cardstyle4 = ({
                   fontSize: 16,
                   color: show ? COLORS.card : COLORS.primary,
                 }}>
-                Buy
+                Beli
               </Text>
             </TouchableOpacity>
           ) : Myorder ? (

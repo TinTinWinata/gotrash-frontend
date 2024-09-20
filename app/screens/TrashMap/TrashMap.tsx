@@ -18,7 +18,8 @@ const TrashMap = () => {
   const [latitude, setLatitude] = useState<number>(-6.1983457);
   const [longitude, setLongitude] = useState<number>(106.7772286);
   const navigation = useNavigation();
-  const [locationFetched, setLocationFetched] = useState(false);
+  // // @ts-expect-error not used location fetched
+  // const [locationFetched, setLocationFetched] = useState(false);
   const {data, isLoading} = useQuery({
     queryKey: ['trashBins'],
     queryFn: getTrashbins,
@@ -32,11 +33,9 @@ const TrashMap = () => {
       position => {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
-        setLocationFetched(true);
       },
       error => {
         console.log('Location error:', error);
-        setLocationFetched(true); // Still set to true to render map with default coordinates
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -71,6 +70,7 @@ const TrashMap = () => {
 
   useEffect(() => {
     requestLocationPermission();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleMarkerPress = (current: Trashbin) => {

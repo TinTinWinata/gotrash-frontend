@@ -123,7 +123,7 @@ const NotificationScreen = () => {
               textAlign: 'center',
               marginBottom: 80,
             }}>
-            You don't have any{'\n'}notifications!
+            Kamu tidak memiliki{'\n'}notifikasi!
           </Text>
         </View>
       )}

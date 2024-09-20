@@ -37,7 +37,7 @@ const AddGroup = () => {
       if (response.status === 201) {
         navigation.goBack();
         await successLoading(
-          'Group has been created! Invite your friends to the Group!',
+          'Grup telah dibuat! Ajak teman-teman Anda ke dalam grup!',
         );
       }
     } catch (err) {
@@ -48,7 +48,7 @@ const AddGroup = () => {
 
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
-      <Header title="Create Group" leftIcon="back" titleRight />
+      <Header title="Buat Group" leftIcon="back" titleRight />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -74,7 +74,7 @@ const AddGroup = () => {
             ]}>
             <Text
               style={{...FONTS.fontRegular, fontSize: 14, color: colors.title}}>
-              Group Detail
+              Detail Group
             </Text>
           </View>
           <View style={{marginBottom: 15, marginTop: 10}}>
@@ -95,7 +95,7 @@ const AddGroup = () => {
                   backround={colors.card}
                   style={{borderRadius: 48}}
                   inputicon
-                  placeholder="Group Name"
+                  placeholder="Nama Group"
                   icon={
                     <Image
                       source={IMAGES.user2}
@@ -106,7 +106,7 @@ const AddGroup = () => {
               )}
             />
           </View>
-          <View style={{marginBottom: 15}}>
+          {/* <View style={{marginBottom: 15}}>
             <Input
               onFocus={() => setisFocused3(true)}
               onBlur={() => setisFocused3(false)}
@@ -115,7 +115,7 @@ const AddGroup = () => {
               backround={colors.card}
               style={{borderRadius: 48}}
               inputicon
-              placeholder="Location"
+              placeholder="Lokasi Group"
               icon={
                 <Image
                   source={IMAGES.Pinduotone}
@@ -123,7 +123,7 @@ const AddGroup = () => {
                 />
               }
             />
-          </View>
+          </View> */}
         </View>
         <View
           style={[
@@ -144,7 +144,7 @@ const AddGroup = () => {
             ]}>
             <Text
               style={{...FONTS.fontRegular, fontSize: 14, color: colors.title}}>
-              Choose Reward Target
+              Pilih Reward Target
             </Text>
           </View>
           {isLoadingReward ? (
@@ -178,7 +178,7 @@ const AddGroup = () => {
       </ScrollView>
       <View style={[GlobalStyleSheet.container]}>
         <Button
-          title="Create Group"
+          title="Buat Group"
           color={COLORS.primary}
           text={COLORS.card}
           onPress={form.handleSubmit(handleCreateGroup)}

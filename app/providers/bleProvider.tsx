@@ -23,6 +23,7 @@ import {ChildrenProps} from '../types/children-only';
 import {Trash} from '../types/trash';
 import SuccessTrashModal from '../components/Modal/SuccessTrashModal';
 import {bleContext} from '../contexts/bleContext';
+import notification from '../constants/notification';
 
 interface TrashResult {
   trashId: string;
@@ -32,7 +33,7 @@ interface TrashResult {
 export default function BLEProvider({children}: ChildrenProps) {
   const [device, setDevice] = useState<Device | null>(null);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const {user, getTrashById} = useGoTrash();
+  const {user, getTrashById, fetchUser} = useGoTrash();
   const [trash, setTrash] = useState<Trash>();
   const [value, setValue] = useState<TrashResult>();
   const [state, setState] = useState<State | null>(null);
@@ -61,9 +62,11 @@ export default function BLEProvider({children}: ChildrenProps) {
                 ) {
                   const tr = await getTrashById(trashId);
                   if (tr) {
-                    setIsOpenModal(true);
-                    setTrash(tr);
+                    await fetchUser();
+                    notification.notification();
                     setValue({trashId, userId});
+                    setTrash(tr);
+                    setIsOpenModal(true);
                   }
                 }
               }
@@ -75,7 +78,7 @@ export default function BLEProvider({children}: ChildrenProps) {
     } catch (err) {
       // await device.discoverAllServicesAndCharacteristics();
       // await device.connect();
-      console.error('Error read data from characteristic: ', err);
+      // console.log('Error read data from characteristic: ', err);
     }
   }
 
@@ -117,7 +120,7 @@ export default function BLEProvider({children}: ChildrenProps) {
       setDevice(connectedDevice);
     } catch (error) {
       // scanAndConnect();
-      console.error('Connection error: ', error);
+      // console.error('Connection error: ', error);
     }
   };
 
@@ -162,14 +165,14 @@ export default function BLEProvider({children}: ChildrenProps) {
   };
 
   const scanAndConnect = () => {
-    if (device) {
+    if (device || !user) {
       return;
     }
     console.log('Start device scan ...');
     try {
       manager.startDeviceScan(null, null, (error, scannedDevice) => {
         if (error) {
-          console.error('Scan error: ', JSON.stringify(error));
+          // console.error('Scan error: ', JSON.stringify(error));
           return;
         }
         if (scannedDevice && scannedDevice.name === 'GoTrash') {

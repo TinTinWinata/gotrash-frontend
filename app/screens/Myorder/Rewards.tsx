@@ -24,7 +24,7 @@ const rewardData = [
   },
   {
     id: '0',
-    title: 'Buy 10 Brewed Coffee\nPackages',
+    title: 'Beli 10 Brewed Coffee\nPackages',
     date: 'June 18, 2020',
     time: '4:00 AM',
     itemcount: '+100',

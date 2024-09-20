@@ -6,7 +6,6 @@ import {getImageSource} from '../../utils/objectUtils';
 import * as Progress from 'react-native-progress';
 import {formatNumber} from '../../utils/stringUtils';
 import Divider from '../../components/Dividers/Divider';
-import {useReducedMotion} from 'react-native-reanimated';
 import {IMAGES} from '../../constants/Images';
 
 type GroupViewProps = {
@@ -59,11 +58,11 @@ export default function GroupView({group}: GroupViewProps) {
             style={{
               ...FONTS.fontSemiBold,
               textAlign: 'center',
-              fontSize: 20,
+              fontSize: 18,
               color: COLORS.white,
               paddingVertical: 7,
             }}>
-            Group Rewards
+            Reward Group
           </Text>
         </View>
         <View

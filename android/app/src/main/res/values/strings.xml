@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GoTrash</string>
+    <string name="gotrash_notification_channel_id">gotrash-notification</string>
 </resources>

@@ -23,7 +23,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
   const {addAddress} = useGoTrash();
-  const productSizes = ['Home', 'Shop', 'Office'];
+  const productSizes = ['Rumah', 'Toko', 'Kantor'];
 
   const [activeSize, setActiveSize] = useState(productSizes[0]);
 
@@ -33,7 +33,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
 
   const form = useForm<Address>({
     defaultValues: {
-      title: 'Home Address',
+      title: 'Alamat Rumah',
     },
   });
 
@@ -45,7 +45,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
       <Header
-        title="Add Delivery Address"
+        title="Tambah Alamat"
         leftIcon="back"
         //titleLeft
         titleRight
@@ -68,7 +68,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
               styles.cardTitle,
               {color: colors.title, borderBottomColor: COLORS.inputborder},
             ]}>
-            Contact Details
+            Rincian Kontak
           </Text>
           <View style={styles.inputCard}>
             <Controller
@@ -88,7 +88,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
                   backround={colors.card}
                   style={{borderRadius: 48}}
                   inputicon
-                  placeholder="Full Name"
+                  placeholder="Name Lengkap"
                   icon={
                     <Image
                       source={IMAGES.user2}
@@ -121,7 +121,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
                   style={{borderRadius: 48}}
                   keyboardType={'number-pad'}
                   inputicon
-                  placeholder="Mobile No."
+                  placeholder="Nomor Telepon."
                   icon={
                     <Image
                       source={IMAGES.Phoneduotone}
@@ -152,7 +152,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
               styles.cardTitle,
               {color: colors.title, borderBottomColor: COLORS.inputborder},
             ]}>
-            Address
+            Alamat
           </Text>
           <Controller
             name="text"
@@ -172,7 +172,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
                   backround={colors.card}
                   style={{borderRadius: 48}}
                   inputicon
-                  placeholder="Address"
+                  placeholder="Alamat Lengkap"
                   icon={
                     <Image
                       source={IMAGES.Pinduotone}
@@ -202,7 +202,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
               styles.selectTitle,
               {color: colors.title, borderBottomColor: COLORS.inputborder},
             ]}>
-            Save Address As
+            Simpan Alamat Sebagai
           </Text>
           <View
             style={{
@@ -216,7 +216,7 @@ const AddDeliveryAddress = ({navigation}: AddDeliveryAddressScreenProps) => {
                   activeOpacity={0.5}
                   onPress={() => {
                     setActiveSize(data);
-                    form.setValue('title', `${data} Address`);
+                    form.setValue('title', `Alamat ${data}`);
                   }}
                   key={index}
                   style={[

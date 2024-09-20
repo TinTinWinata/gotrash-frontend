@@ -52,10 +52,22 @@ const SuccessSheet = ({text = ''}: SuccessSheetProps) => {
           <FeatherIcon size={32} color={COLORS.white} name="check" />
         </View>
       </View>
-      <Text style={{...FONTS.h4, color: colors.title, marginBottom: 8}}>
-        Congratulations!
+      <Text
+        style={{
+          ...FONTS.h4,
+          color: colors.title,
+          marginBottom: 0,
+          marginTop: 2,
+        }}>
+        Selamat!
       </Text>
-      <Text style={{...FONTS.font, color: colors.text, textAlign: 'center'}}>
+      <Text
+        style={{
+          ...FONTS.font,
+          color: colors.text,
+          textAlign: 'center',
+          width: '70%',
+        }}>
         {text}
       </Text>
     </View>

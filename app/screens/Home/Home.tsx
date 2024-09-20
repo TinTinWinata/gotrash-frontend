@@ -81,10 +81,10 @@ export const Home = () => {
                 <Text
                   style={{
                     ...FONTS.fontRegular,
-                    fontSize: 14,
+                    fontSize: 12,
                     color: colors.title,
                   }}>
-                  Welcome
+                  Selamat Datang
                 </Text>
               </View>
               <Text
@@ -232,7 +232,7 @@ export const Home = () => {
                 styles.brandsubtitle3,
                 {fontSize: 18, color: colors.title},
               ]}>
-              Reward Category
+              Kategori Reward
             </Text>
           </View>
           <View
@@ -292,7 +292,7 @@ export const Home = () => {
                               fontSize: 14,
                               color: COLORS.primary,
                             }}>
-                            {data.rewards.length} items available
+                            {data.rewards.length} items tersedia
                           </Text>
                         </View>
                       </View>
@@ -315,15 +315,18 @@ export const Home = () => {
                 styles.brandsubtitle3,
                 {fontSize: 18, color: colors.title},
               ]}>
-              Featured Items
+              Reward Unggulan
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Store');
+              }}>
               <Text
                 style={[
                   styles.brandsubtitle3,
                   {fontSize: 16, color: COLORS.primary},
                 ]}>
-                More
+                Selebihnya
               </Text>
             </TouchableOpacity>
           </View>
@@ -351,6 +354,16 @@ export const Home = () => {
             );
           })}
           {/* !DO NOT USE THIS BUTTON IN PRODUCTION! */}
+          {/* <Button
+            style={{paddingVertical: 20}}
+            title="Test Notification"
+            onPress={async () => {
+              // PushNotification.getChannels(function (channel_ids: any) {
+              //   console.log(channel_ids); // ['channel_id_1']
+              // });
+              notification.notification();
+            }}
+          /> */}
           {/* <Button
             style={{marginBottom: 20}}
             title="Seed Reward and Category"

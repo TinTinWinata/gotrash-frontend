@@ -1,6 +1,6 @@
 {
   "name": "gotrash",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -45,6 +45,7 @@
     "react-native-paper": "^5.12.3",
     "react-native-permissions": "^4.1.5",
     "react-native-progress": "^5.0.1",
+    "react-native-push-notification": "^8.1.1",
     "react-native-quick-base64": "^2.1.2",
     "react-native-raw-bottom-sheet": "^3.0.0",
     "react-native-reanimated": "^3.11.0",
@@ -69,6 +70,7 @@
     "@react-native/typescript-config": "0.74.83",
     "@types/react": "^18.2.6",
     "@types/react-native-material-ripple": "^0.9.6",
+    "@types/react-native-push-notification": "^8.1.4",
     "@types/react-native-vector-icons": "^6.4.18",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",

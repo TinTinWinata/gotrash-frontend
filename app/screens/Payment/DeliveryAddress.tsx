@@ -39,13 +39,17 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
     if (choosedReward) {
       addOrder(choosedReward);
     }
-    successLoading('Your reward has been placed! We will deliver it soon!');
+    successLoading(
+      'Hadiah Anda telah ditempatkan! Kami akan segera mengirimkannya!',
+    );
   };
+
+  console.log(addresses.map(a => a.title));
 
   return (
     <View style={{backgroundColor: colors.background, flex: 1}}>
       <Header
-        title="Delivery Address"
+        title="Alamat Pengiriman"
         leftIcon="back"
         // titleLeft
         titleRight
@@ -156,12 +160,12 @@ const DeliveryAddress = ({navigation}: DeliveryAddressScreenProps) => {
                   fontSize: 14,
                   color: COLORS.title,
                 }}>
-                Add Address
+                Tambah Alamat
               </Text>
             </View>
             <FeatherIcon size={22} color={COLORS.title} name={'arrow-right'} />
           </TouchableOpacity>
-          <View style={{backgroundColor: 'white'}}>
+          <View style={{backgroundColor: 'transparent'}}>
             <Divider dashed={true} />
           </View>
           {/* <TouchableOpacity

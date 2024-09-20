@@ -38,11 +38,11 @@ export default function NoGroupView() {
           marginHorizontal: 40,
           flexGrow: 1,
         }}>
-        Ups! Looks You Didn’t Have any Group
+        Ups! Sepertinya Anda tidak memiliki Group
       </Text>
       <Button
         style={{marginBottom: 20}}
-        title="Create New Group"
+        title="Buat Group Baru"
         onPress={() => {
           navigation.navigate('AddGroup');
         }}

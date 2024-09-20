@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/RootStackParamList';
@@ -13,7 +13,7 @@ import {COLORS} from '../../constants/theme';
 
 type GroupScreenProps = StackScreenProps<RootStackParamList, 'Group'>;
 
-const GroupScreen = ({navigation}: GroupScreenProps) => {
+const GroupScreen = ({}: GroupScreenProps) => {
   const theme = useTheme();
   const {colors}: {colors: any} = theme;
   const {user, getGroup} = useGoTrash();

@@ -11,6 +11,7 @@ import {StreakTrash} from '../types/streak-trash';
 import {Trash} from '../types/trash';
 
 type GoTrashContext = {
+  fetchUser(): Promise<boolean>;
   guestLogin: () => Promise<User | null>;
   user: User | undefined;
   logout: () => void;

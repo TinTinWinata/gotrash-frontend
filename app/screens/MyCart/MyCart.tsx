@@ -107,7 +107,7 @@ const MyCart = ({navigation}: MyCartScreenProps) => {
             },
           ]}>
           <Button
-            title="Proceed to Buy"
+            title="Proceed to Beli"
             color={COLORS.primary}
             text={COLORS.card}
             onPress={() => navigation.navigate('DeliveryAddress')}

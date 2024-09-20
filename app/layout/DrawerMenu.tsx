@@ -48,7 +48,7 @@ const MenuItems = [
   {
     id: '5',
     icon: IMAGES.order,
-    name: 'My Orders',
+    name: 'Order Saya',
     navigate: 'Myorder',
   },
   // {
@@ -72,7 +72,7 @@ const MenuItems = [
   {
     id: '9',
     icon: IMAGES.logout,
-    name: 'Logout',
+    name: 'Keluar',
     navigate: 'WelCome',
   },
 ];
@@ -116,7 +116,7 @@ const DrawerMenu = ({navigation}: any) => {
           ]}>
           <Text
             style={{...FONTS.fontSemiBold, fontSize: 20, color: colors.title}}>
-            Main Menus
+            Menu Utama
           </Text>
           <TouchableOpacity
             onPress={() => navigation.closeDrawer()}

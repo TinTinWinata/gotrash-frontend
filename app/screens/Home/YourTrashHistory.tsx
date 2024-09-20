@@ -16,7 +16,7 @@ export default function YourTrashHistory() {
       <View style={[GlobalStyleSheet.flex, {paddingHorizontal: 30}]}>
         <Text
           style={[styles.brandsubtitle3, {fontSize: 18, color: COLORS.black}]}>
-          Your Trash History
+          Riwayat Sampah
         </Text>
       </View>
       <View
